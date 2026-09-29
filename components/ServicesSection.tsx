@@ -99,7 +99,7 @@ export default function ServicesSection() {
         {/* 3-Tier Pricing Cards Grid */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
           gap: 28,
           alignItems: "stretch",
           marginBottom: 50
@@ -126,7 +126,7 @@ export default function ServicesSection() {
                   boxShadow: isPop
                     ? "0 0 60px rgba(124, 58, 237, 0.25), inset 0 1px 0 rgba(255,255,255,0.12)"
                     : (isHov ? `0 20px 50px ${p.accent}15` : "none"),
-                  padding: "44px 34px",
+                  padding: "clamp(28px, 4.5vw, 44px) clamp(18px, 3.5vw, 34px)",
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-between",

@@ -214,7 +214,7 @@ export default function ContactSection() {
         {/* Main Grid: Interactive Full Calendar + Clean Form */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
           gap: 32,
           maxWidth: 1160,
           margin: "0 auto",
@@ -231,7 +231,7 @@ export default function ContactSection() {
               backdropFilter: "blur(28px)",
               borderRadius: 28,
               border: "1px solid rgba(124,58,237,0.25)",
-              padding: "36px 30px",
+              padding: "clamp(20px, 4vw, 36px) clamp(16px, 3.5vw, 30px)",
               boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
               display: "flex",
               flexDirection: "column",
@@ -561,7 +561,7 @@ export default function ContactSection() {
               backdropFilter: "blur(28px)",
               borderRadius: 28,
               border: "1px solid rgba(255,255,255,0.08)",
-              padding: "40px 32px",
+              padding: "clamp(24px, 4vw, 40px) clamp(16px, 3.5vw, 32px)",
               boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
               display: "flex",
               flexDirection: "column",

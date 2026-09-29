@@ -265,3 +265,87 @@ body {
 .ticker-track:hover {
   animation-play-state: paused;
 }
+/* ── COMPREHENSIVE MOBILE RESPONSIVENESS & PERFORMANCE ── */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  width: 100%;
+}
+
+.hero-pillars-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+.hero-pillar-item {
+  padding: 18px 24px;
+  text-align: center;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  flex: 1 1 140px;
+  min-width: 140px;
+  max-width: 220px;
+}
+
+@media (max-width: 768px) {
+  .display-xl {
+    font-size: clamp(2.2rem, 9vw, 3.8rem);
+    line-height: 1.05;
+  }
+  .display-lg {
+    font-size: clamp(1.85rem, 7.5vw, 2.8rem);
+    line-height: 1.1;
+  }
+  
+  /* Compact and high-performance filmstrip cards on mobile */
+  .filmstrip-card {
+    width: 230px !important;
+    height: 195px !important;
+    border-radius: 16px !important;
+  }
+  .filmstrip-card.is-video-card {
+    width: 260px !important;
+    height: 195px !important;
+  }
+  
+  /* Disable heavy continuous multi-video decoding in background filmstrip on mobile to prevent GPU lag */
+  .filmstrip-card.is-video-card video {
+    display: none !important;
+  }
+  .filmstrip-card.is-video-card img {
+    opacity: 1 !important;
+    display: block !important;
+  }
+
+  .filmstrip-group {
+    gap: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .hero-pillars-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 440px !important;
+    margin: 0 auto !important;
+  }
+  .hero-pillar-item {
+    max-width: none !important;
+    min-width: 0 !important;
+    padding: 14px 10px !important;
+    border-radius: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .filmstrip-card {
+    width: 200px !important;
+    height: 175px !important;
+  }
+  .filmstrip-card.is-video-card {
+    width: 230px !important;
+    height: 175px !important;
+  }
+}

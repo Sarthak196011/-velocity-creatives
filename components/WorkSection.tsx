@@ -1,7 +1,7 @@
 "use client";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { ArrowRight, X, Tag, Play } from "lucide-react";
+import { ArrowRight, ArrowLeft, X, Tag, Play } from "lucide-react";
 
 interface CreativeItem {
   id: string;
@@ -382,6 +382,34 @@ export default function WorkSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
+          
+          {/* Prominent Back to Home button */}
+          <div style={{ display: "flex", justifyContent: "center", marginBottom: 22 }}>
+            <button
+              type="button"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="btn-ghost"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "8px 20px",
+                borderRadius: 999,
+                fontSize: "0.82rem",
+                fontWeight: 700,
+                color: "rgba(232,232,240,0.85)",
+                background: "rgba(255,255,255,0.05)",
+                border: "1px solid rgba(168,85,247,0.35)",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+                cursor: "pointer",
+                transition: "all 0.2s ease"
+              }}
+            >
+              <ArrowLeft size={14} style={{ color: "#c084fc" }} />
+              <span>Back to Home Page</span>
+            </button>
+          </div>
+
           <div className="eyebrow" style={{ marginBottom: 20, justifyContent: "center" }}>
             <span className="eyebrow-line" />
             Our Sample Work
@@ -478,7 +506,7 @@ function FilmstripCard({ item, onSelect }: { item: CreativeItem; onSelect: () =>
   return (
     <div
       onClick={onSelect}
-      className="filmstrip-card"
+      className={`filmstrip-card ${isVideo ? "is-video-card" : ""}`}
       style={{
         width: isVideo ? 350 : 280,
         height: 270,
@@ -674,36 +702,67 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
           boxShadow: `0 30px 80px rgba(0,0,0,0.8), 0 0 50px ${item.accent}20`,
           maxWidth: 960,
           width: "100%",
-          maxHeight: "90vh",
+          maxHeight: "92vh",
           overflowY: "auto",
-          padding: "36px",
+          padding: "clamp(20px, 4vw, 36px)",
           position: "relative"
         }}
       >
-        <button
-          type="button"
-          onClick={onClose}
-          style={{
-            position: "absolute",
-            top: 20,
-            right: 20,
-            width: 36,
-            height: 36,
-            borderRadius: "50%",
-            background: "rgba(255,255,255,0.06)",
-            border: "1px solid rgba(255,255,255,0.12)",
-            color: "#fff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-            zIndex: 10
-          }}
-        >
-          <X size={18} />
-        </button>
+        {/* Top Header inside Modal: Back to Home Page & Close */}
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: 20,
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          paddingBottom: 14
+        }}>
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 7,
+              background: "rgba(124,58,237,0.18)",
+              border: "1px solid rgba(168,85,247,0.4)",
+              borderRadius: 999,
+              padding: "7px 16px",
+              color: "#c084fc",
+              fontSize: "0.82rem",
+              fontWeight: 700,
+              cursor: "pointer",
+              transition: "all 0.2s ease"
+            }}
+          >
+            <ArrowLeft size={14} /> Back to Home Page
+          </button>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 32, alignItems: "center" }}>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: "50%",
+              background: "rgba(255,255,255,0.08)",
+              border: "1px solid rgba(255,255,255,0.15)",
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer"
+            }}
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 28, alignItems: "center" }}>
           <div style={{
             borderRadius: 18,
             overflow: "hidden",
@@ -793,17 +852,39 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
               ))}
             </div>
 
-            <button
-              type="button"
-              onClick={() => {
-                onClose();
-                document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="btn-primary"
-              style={{ width: "100%", justifyContent: "center", padding: "14px", borderRadius: 14 }}
-            >
-              Get Ads Like This For My Brand <ArrowRight size={16} />
-            </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="btn-primary"
+                style={{ width: "100%", justifyContent: "center", padding: "14px", borderRadius: 14 }}
+              >
+                Get Ads Like This For My Brand <ArrowRight size={16} />
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className="btn-ghost"
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  padding: "12px",
+                  borderRadius: 14,
+                  fontSize: "0.85rem",
+                  background: "rgba(255,255,255,0.04)",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  color: "rgba(232,232,240,0.8)"
+                }}
+              >
+                <ArrowLeft size={14} /> Return to Home Page
+              </button>
+            </div>
           </div>
         </div>
       </motion.div>

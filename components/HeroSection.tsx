@@ -114,32 +114,27 @@ export default function HeroSection() {
           </button>
         </motion.div>
 
-        {/* Four honest agency pillars using clean Lucide icons (Zero emoji/Mojibake bugs) */}
+        {/* Four honest agency pillars using clean Lucide icons */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.0 }}
-          style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 1 }}
+          className="hero-pillars-grid"
         >
           {[
             { n: "24-48 Hours", l: "Fast Delivery", icon: Zap, color: "#38bdf8" },
             { n: "100% Custom", l: "Made for Your Brand", icon: Palette, color: "#a855f7" },
             { n: "HD & 4K", l: "Instagram & Reels Ready", icon: Smartphone, color: "#e879f9" },
             { n: "No Contracts", l: "Cancel Anytime", icon: ShieldCheck, color: "#4ade80" },
-          ].map(({ n, l, icon: Icon, color }, i) => (
+          ].map(({ n, l, icon: Icon, color }) => (
             <div
               key={l}
-              className="glass"
-              style={{
-                padding: "20px 32px", textAlign: "center", minWidth: 160,
-                borderRadius: i === 0 ? "16px 0 0 16px" : i === 3 ? "0 16px 16px 0" : 0,
-                borderRight: i < 3 ? "1px solid rgba(255,255,255,0.05)" : undefined,
-              }}
+              className="glass hero-pillar-item"
             >
               <div style={{ display: "flex", justifyContent: "center", marginBottom: 8, color: color }}>
-                <Icon size={22} />
+                <Icon size={20} />
               </div>
-              <div style={{ fontSize: "1.45rem", fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 4, color: "#fff" }}>
+              <div style={{ fontSize: "1.35rem", fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 4, color: "#fff" }}>
                 {n}
               </div>
               <div style={{ fontSize: "0.72rem", color: "rgba(232,232,240,0.5)", fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>
