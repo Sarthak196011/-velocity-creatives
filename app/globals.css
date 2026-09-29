@@ -349,3 +349,30 @@ html, body {
     height: 175px !important;
   }
 }
+
+/* ── NAVBAR RESPONSIVE BEHAVIOR ── */
+.desktop-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+.desktop-cta-btn {
+  display: block;
+}
+.mobile-nav-controls {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav-links {
+    display: none !important;
+  }
+  .desktop-cta-btn {
+    display: none !important;
+  }
+  .mobile-nav-controls {
+    display: flex !important;
+    align-items: center;
+    gap: 10px;
+  }
+}

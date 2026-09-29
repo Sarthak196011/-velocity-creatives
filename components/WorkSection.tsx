@@ -1,6 +1,7 @@
 "use client";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { ArrowRight, ArrowLeft, X, Tag, Play } from "lucide-react";
 
 interface CreativeItem {
@@ -349,6 +350,11 @@ export default function WorkSection() {
     creatives[9],  // i1 Auraa Cream
   ];
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <section id="work" style={{ position: "relative", zIndex: 10, padding: "120px 0 130px", overflow: "hidden" }}>
       
@@ -446,12 +452,15 @@ export default function WorkSection() {
         <FilmstripTrack items={row3} direction="left" speed={58} onSelect={setSelectedCreative} />
       </div>
 
-      {/* High-Fidelity Modal */}
-      <AnimatePresence>
-        {selectedCreative && (
-          <CreativeModal item={selectedCreative} onClose={() => setSelectedCreative(null)} />
-        )}
-      </AnimatePresence>
+      {/* High-Fidelity Modal Mounted at document.body via Portal to eliminate any parent stacking context issues */}
+      {mounted && typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {selectedCreative && (
+            <CreativeModal item={selectedCreative} onClose={() => setSelectedCreative(null)} />
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 }
@@ -567,47 +576,35 @@ function FilmstripCard({ item, onSelect }: { item: CreativeItem; onSelect: () =>
         />
       )}
 
-      {/* Top Bar Badges */}
+      {/* Top Bar Single Clean Badge (Zero Overlap on Mobile) */}
       <div style={{
         position: "absolute",
-        top: 12,
-        left: 12,
-        right: 12,
+        top: 10,
+        left: 10,
+        right: 10,
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
+        justifyContent: "flex-start",
         zIndex: 5
       }}>
         <span style={{
-          fontSize: "0.65rem",
+          fontSize: "0.66rem",
           fontWeight: 800,
           textTransform: "uppercase",
           letterSpacing: "0.08em",
-          background: "rgba(10, 8, 20, 0.85)",
-          backdropFilter: "blur(10px)",
-          border: `1px solid ${item.accent}55`,
+          background: "rgba(8, 8, 18, 0.9)",
+          backdropFilter: "blur(8px)",
+          border: `1px solid ${item.accent}66`,
           color: "#fff",
-          padding: "4px 10px",
-          borderRadius: 999
+          padding: "3px 10px",
+          borderRadius: 999,
+          maxWidth: "100%",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis"
         }}>
           {item.categoryLabel}
         </span>
-
-        <div style={{
-          background: "rgba(8, 8, 16, 0.88)",
-          backdropFilter: "blur(10px)",
-          border: "1px solid rgba(255,255,255,0.15)",
-          borderRadius: 8,
-          padding: "3px 8px",
-          display: "flex",
-          alignItems: "center",
-          gap: 5
-        }}>
-          <Tag size={10} style={{ color: item.accent }} />
-          <span style={{ fontSize: "0.72rem", fontWeight: 800, color: "#fff" }}>
-            {item.specTag}
-          </span>
-        </div>
       </div>
 
       {/* Gradient Shade for Title Legibility */}
@@ -671,6 +668,14 @@ function FilmstripCard({ item, onSelect }: { item: CreativeItem; onSelect: () =>
 }
 
 function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => void }) {
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -679,13 +684,16 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 200,
-        background: "rgba(4, 4, 10, 0.9)",
-        backdropFilter: "blur(24px)",
+        zIndex: 99999,
+        background: "rgba(6, 5, 14, 0.98)",
+        backdropFilter: "blur(28px)",
+        WebkitBackdropFilter: "blur(28px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "24px"
+        padding: "clamp(12px, 3.5vw, 28px)",
+        paddingTop: "max(18px, env(safe-area-inset-top, 18px))",
+        paddingBottom: "max(18px, env(safe-area-inset-bottom, 18px))",
       }}
       onClick={onClose}
     >
