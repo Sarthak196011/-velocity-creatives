@@ -82,6 +82,36 @@ const creatives: CreativeItem[] = [
     accent: "#4ade80",
     description: "Appetite-driven video highlighting real whole ingredients, crisp cookie texture, and clean snacking."
   },
+  {
+    id: "v5",
+    title: "Rustic Harvest - Artisan Bakery Batter",
+    brand: "Maison Bakehouse",
+    category: "food",
+    categoryLabel: "Short Video Ad",
+    type: "video",
+    src: "/sample-work/video-showcase-1.mp4",
+    poster: "/sample-work/video-showcase-1.png",
+    tags: ["Artisan Kitchen", "Sensory Food", "Slow Baking"],
+    hook: "Warm rustic kitchen atmosphere with rhythmic batter whisking builds instant trust in pure, homemade culinary quality.",
+    specTag: "Artisan Video",
+    accent: "#f59e0b",
+    description: "Cinematic culinary video capturing organic flour texture, farm-fresh eggs, and slow-crafted baking storytelling."
+  },
+  {
+    id: "v6",
+    title: "The Great Crunch - Miniature World",
+    brand: "Crunch Crafters",
+    category: "food",
+    categoryLabel: "Viral Concept Ad",
+    type: "video",
+    src: "/sample-work/video-showcase-2.mp4",
+    poster: "/sample-work/video-showcase-2.png",
+    tags: ["Viral Creative", "Miniature Toys", "Crunch Hook"],
+    hook: "Miniature toy excavators cracking open golden crispy samosas is an irresistible pattern interrupt that stops 100% of feed scrollers.",
+    specTag: "Viral Reel",
+    accent: "#eab308",
+    description: "High-engagement miniature scale concept ad built specifically to drive viral shares and boost direct conversions."
+  },
 
   // --- FITNESS & NUTRITION ---
   {
@@ -317,37 +347,39 @@ export default function WorkSection() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const byId = (id: string) => creatives.find((c) => c.id === id) || creatives[0];
+
   const row1 = [
-    creatives[0],  // v1 Auraa Video
-    creatives[4],  // i3 Fuel Splash
-    creatives[11], // i10 BULLMER Bamboo
-    creatives[8],  // i7 Apple Watch Ocean
-    creatives[15], // i15 Right Shift Dry Fruit
-    creatives[9],  // i1 Auraa Cream
-    creatives[10], // i8 Nomad Wallet
-    creatives[1],  // v2 Haute Paris Video
+    byId("v1"), // Auraa Video
+    byId("v5"), // Artisan Bakery Video (New!)
+    byId("i3"), // Fuel Splash
+    byId("i10"),// BULLMER Bamboo
+    byId("i7"), // Apple Watch Ocean
+    byId("i15"),// Right Shift Dry Fruit
+    byId("i1"), // Auraa Cream
+    byId("v2"), // Haute Paris Video
   ];
 
   const row2 = [
-    creatives[2],  // v3 NOMAD EDC Video
-    creatives[5],  // i4 Fuel Dead Lift
-    creatives[12], // i11 Urban Bandana
-    creatives[13], // i2 Gua Sha Kit
-    creatives[14], // i14 Ragi Cookies
-    creatives[10], // i9 Nomad Tray
-    creatives[13], // i12 Linen Model
-    creatives[3],  // v4 Snack Video
+    byId("v3"), // NOMAD EDC Video
+    byId("v6"), // Miniature Samosa Video (New!)
+    byId("i4"), // Fuel Dead Lift
+    byId("i11"),// Urban Bandana
+    byId("i2"), // Gua Sha Kit
+    byId("i14"),// Ragi Cookies
+    byId("i9"), // Nomad Tray
+    byId("v4"), // Snack Video
   ];
 
   const row3 = [
-    creatives[1],  // v2 Haute Paris Video
-    creatives[6],  // i5 Fish Oil
-    creatives[14], // i13 Urban Sneakers
-    creatives[7],  // i6 Fuel Monolith
-    creatives[10], // i8 Nomad Wallet
-    creatives[0],  // v1 Auraa Video
-    creatives[11], // i10 BULLMER Bamboo
-    creatives[9],  // i1 Auraa Cream
+    byId("v6"), // Miniature Samosa Video (New!)
+    byId("v2"), // Haute Paris Video
+    byId("i5"), // Fish Oil
+    byId("v5"), // Artisan Bakery Video (New!)
+    byId("i6"), // Fuel Monolith
+    byId("i8"), // Nomad Wallet
+    byId("v1"), // Auraa Video
+    byId("i1"), // Auraa Cream
   ];
 
   const [mounted, setMounted] = useState(false);
