@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Volume2, VolumeX, ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export default function IntroExperience() {
   const [visible, setVisible] = useState(true);
-  const [muted, setMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -33,16 +32,41 @@ export default function IntroExperience() {
     }
   };
 
-  const toggleSound = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (videoRef.current) {
-      const nextMuted = !muted;
-      videoRef.current.muted = nextMuted;
-      setMuted(nextMuted);
-    }
-  };
+  // Ensure sound is ALWAYS ON from the start
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
 
-  // Keyboard shortcut: Escape or Space to skip
+    video.muted = false;
+    video.volume = 1.0;
+
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // If the browser enforces a strict autoplay policy requiring a user gesture before sound,
+        // start playback and immediately unlock sound on the very first interaction anywhere on screen
+        video.muted = true;
+        video.play().catch(() => {});
+
+        const unlockAudio = () => {
+          if (videoRef.current) {
+            videoRef.current.muted = false;
+            videoRef.current.volume = 1.0;
+            videoRef.current.play().catch(() => {});
+          }
+          window.removeEventListener("pointerdown", unlockAudio);
+          window.removeEventListener("touchstart", unlockAudio);
+          window.removeEventListener("keydown", unlockAudio);
+        };
+
+        window.addEventListener("pointerdown", unlockAudio, { once: true });
+        window.addEventListener("touchstart", unlockAudio, { once: true });
+        window.addEventListener("keydown", unlockAudio, { once: true });
+      });
+    }
+  }, [videoLoaded]);
+
+  // Keyboard shortcut: Escape or Enter to skip
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === "Enter") {
@@ -65,6 +89,13 @@ export default function IntroExperience() {
             filter: "blur(14px)",
             transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
           }}
+          onClick={() => {
+            // Any tap/click on screen ensures unmuted audio
+            if (videoRef.current) {
+              videoRef.current.muted = false;
+              videoRef.current.volume = 1.0;
+            }
+          }}
           style={{
             position: "fixed",
             inset: 0,
@@ -76,13 +107,12 @@ export default function IntroExperience() {
             justifyContent: "center",
           }}
         >
-          {/* Fullscreen Background Video */}
+          {/* Fullscreen Background Video - Sound Always On */}
           <video
             ref={videoRef}
             src="/velocity-intro.mp4"
             autoPlay
             playsInline
-            muted={muted}
             onTimeUpdate={handleTimeUpdate}
             onEnded={handleFinish}
             onCanPlay={() => setVideoLoaded(true)}
@@ -143,7 +173,7 @@ export default function IntroExperience() {
                   width: 28,
                   height: 28,
                   objectFit: "contain",
-                  filter: "drop-shadow(0 0 8px #38bdf8)",
+                  filter: "drop-shadow(0 0 8px #06B6D4)",
                 }}
               />
               <span
@@ -159,37 +189,14 @@ export default function IntroExperience() {
               </span>
             </div>
 
-            {/* Sound & Skip Controls */}
-            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              {/* Unmute / Mute Toggle */}
+            {/* Skip Intro Control (Turn Sound On button removed - sound is always enabled) */}
+            <div style={{ display: "flex", alignItems: "center" }}>
               <button
                 type="button"
-                onClick={toggleSound}
-                aria-label={muted ? "Unmute sound" : "Mute sound"}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                  background: muted ? "rgba(10, 8, 22, 0.75)" : "rgba(56, 189, 248, 0.2)",
-                  backdropFilter: "blur(16px)",
-                  border: muted ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid rgba(56, 189, 248, 0.6)",
-                  color: muted ? "#e2e8f0" : "#38bdf8",
-                  padding: "9px 16px",
-                  borderRadius: 999,
-                  fontSize: "0.78rem",
-                  fontWeight: 700,
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleFinish();
                 }}
-              >
-                {muted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                <span>{muted ? "Turn Sound On" : "Sound Active"}</span>
-              </button>
-
-              {/* Skip Intro Button */}
-              <button
-                type="button"
-                onClick={handleFinish}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
@@ -198,7 +205,7 @@ export default function IntroExperience() {
                   border: "1px solid rgba(255, 255, 255, 0.3)",
                   boxShadow: "0 4px 20px rgba(6, 182, 212, 0.4)",
                   color: "#fff",
-                  padding: "9px 20px",
+                  padding: "9px 22px",
                   borderRadius: 999,
                   fontSize: "0.82rem",
                   fontWeight: 800,
