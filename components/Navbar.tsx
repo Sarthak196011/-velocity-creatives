@@ -36,10 +36,11 @@ export default function Navbar() {
           zIndex: 100,
           transition: "all 0.35s ease",
           padding: scrolled ? "10px 0" : "18px 0",
-          background: scrolled ? "rgba(8, 8, 16, 0.94)" : "rgba(8, 8, 16, 0.65)",
+          background: scrolled ? "rgba(255, 255, 255, 0.94)" : "rgba(248, 249, 250, 0.85)",
           backdropFilter: "blur(20px)",
           WebkitBackdropFilter: "blur(20px)",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+          borderBottom: scrolled ? "1px solid rgba(15, 23, 42, 0.08)" : "1px solid transparent",
+          boxShadow: scrolled ? "0 4px 20px rgba(15, 23, 42, 0.04)" : "none",
         }}
       >
         <div style={{
@@ -62,15 +63,14 @@ export default function Navbar() {
                 width: 36,
                 height: 36,
                 objectFit: "contain",
-                filter: "drop-shadow(0 0 10px rgba(56,189,248,0.7))"
               }}
             />
-            <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.95rem", letterSpacing: "-0.01em" }}>
+            <span style={{ color: "#0F172A", fontWeight: 800, fontSize: "0.95rem", letterSpacing: "-0.01em" }}>
               Velocity <span className="gt">Creatives</span>
             </span>
           </button>
 
-          {/* Desktop links - strictly hidden on mobile via CSS class */}
+          {/* Desktop links */}
           <nav className="desktop-nav-links">
             {navLinks.map((l) => (
               <button key={l.id} onClick={() => go(l.id)} className="nav-item">
@@ -79,7 +79,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* Desktop CTA - strictly hidden on mobile */}
+          {/* Desktop CTA */}
           <div className="desktop-cta-btn">
             <button
               onClick={() => go("contact")}
@@ -112,9 +112,9 @@ export default function Navbar() {
                 width: 36,
                 height: 36,
                 borderRadius: 10,
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.12)",
-                color: "#fff",
+                background: "rgba(15, 23, 42, 0.05)",
+                border: "1px solid rgba(15, 23, 42, 0.1)",
+                color: "#0F172A",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -146,11 +146,11 @@ export default function Navbar() {
               flexDirection: "column",
               gap: 12,
               borderRadius: 20,
-              background: "rgba(12, 10, 26, 0.98)",
+              background: "rgba(255, 255, 255, 0.98)",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)",
-              border: "1px solid rgba(168,85,247,0.35)",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.85)"
+              border: "1px solid rgba(15, 23, 42, 0.1)",
+              boxShadow: "0 20px 50px rgba(15, 23, 42, 0.15)"
             }}
           >
             {navLinks.map((l) => (
@@ -161,13 +161,13 @@ export default function Navbar() {
                   textAlign: "left",
                   fontSize: "1rem",
                   fontWeight: 700,
-                  color: "#fff",
+                  color: "#0F172A",
                   background: "none",
                   border: "none",
                   padding: "10px 14px",
                   borderRadius: 10,
                   cursor: "pointer",
-                  borderBottom: "1px solid rgba(255,255,255,0.05)"
+                  borderBottom: "1px solid rgba(15, 23, 42, 0.06)"
                 }}
               >
                 {l.label}

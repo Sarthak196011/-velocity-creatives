@@ -12,7 +12,7 @@ const steps = [
     tagline: "We learn about your products and target customers.",
     description: "Send us your product photos, website link, and what you want to achieve. We look at your competitors and plan the best angles to attract buyers.",
     icon: MessageSquare,
-    accent: "#a855f7",
+    accent: "#6366F1",
     deliverables: [
       "Target Customer Review",
       "Competitor Ad Review",
@@ -27,7 +27,7 @@ const steps = [
     tagline: "Catchy headlines and clear benefits that get clicks.",
     description: "We write simple, persuasive headlines and short video scripts. Every script is crafted to grab attention in the first 3 seconds.",
     icon: FileText,
-    accent: "#38bdf8",
+    accent: "#06B6D4",
     deliverables: [
       "Scroll-Stopping Headlines",
       "Short Video Scripts",
@@ -42,7 +42,7 @@ const steps = [
     tagline: "High-quality graphics, 3D renders, and video edits.",
     description: "Our team designs high-resolution image ads, carousels, and edited short videos ready to post on Instagram, Facebook, and Reels.",
     icon: Layers,
-    accent: "#e879f9",
+    accent: "#4F46E5",
     deliverables: [
       "HD Image Ads (Feeds & Stories)",
       "Short Video Cuts for Reels",
@@ -57,7 +57,7 @@ const steps = [
     tagline: "Review your ads, launch campaigns, and request updates.",
     description: "You receive your complete ad batch. If you need any tweaks, we make revisions quickly. Then launch them and watch your store grow.",
     icon: CheckCircle,
-    accent: "#4ade80",
+    accent: "#10B981",
     deliverables: [
       "Quick 24-48h Revisions",
       "Monthly Creative Batches",
@@ -88,10 +88,10 @@ export default function ProcessSection() {
             How It Works
             <span className="eyebrow-line" />
           </div>
-          <h2 className="display-lg" style={{ color: "#fff", marginBottom: 16 }}>
+          <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
             A Simple <span className="gt">4-Step Process.</span>
           </h2>
-          <p style={{ color: "rgba(232,232,240,0.6)", fontSize: "1.1rem", maxWidth: 580, margin: "0 auto", lineHeight: 1.6 }}>
+          <p style={{ color: "#64748B", fontSize: "1.1rem", maxWidth: 580, margin: "0 auto", lineHeight: 1.6 }}>
             No complicated onboarding. No endless meetings. Just a straightforward system to get fresh ads every month.
           </p>
         </motion.div>
@@ -109,12 +109,9 @@ export default function ProcessSection() {
                 transition={{ duration: 0.6, delay: idx * 0.12 }}
                 onMouseEnter={() => setActiveStep(idx)}
                 style={{
-                  background: isHovered
-                    ? "linear-gradient(170deg, rgba(25, 20, 45, 0.85) 0%, rgba(12, 10, 24, 0.95) 100%)"
-                    : "rgba(12, 12, 22, 0.55)",
-                  backdropFilter: "blur(20px)",
+                  background: "#FFFFFF",
                   borderRadius: 24,
-                  border: `1px solid ${isHovered ? s.accent + "66" : "rgba(255,255,255,0.06)"}`,
+                  border: `1px solid ${isHovered ? s.accent : "rgba(15,23,42,0.08)"}`,
                   padding: "36px 30px",
                   display: "flex",
                   flexDirection: "column",
@@ -122,7 +119,7 @@ export default function ProcessSection() {
                   cursor: "pointer",
                   transition: "all 0.4s ease",
                   transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-                  boxShadow: isHovered ? `0 20px 50px ${s.accent}20` : "none",
+                  boxShadow: isHovered ? `0 20px 45px rgba(99,102,241,0.12)` : "0 4px 20px rgba(15,23,42,0.04)",
                 }}
               >
                 {/* Header Row */}
@@ -131,8 +128,8 @@ export default function ProcessSection() {
                     width: 48,
                     height: 48,
                     borderRadius: 14,
-                    background: `${s.accent}18`,
-                    border: `1px solid ${s.accent}40`,
+                    background: `${s.accent}15`,
+                    border: `1px solid ${s.accent}30`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -145,14 +142,14 @@ export default function ProcessSection() {
                       fontSize: "0.75rem",
                       fontWeight: 700,
                       color: s.accent,
-                      background: `${s.accent}15`,
-                      border: `1px solid ${s.accent}30`,
+                      background: `${s.accent}12`,
+                      border: `1px solid ${s.accent}25`,
                       padding: "4px 10px",
                       borderRadius: 999
                     }}>
                       {s.duration}
                     </span>
-                    <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "rgba(255,255,255,0.12)", letterSpacing: "-0.04em" }}>
+                    <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "rgba(15,23,42,0.1)", letterSpacing: "-0.04em" }}>
                       {s.num}
                     </span>
                   </div>
@@ -162,24 +159,24 @@ export default function ProcessSection() {
                   {s.phase}
                 </div>
 
-                <h3 style={{ color: "#fff", fontSize: "1.25rem", fontWeight: 800, lineHeight: 1.3, marginBottom: 12 }}>
+                <h3 style={{ color: "#0F172A", fontSize: "1.25rem", fontWeight: 800, lineHeight: 1.3, marginBottom: 12 }}>
                   {s.title}
                 </h3>
 
-                <p style={{ color: "rgba(232,232,240,0.55)", fontSize: "0.9rem", lineHeight: 1.65, marginBottom: 24, flexGrow: 1 }}>
+                <p style={{ color: "#64748B", fontSize: "0.9rem", lineHeight: 1.65, marginBottom: 24, flexGrow: 1 }}>
                   {s.description}
                 </p>
 
                 {/* Deliverables checklist */}
-                <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: 18 }}>
-                  <div style={{ fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "rgba(232,232,240,0.4)", marginBottom: 10 }}>
+                <div style={{ borderTop: "1px solid rgba(15,23,42,0.08)", paddingTop: 18 }}>
+                  <div style={{ fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748B", marginBottom: 10 }}>
                     What We Deliver:
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                     {s.deliverables.map((item, dIdx) => (
                       <div key={dIdx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                         <CheckCircle size={13} style={{ color: s.accent, flexShrink: 0 }} />
-                        <span style={{ fontSize: "0.82rem", color: "rgba(232,232,240,0.8)", fontWeight: 500 }}>
+                        <span style={{ fontSize: "0.82rem", color: "#0F172A", fontWeight: 500 }}>
                           {item}
                         </span>
                       </div>
@@ -191,7 +188,7 @@ export default function ProcessSection() {
           })}
         </div>
 
-        {/* Speed Guarantee Bar in simple English */}
+        {/* Speed Guarantee Bar */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
@@ -200,8 +197,8 @@ export default function ProcessSection() {
             maxWidth: 920,
             margin: "0 auto",
             borderRadius: 20,
-            background: "linear-gradient(90deg, rgba(124,58,237,0.12) 0%, rgba(6,182,212,0.12) 100%)",
-            border: "1px solid rgba(124,58,237,0.25)",
+            background: "linear-gradient(90deg, rgba(6,182,212,0.08) 0%, rgba(99,102,241,0.08) 100%)",
+            border: "1px solid rgba(6,182,212,0.25)",
             padding: "20px 28px",
             display: "flex",
             alignItems: "center",
@@ -211,8 +208,8 @@ export default function ProcessSection() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 10px #4ade80" }} />
-            <span style={{ color: "#fff", fontSize: "0.95rem", fontWeight: 700 }}>
+            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 10px #10B981" }} />
+            <span style={{ color: "#0F172A", fontSize: "0.95rem", fontWeight: 700 }}>
               Delivery Promise: Your first complete batch of ads arrives in 7 business days or less.
             </span>
           </div>
@@ -221,7 +218,7 @@ export default function ProcessSection() {
             style={{
               background: "none",
               border: "none",
-              color: "#38bdf8",
+              color: "#06B6D4",
               fontWeight: 700,
               fontSize: "0.88rem",
               display: "flex",

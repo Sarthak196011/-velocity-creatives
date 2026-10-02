@@ -56,10 +56,10 @@ export default function FaqSection() {
             Frequently Asked Questions
             <span className="eyebrow-line" />
           </div>
-          <h2 className="display-lg" style={{ color: "#fff", marginBottom: 16 }}>
+          <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
             Simple Answers to <span className="gt">Common Questions.</span>
           </h2>
-          <p style={{ color: "rgba(232,232,240,0.6)", fontSize: "1.08rem", lineHeight: 1.6 }}>
+          <p style={{ color: "#64748B", fontSize: "1.08rem", lineHeight: 1.6 }}>
             Everything you need to know about working with us.
           </p>
         </motion.div>
@@ -75,10 +75,10 @@ export default function FaqSection() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
                 style={{
-                  background: isOpen ? "rgba(20, 15, 38, 0.75)" : "rgba(12, 12, 22, 0.5)",
-                  backdropFilter: "blur(20px)",
+                  background: "#FFFFFF",
                   borderRadius: 18,
-                  border: `1px solid ${isOpen ? "rgba(124, 58, 237, 0.35)" : "rgba(255,255,255,0.06)"}`,
+                  border: `1px solid ${isOpen ? "#06B6D4" : "rgba(15,23,42,0.08)"}`,
+                  boxShadow: isOpen ? "0 8px 30px rgba(6,182,212,0.08)" : "0 2px 10px rgba(15,23,42,0.03)",
                   overflow: "hidden",
                   transition: "all 0.3s ease"
                 }}
@@ -98,19 +98,19 @@ export default function FaqSection() {
                     textAlign: "left"
                   }}
                 >
-                  <span style={{ color: "#fff", fontSize: "1.05rem", fontWeight: 700, paddingRight: 16 }}>
+                  <span style={{ color: "#0F172A", fontSize: "1.05rem", fontWeight: 700, paddingRight: 16 }}>
                     {faq.q}
                   </span>
                   <div style={{
                     width: 32,
                     height: 32,
                     borderRadius: 10,
-                    background: isOpen ? "rgba(124, 58, 237, 0.2)" : "rgba(255,255,255,0.04)",
-                    border: `1px solid ${isOpen ? "rgba(124, 58, 237, 0.4)" : "rgba(255,255,255,0.08)"}`,
+                    background: isOpen ? "rgba(6,182,212,0.1)" : "#F1F5F9",
+                    border: `1px solid ${isOpen ? "rgba(6,182,212,0.3)" : "rgba(15,23,42,0.08)"}`,
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    color: isOpen ? "#a855f7" : "rgba(232,232,240,0.6)",
+                    color: isOpen ? "#06B6D4" : "#64748B",
                     flexShrink: 0
                   }}>
                     {isOpen ? <Minus size={16} /> : <Plus size={16} />}
@@ -125,7 +125,7 @@ export default function FaqSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <div style={{ padding: "0 28px 26px", color: "rgba(232,232,240,0.75)", fontSize: "0.95rem", lineHeight: 1.7, borderTop: "1px solid rgba(255,255,255,0.04)", paddingTop: 18 }}>
+                      <div style={{ padding: "0 28px 26px", color: "#64748B", fontSize: "0.95rem", lineHeight: 1.7, borderTop: "1px solid rgba(15,23,42,0.06)", paddingTop: 18 }}>
                         {faq.a}
                       </div>
                     </motion.div>

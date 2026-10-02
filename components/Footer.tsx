@@ -7,14 +7,14 @@ export default function Footer() {
   };
 
   return (
-    <footer style={{ position: "relative", zIndex: 10, borderTop: "1px solid rgba(255,255,255,0.06)", background: "rgba(6, 6, 12, 0.95)", backdropFilter: "blur(20px)", paddingTop: 80, paddingBottom: 40, paddingLeft: 24, paddingRight: 24 }}>
+    <footer style={{ position: "relative", zIndex: 10, borderTop: "1px solid rgba(15,23,42,0.08)", background: "#FFFFFF", paddingTop: 80, paddingBottom: 40, paddingLeft: 24, paddingRight: 24 }}>
       <div style={{ maxWidth: 1280, margin: "0 auto" }}>
         
         {/* Top Callout Banner */}
         <div style={{
           borderRadius: 24,
-          background: "linear-gradient(135deg, rgba(124, 58, 237, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%)",
-          border: "1px solid rgba(124, 58, 237, 0.25)",
+          background: "linear-gradient(135deg, rgba(6, 182, 212, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%)",
+          border: "1px solid rgba(6, 182, 212, 0.2)",
           padding: "48px 40px",
           display: "flex",
           alignItems: "center",
@@ -24,10 +24,10 @@ export default function Footer() {
           marginBottom: 70
         }}>
           <div>
-            <div style={{ fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "#38bdf8", marginBottom: 8 }}>
+            <div style={{ fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.15em", color: "#0891b2", marginBottom: 8 }}>
               Continuous Monthly Creative
             </div>
-            <h3 style={{ color: "#fff", fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 900, letterSpacing: "-0.02em" }}>
+            <h3 style={{ color: "#0F172A", fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 900, letterSpacing: "-0.02em" }}>
               Ready to get more sales with better ads?
             </h3>
           </div>
@@ -49,32 +49,25 @@ export default function Footer() {
         }}>
           {/* Brand info */}
           <div style={{ gridColumn: "span 2" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
-              <div style={{
-                width: 32,
-                height: 32,
-                borderRadius: 10,
-                background: "linear-gradient(135deg, #7c3aed, #a855f7)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#fff",
-                fontWeight: 900,
-                fontSize: 14,
-                boxShadow: "0 0 15px rgba(124,58,237,0.5)"
-              }}>
-                <Zap size={16} />
-              </div>
-              <span style={{ color: "#fff", fontWeight: 900, fontSize: "1.1rem" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+              <img
+                src="/velocity-logo-v.png"
+                alt="Velocity Creatives"
+                style={{ width: 32, height: 32, objectFit: "contain" }}
+              />
+              <span style={{ color: "#0F172A", fontWeight: 900, fontSize: "1.1rem" }}>
                 Velocity <span className="gt">Creatives</span>
               </span>
             </div>
-            <p style={{ color: "rgba(232,232,240,0.5)", fontSize: "0.9rem", lineHeight: 1.6, maxWidth: 320, marginBottom: 20 }}>
+            <div style={{ color: "#64748B", fontSize: "0.82rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 12 }}>
+              Design | Innovate | Accelerate
+            </div>
+            <p style={{ color: "#64748B", fontSize: "0.9rem", lineHeight: 1.6, maxWidth: 320, marginBottom: 20 }}>
               We create high-converting image and video ads for growing direct-to-consumer brands.
             </p>
             <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" }} />
-              <span style={{ fontSize: "0.8rem", color: "rgba(232,232,240,0.7)", fontWeight: 600 }}>
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 8px #10B981" }} />
+              <span style={{ fontSize: "0.8rem", color: "#64748B", fontWeight: 600 }}>
                 Accepting New Brands
               </span>
             </div>
@@ -82,10 +75,10 @@ export default function Footer() {
 
           {/* Column: What We Make */}
           <div>
-            <h4 style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 18 }}>
+            <h4 style={{ color: "#0F172A", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 18 }}>
               What We Make
             </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: "0.88rem", color: "rgba(232,232,240,0.55)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: "0.88rem", color: "#64748B" }}>
               <span>High-Converting Image Ads</span>
               <span>Short Video Ads for Reels</span>
               <span>Educational Carousels</span>
@@ -96,10 +89,10 @@ export default function Footer() {
 
           {/* Column: Links */}
           <div>
-            <h4 style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 18 }}>
+            <h4 style={{ color: "#0F172A", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 18 }}>
               Navigation
             </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: "0.88rem", color: "rgba(232,232,240,0.55)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: "0.88rem", color: "#64748B" }}>
               <a href="#work" style={{ color: "inherit", textDecoration: "none" }}>Our Work</a>
               <a href="#services" style={{ color: "inherit", textDecoration: "none" }}>Pricing Plans</a>
               <a href="#process" style={{ color: "inherit", textDecoration: "none" }}>How It Works</a>
@@ -110,21 +103,21 @@ export default function Footer() {
 
           {/* Column: Our Commitments */}
           <div>
-            <h4 style={{ color: "#fff", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 18 }}>
+            <h4 style={{ color: "#0F172A", fontSize: "0.85rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 18 }}>
               Our Promises
             </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: "0.85rem", color: "rgba(232,232,240,0.6)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: "0.85rem", color: "#64748B" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Zap size={14} color="#38bdf8" /> Fast 24 to 48-Hour Delivery
+                <Zap size={14} color="#06B6D4" /> Fast 24 to 48-Hour Delivery
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <ShieldCheck size={14} color="#4ade80" /> No Long-Term Contracts
+                <ShieldCheck size={14} color="#10B981" /> No Long-Term Contracts
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Palette size={14} color="#a855f7" /> You Own All Designs
+                <Palette size={14} color="#6366F1" /> You Own All Designs
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Headphones size={14} color="#e879f9" /> Direct Founder Support
+                <Headphones size={14} color="#0891b2" /> Direct Founder Support
               </div>
             </div>
           </div>
@@ -132,7 +125,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div style={{
-          borderTop: "1px solid rgba(255,255,255,0.06)",
+          borderTop: "1px solid rgba(15,23,42,0.08)",
           paddingTop: 28,
           display: "flex",
           alignItems: "center",
@@ -140,22 +133,22 @@ export default function Footer() {
           flexWrap: "wrap",
           gap: 16
         }}>
-          <div style={{ fontSize: "0.82rem", color: "rgba(232,232,240,0.4)" }}>
+          <div style={{ fontSize: "0.82rem", color: "#64748B" }}>
             Copyright {new Date().getFullYear()} Velocity Creatives. All rights reserved.
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-            <span style={{ fontSize: "0.82rem", color: "rgba(232,232,240,0.4)" }}>Privacy Policy</span>
-            <span style={{ fontSize: "0.82rem", color: "rgba(232,232,240,0.4)" }}>Terms of Service</span>
+            <span style={{ fontSize: "0.82rem", color: "#64748B" }}>Privacy Policy</span>
+            <span style={{ fontSize: "0.82rem", color: "#64748B" }}>Terms of Service</span>
             <button
               onClick={scrollToTop}
               style={{
                 width: 36,
                 height: 36,
                 borderRadius: 10,
-                background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                color: "rgba(232,232,240,0.7)",
+                background: "#F1F5F9",
+                border: "1px solid rgba(15,23,42,0.1)",
+                color: "#0F172A",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

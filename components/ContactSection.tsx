@@ -203,7 +203,7 @@ export default function ContactSection() {
             Book a Meeting
             <span className="eyebrow-line" />
           </div>
-          <h2 className="display-lg" style={{ color: "#fff", marginBottom: 16 }}>
+          <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
             Let&apos;s Talk About <span className="gt">Your Brand.</span>
           </h2>
           <p style={{ color: "rgba(232,232,240,0.6)", fontSize: "1.1rem", maxWidth: 620, margin: "0 auto", lineHeight: 1.6 }}>
@@ -244,11 +244,11 @@ export default function ContactSection() {
                 width: 50,
                 height: 50,
                 borderRadius: 15,
-                background: "linear-gradient(135deg, #7c3aed, #a855f7)",
+                background: "linear-gradient(135deg, #06B6D4, #6366F1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                boxShadow: "0 0 20px rgba(124,58,237,0.5)",
+                boxShadow: "0 4px 16px rgba(6,182,212,0.35)",
                 color: "#fff",
                 fontWeight: 800,
                 fontSize: "1.1rem"
@@ -256,10 +256,10 @@ export default function ContactSection() {
                 VC
               </div>
               <div>
-                <div style={{ color: "#fff", fontWeight: 700, fontSize: "1.05rem" }}>
+                <div style={{ color: "#0F172A", fontWeight: 700, fontSize: "1.05rem" }}>
                   Velocity Creatives
                 </div>
-                <div style={{ color: "rgba(232,232,240,0.5)", fontSize: "0.82rem" }}>
+                <div style={{ color: "#64748B", fontSize: "0.82rem" }}>
                   Ad Strategy &amp; Creative Review Call
                 </div>
               </div>
@@ -271,12 +271,12 @@ export default function ContactSection() {
                 display: "flex",
                 alignItems: "center",
                 gap: 7,
-                background: "rgba(124,58,237,0.12)",
-                border: "1px solid rgba(124,58,237,0.25)",
+                background: "rgba(99,102,241,0.08)",
+                border: "1px solid rgba(99,102,241,0.2)",
                 borderRadius: 999,
                 padding: "6px 14px",
                 fontSize: "0.8rem",
-                color: "#c084fc",
+                color: "#6366F1",
                 fontWeight: 600
               }}>
                 <Clock size={14} /> 30-Min Call
@@ -285,12 +285,12 @@ export default function ContactSection() {
                 display: "flex",
                 alignItems: "center",
                 gap: 7,
-                background: "rgba(37,99,235,0.12)",
-                border: "1px solid rgba(37,99,235,0.25)",
+                background: "rgba(6,182,212,0.08)",
+                border: "1px solid rgba(6,182,212,0.2)",
                 borderRadius: 999,
                 padding: "6px 14px",
                 fontSize: "0.8rem",
-                color: "#60a5fa",
+                color: "#0891b2",
                 fontWeight: 600
               }}>
                 <Video size={14} /> Zoom Video Meeting
@@ -299,12 +299,12 @@ export default function ContactSection() {
                 display: "flex",
                 alignItems: "center",
                 gap: 7,
-                background: "rgba(34,197,94,0.12)",
-                border: "1px solid rgba(34,197,94,0.25)",
+                background: "rgba(16,185,129,0.08)",
+                border: "1px solid rgba(16,185,129,0.2)",
                 borderRadius: 999,
                 padding: "6px 14px",
                 fontSize: "0.8rem",
-                color: "#4ade80",
+                color: "#059669",
                 fontWeight: 600
               }}>
                 <ShieldCheck size={14} /> 100% Free
@@ -313,8 +313,8 @@ export default function ContactSection() {
 
             {/* Interactive Month-by-Month Calendar */}
             <div style={{
-              background: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(255,255,255,0.07)",
+              background: "#F8F9FA",
+              border: "1px solid rgba(15,23,42,0.08)",
               borderRadius: 20,
               padding: "20px"
             }}>
@@ -326,8 +326,8 @@ export default function ContactSection() {
                 marginBottom: 18
               }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <CalendarIcon size={16} style={{ color: "#a855f7" }} />
-                  <span style={{ color: "#fff", fontWeight: 700, fontSize: "0.95rem" }}>
+                  <CalendarIcon size={16} style={{ color: "#06B6D4" }} />
+                  <span style={{ color: "#0F172A", fontWeight: 700, fontSize: "0.95rem" }}>
                     {monthLabel}
                   </span>
                 </div>
@@ -337,15 +337,15 @@ export default function ContactSection() {
                     onClick={prevMonth}
                     disabled={isCurrentMonth}
                     style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      background: "#FFFFFF",
+                      border: "1px solid rgba(15,23,42,0.12)",
                       borderRadius: 8,
                       width: 32,
                       height: 32,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: isCurrentMonth ? "rgba(255,255,255,0.2)" : "#fff",
+                      color: isCurrentMonth ? "#CBD5E1" : "#0F172A",
                       cursor: isCurrentMonth ? "not-allowed" : "pointer"
                     }}
                   >
@@ -355,15 +355,15 @@ export default function ContactSection() {
                     type="button"
                     onClick={nextMonth}
                     style={{
-                      background: "rgba(255,255,255,0.05)",
-                      border: "1px solid rgba(255,255,255,0.1)",
+                      background: "#FFFFFF",
+                      border: "1px solid rgba(15,23,42,0.12)",
                       borderRadius: 8,
                       width: 32,
                       height: 32,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      color: "#fff",
+                      color: "#0F172A",
                       cursor: "pointer"
                     }}
                   >
@@ -380,7 +380,7 @@ export default function ContactSection() {
                 marginBottom: 10,
                 fontSize: "0.75rem",
                 fontWeight: 700,
-                color: "rgba(232,232,240,0.4)",
+                color: "#64748B",
                 letterSpacing: "0.05em"
               }}>
                 <span>SUN</span>
@@ -426,25 +426,25 @@ export default function ContactSection() {
                         height: 36,
                         borderRadius: 10,
                         border: isSelected
-                          ? "1px solid #a855f7"
+                          ? "none"
                           : isToday
-                          ? "1px solid rgba(168,85,247,0.4)"
+                          ? "1px solid #06B6D4"
                           : "1px solid transparent",
                         background: isSelected
-                          ? "linear-gradient(135deg, #7c3aed, #a855f7)"
+                          ? "linear-gradient(135deg, #06B6D4, #6366F1)"
                           : isToday
-                          ? "rgba(168,85,247,0.12)"
+                          ? "rgba(6,182,212,0.08)"
                           : "transparent",
                         color: isPast
-                          ? "rgba(255,255,255,0.18)"
+                          ? "#CBD5E1"
                           : isSelected
                           ? "#fff"
-                          : "#e2e8f0",
+                          : "#0F172A",
                         fontWeight: isSelected ? 800 : isToday ? 700 : 500,
                         fontSize: "0.85rem",
                         cursor: isPast ? "not-allowed" : "pointer",
                         transition: "all 0.15s ease",
-                        boxShadow: isSelected ? "0 0 16px rgba(124,58,237,0.5)" : "none"
+                        boxShadow: isSelected ? "0 0 16px rgba(6,182,212,0.4)" : "none"
                       }}
                     >
                       {dayNum}
@@ -461,11 +461,11 @@ export default function ContactSection() {
                 alignItems: "center",
                 gap: 8,
                 marginBottom: 12,
-                color: "#fff",
+                color: "#0F172A",
                 fontWeight: 700,
                 fontSize: "0.9rem"
               }}>
-                <Clock size={16} style={{ color: "#a855f7" }} />
+                <Clock size={16} style={{ color: "#06B6D4" }} />
                 Select Time Slot (IST)
               </div>
               <div style={{
@@ -490,18 +490,18 @@ export default function ContactSection() {
                         border: isBooked
                           ? "1px dashed rgba(239,68,68,0.3)"
                           : isSelected
-                          ? "1px solid #a855f7"
-                          : "1px solid rgba(255,255,255,0.08)",
+                          ? "none"
+                          : "1px solid rgba(15,23,42,0.12)",
                         background: isBooked
                           ? "rgba(239,68,68,0.06)"
                           : isSelected
-                          ? "rgba(124,58,237,0.25)"
-                          : "rgba(255,255,255,0.03)",
+                          ? "linear-gradient(135deg, #06B6D4, #6366F1)"
+                          : "#FFFFFF",
                         color: isBooked
-                          ? "rgba(252,165,165,0.6)"
+                          ? "#EF4444"
                           : isSelected
                           ? "#fff"
-                          : "rgba(232,232,240,0.75)",
+                          : "#0F172A",
                         fontWeight: isSelected ? 700 : 500,
                         fontSize: "0.85rem",
                         cursor: isBooked ? "not-allowed" : "pointer",
@@ -536,17 +536,17 @@ export default function ContactSection() {
 
             {/* Selected Summary Pill */}
             <div style={{
-              background: "rgba(124,58,237,0.08)",
-              border: "1px solid rgba(124,58,237,0.2)",
+              background: "rgba(6,182,212,0.08)",
+              border: "1px solid rgba(6,182,212,0.2)",
               borderRadius: 14,
               padding: "16px 20px",
               display: "flex",
               alignItems: "center",
               gap: 12
             }}>
-              <ShieldCheck size={20} style={{ color: "#a855f7", flexShrink: 0 }} />
-              <span style={{ fontSize: "0.85rem", color: "rgba(232,232,240,0.8)", lineHeight: 1.45 }}>
-                Selected: <strong style={{ color: "#fff" }}>{formattedSelectedDate} at {selectedTime}</strong>. 100% free meeting with zero pressure.
+              <ShieldCheck size={20} style={{ color: "#06B6D4", flexShrink: 0 }} />
+              <span style={{ fontSize: "0.85rem", color: "#64748B", lineHeight: 1.45 }}>
+                Selected: <strong style={{ color: "#0F172A" }}>{formattedSelectedDate} at {selectedTime}</strong>. 100% free meeting with zero pressure.
               </span>
             </div>
           </motion.div>
@@ -557,12 +557,11 @@ export default function ContactSection() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.25 }}
             style={{
-              background: "linear-gradient(160deg, rgba(20, 16, 38, 0.85) 0%, rgba(10, 8, 20, 0.98) 100%)",
-              backdropFilter: "blur(28px)",
+              background: "#FFFFFF",
               borderRadius: 28,
-              border: "1px solid rgba(255,255,255,0.08)",
+              border: "1px solid rgba(15,23,42,0.08)",
               padding: "clamp(24px, 4vw, 40px) clamp(16px, 3.5vw, 32px)",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+              boxShadow: "0 10px 40px rgba(15,23,42,0.05)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center"
@@ -596,18 +595,18 @@ export default function ContactSection() {
                   </div>
 
                   <div>
-                    <h3 style={{ color: "#fff", fontSize: "1.85rem", fontWeight: 900, marginBottom: 8 }}>
+                    <h3 style={{ color: "#0F172A", fontSize: "1.85rem", fontWeight: 900, marginBottom: 8 }}>
                       Meeting Booked!
                     </h3>
-                    <p style={{ color: "rgba(232,232,240,0.75)", fontSize: "0.98rem", lineHeight: 1.6, maxWidth: 390, margin: "0 auto" }}>
-                      We have reserved your slot for <strong style={{ color: "#fff" }}>{bookingResult?.client?.date || formattedSelectedDate} at {bookingResult?.client?.time || selectedTime}</strong>.
+                    <p style={{ color: "#64748B", fontSize: "0.98rem", lineHeight: 1.6, maxWidth: 390, margin: "0 auto" }}>
+                      We have reserved your slot for <strong style={{ color: "#0F172A" }}>{bookingResult?.client?.date || formattedSelectedDate} at {bookingResult?.client?.time || selectedTime}</strong>.
                     </p>
                   </div>
 
                   {/* Clean Email Notice Card */}
                   <div style={{
-                    background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(255,255,255,0.08)",
+                    background: "#F8F9FA",
+                    border: "1px solid rgba(15,23,42,0.08)",
                     borderRadius: 16,
                     padding: "18px 22px",
                     maxWidth: 420,
@@ -617,18 +616,18 @@ export default function ContactSection() {
                     alignItems: "flex-start",
                     gap: 14
                   }}>
-                    <Mail size={22} style={{ color: "#a855f7", marginTop: 2, flexShrink: 0 }} />
+                    <Mail size={22} style={{ color: "#06B6D4", marginTop: 2, flexShrink: 0 }} />
                     <div>
-                      <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.92rem", marginBottom: 4 }}>
+                      <div style={{ color: "#0F172A", fontWeight: 700, fontSize: "0.92rem", marginBottom: 4 }}>
                         Zoom Link Sent to Your Email
                       </div>
-                      <div style={{ color: "rgba(232,232,240,0.6)", fontSize: "0.84rem", lineHeight: 1.5 }}>
-                        Your welcome email with the Zoom video call link and meeting details has been sent to <strong style={{ color: "#c084fc" }}>{bookingResult?.client?.email || formData.email}</strong>.
+                      <div style={{ color: "#64748B", fontSize: "0.84rem", lineHeight: 1.5 }}>
+                        Your welcome email with the Zoom video call link and meeting details has been sent to <strong style={{ color: "#06B6D4" }}>{bookingResult?.client?.email || formData.email}</strong>.
                       </div>
                     </div>
                   </div>
 
-                  <div style={{ fontSize: "0.8rem", color: "rgba(232,232,240,0.4)" }}>
+                  <div style={{ fontSize: "0.8rem", color: "#64748B" }}>
                     Please check your inbox (and spam/promotions folder) for the confirmation email.
                   </div>
 
@@ -636,11 +635,11 @@ export default function ContactSection() {
                   <button
                     onClick={handleReset}
                     style={{
-                      background: "rgba(255,255,255,0.06)",
-                      border: "1px solid rgba(255,255,255,0.15)",
+                      background: "#F1F5F9",
+                      border: "1px solid rgba(15,23,42,0.12)",
                       borderRadius: 12,
                       padding: "12px 28px",
-                      color: "#fff",
+                      color: "#0F172A",
                       fontSize: "0.85rem",
                       cursor: "pointer",
                       fontWeight: 600,
@@ -654,10 +653,10 @@ export default function ContactSection() {
                 /* Form State */
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
                   <div>
-                    <h3 style={{ color: "#fff", fontSize: "1.45rem", fontWeight: 800, marginBottom: 6 }}>
+                    <h3 style={{ color: "#0F172A", fontSize: "1.45rem", fontWeight: 800, marginBottom: 6 }}>
                       Tell Us About Your Brand
                     </h3>
-                    <p style={{ color: "rgba(232,232,240,0.5)", fontSize: "0.88rem" }}>
+                    <p style={{ color: "#64748B", fontSize: "0.88rem" }}>
                       This helps us prepare custom ad ideas for your store before we talk.
                     </p>
                   </div>
@@ -679,7 +678,7 @@ export default function ContactSection() {
                   {/* Row 1: Name & Phone Number */}
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(232,232,240,0.5)", marginBottom: 6 }}>
+                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
                         Your Name
                       </label>
                       <input
@@ -691,18 +690,18 @@ export default function ContactSection() {
                         disabled={isSubmitting}
                         style={{
                           width: "100%",
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.08)",
+                          background: "#F8F9FA",
+                          border: "1px solid rgba(15,23,42,0.12)",
                           borderRadius: 12,
                           padding: "13px 14px",
-                          color: "#fff",
+                          color: "#0F172A",
                           fontSize: "0.9rem",
                           outline: "none"
                         }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(232,232,240,0.5)", marginBottom: 6 }}>
+                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
                         Phone / WhatsApp No.
                       </label>
                       <input
@@ -714,11 +713,11 @@ export default function ContactSection() {
                         disabled={isSubmitting}
                         style={{
                           width: "100%",
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.08)",
+                          background: "#F8F9FA",
+                          border: "1px solid rgba(15,23,42,0.12)",
                           borderRadius: 12,
                           padding: "13px 14px",
-                          color: "#fff",
+                          color: "#0F172A",
                           fontSize: "0.9rem",
                           outline: "none"
                         }}
@@ -729,7 +728,7 @@ export default function ContactSection() {
                   {/* Row 2: Email & Website Link */}
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(232,232,240,0.5)", marginBottom: 6 }}>
+                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
                         Email Address
                       </label>
                       <input
@@ -741,18 +740,18 @@ export default function ContactSection() {
                         disabled={isSubmitting}
                         style={{
                           width: "100%",
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.08)",
+                          background: "#F8F9FA",
+                          border: "1px solid rgba(15,23,42,0.12)",
                           borderRadius: 12,
                           padding: "13px 14px",
-                          color: "#fff",
+                          color: "#0F172A",
                           fontSize: "0.9rem",
                           outline: "none"
                         }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(232,232,240,0.5)", marginBottom: 6 }}>
+                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
                         Website or Instagram Link
                       </label>
                       <input
@@ -764,11 +763,11 @@ export default function ContactSection() {
                         disabled={isSubmitting}
                         style={{
                           width: "100%",
-                          background: "rgba(255,255,255,0.03)",
-                          border: "1px solid rgba(255,255,255,0.08)",
+                          background: "#F8F9FA",
+                          border: "1px solid rgba(15,23,42,0.12)",
                           borderRadius: 12,
                           padding: "13px 14px",
-                          color: "#fff",
+                          color: "#0F172A",
                           fontSize: "0.9rem",
                           outline: "none"
                         }}
@@ -778,7 +777,7 @@ export default function ContactSection() {
 
                   {/* Row 3: Needs Dropdown */}
                   <div>
-                    <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "rgba(232,232,240,0.5)", marginBottom: 6 }}>
+                    <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
                       What do you need help with most?
                     </label>
                     <select
@@ -787,11 +786,11 @@ export default function ContactSection() {
                       disabled={isSubmitting}
                       style={{
                         width: "100%",
-                        background: "#0c0a1a",
-                        border: "1px solid rgba(255,255,255,0.08)",
+                        background: "#F8F9FA",
+                        border: "1px solid rgba(15,23,42,0.12)",
                         borderRadius: 12,
                         padding: "13px 14px",
-                        color: "#fff",
+                        color: "#0F172A",
                         fontSize: "0.9rem",
                         outline: "none"
                       }}
@@ -831,7 +830,7 @@ export default function ContactSection() {
                     )}
                   </button>
 
-                  <div style={{ textAlign: "center", fontSize: "0.75rem", color: "rgba(232,232,240,0.4)", marginTop: 2 }}>
+                  <div style={{ textAlign: "center", fontSize: "0.75rem", color: "#64748B", marginTop: 2 }}>
                     Your details are automatically emailed to you and saved to Excel.
                   </div>
                 </form>

@@ -10,7 +10,7 @@ const plans = [
     price: "1,999",
     tagline: "Great for new stores testing social ads for the first time.",
     popular: false,
-    accent: "#38bdf8",
+    accent: "#06B6D4",
     features: [
       "15 scroll-stopping ad creatives every single month",
       "8 educational carousels every single month",
@@ -28,7 +28,7 @@ const plans = [
     price: "2,999",
     tagline: "Our most popular plan for brands that want video ads to get more customers.",
     popular: true,
-    accent: "#a855f7",
+    accent: "#6366F1",
     features: [
       "20 scroll-stopping ad creatives every single month",
       "12 educational carousels every single month",
@@ -47,7 +47,7 @@ const plans = [
     price: "3,999",
     tagline: "For active brands that need lots of fresh image and video ads each month.",
     popular: false,
-    accent: "#e879f9",
+    accent: "#4F46E5",
     features: [
       "25 scroll-stopping ad creatives every single month",
       "18 educational carousels every single month",
@@ -88,10 +88,10 @@ export default function ServicesSection() {
             Simple Monthly Pricing
             <span className="eyebrow-line" />
           </div>
-          <h2 className="display-lg" style={{ color: "#fff", marginBottom: 16 }}>
+          <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
             Clear Plans. <span className="gt">No Hidden Fees.</span>
           </h2>
-          <p style={{ color: "rgba(232,232,240,0.6)", fontSize: "1.1rem", maxWidth: 580, margin: "0 auto", lineHeight: 1.6 }}>
+          <p style={{ color: "#64748B", fontSize: "1.1rem", maxWidth: 580, margin: "0 auto", lineHeight: 1.6 }}>
             Simple monthly subscriptions built for direct-to-consumer brands. No contracts. Pause or cancel anytime.
           </p>
         </motion.div>
@@ -116,16 +116,13 @@ export default function ServicesSection() {
                 onMouseEnter={() => setHoveredPlan(p.id)}
                 style={{
                   borderRadius: 28,
-                  background: isPop
-                    ? "linear-gradient(155deg, rgba(28, 18, 54, 0.95) 0%, rgba(12, 10, 24, 0.98) 100%)"
-                    : "rgba(12, 12, 22, 0.65)",
-                  backdropFilter: "blur(28px)",
+                  background: "#FFFFFF",
                   border: isPop
-                    ? "1px solid rgba(168, 85, 247, 0.55)"
-                    : `1px solid ${isHov ? p.accent + "55" : "rgba(255,255,255,0.07)"}`,
+                    ? "2px solid #06B6D4"
+                    : `1px solid ${isHov ? p.accent : "rgba(15,23,42,0.08)"}`,
                   boxShadow: isPop
-                    ? "0 0 60px rgba(124, 58, 237, 0.25), inset 0 1px 0 rgba(255,255,255,0.12)"
-                    : (isHov ? `0 20px 50px ${p.accent}15` : "none"),
+                    ? "0 20px 45px rgba(6, 182, 212, 0.15), 0 4px 20px rgba(15,23,42,0.04)"
+                    : (isHov ? `0 16px 40px rgba(15,23,42,0.08)` : "0 4px 20px rgba(15,23,42,0.03)"),
                   padding: "clamp(28px, 4.5vw, 44px) clamp(18px, 3.5vw, 34px)",
                   display: "flex",
                   flexDirection: "column",
@@ -142,7 +139,7 @@ export default function ServicesSection() {
                     top: -15,
                     left: "50%",
                     transform: "translateX(-50%)",
-                    background: "linear-gradient(135deg, #7c3aed, #a855f7)",
+                    background: "linear-gradient(135deg, #06B6D4, #6366F1)",
                     color: "#fff",
                     fontSize: "0.72rem",
                     fontWeight: 800,
@@ -150,7 +147,7 @@ export default function ServicesSection() {
                     textTransform: "uppercase",
                     padding: "6px 18px",
                     borderRadius: 999,
-                    boxShadow: "0 0 20px rgba(168, 85, 247, 0.6)",
+                    boxShadow: "0 4px 20px rgba(6, 182, 212, 0.4)",
                     display: "flex",
                     alignItems: "center",
                     gap: 6
@@ -162,7 +159,7 @@ export default function ServicesSection() {
                 <div>
                   {/* Plan Name & Tagline */}
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                    <h3 style={{ color: "#fff", fontSize: "1.45rem", fontWeight: 800, letterSpacing: "-0.01em" }}>
+                    <h3 style={{ color: "#0F172A", fontSize: "1.45rem", fontWeight: 800, letterSpacing: "-0.01em" }}>
                       {p.name}
                     </h3>
                     <div style={{
@@ -174,28 +171,28 @@ export default function ServicesSection() {
                     }} />
                   </div>
 
-                  <p style={{ color: "rgba(232,232,240,0.55)", fontSize: "0.88rem", lineHeight: 1.5, minHeight: 44, marginBottom: 28 }}>
+                  <p style={{ color: "#64748B", fontSize: "0.88rem", lineHeight: 1.5, minHeight: 44, marginBottom: 28 }}>
                     {p.tagline}
                   </p>
 
-                  {/* Price using clean Rs. format */}
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 32, borderBottom: "1px solid rgba(255,255,255,0.06)", paddingBottom: 28 }}>
-                    <span style={{ fontSize: "1.6rem", fontWeight: 800, color: p.accent }}>Rs.</span>
+                  {/* Price */}
+                  <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 32, borderBottom: "1px solid rgba(15,23,42,0.08)", paddingBottom: 28 }}>
+                    <span style={{ fontSize: "1.6rem", fontWeight: 800, color: "#06B6D4" }}>Rs.</span>
                     <span style={{
                       fontSize: "clamp(2.6rem, 4vw, 3.4rem)",
                       fontWeight: 900,
-                      color: "#fff",
+                      color: "#0F172A",
                       letterSpacing: "-0.03em",
                       lineHeight: 1
                     }}>
                       {p.price}
                     </span>
-                    <span style={{ color: "rgba(232,232,240,0.45)", fontSize: "0.9rem", fontWeight: 600 }}>/ month</span>
+                    <span style={{ color: "#64748B", fontSize: "0.9rem", fontWeight: 600 }}>/ month</span>
                   </div>
 
                   {/* Features List */}
                   <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 36 }}>
-                    <div style={{ fontSize: "0.7rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(232,232,240,0.4)", marginBottom: 4 }}>
+                    <div style={{ fontSize: "0.7rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: "#64748B", marginBottom: 4 }}>
                       What You Get Every Month
                     </div>
                     {p.features.map((feat, fIdx) => (
@@ -204,18 +201,18 @@ export default function ServicesSection() {
                           width: 20,
                           height: 20,
                           borderRadius: "50%",
-                          background: `${p.accent}20`,
-                          border: `1px solid ${p.accent}50`,
+                          background: "rgba(6, 182, 212, 0.1)",
+                          border: "1px solid rgba(6, 182, 212, 0.3)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           flexShrink: 0,
                           marginTop: 2
                         }}>
-                          <Check size={11} color={p.accent} strokeWidth={3} />
+                          <Check size={11} color="#06B6D4" strokeWidth={3} />
                         </div>
                         <span style={{
-                          color: "rgba(232,232,240,0.85)",
+                          color: "#0F172A",
                           fontSize: "0.88rem",
                           lineHeight: 1.5,
                           fontWeight: feat.includes("scroll-stopping") || feat.includes("carousels") || feat.includes("video ads") ? 700 : 400
@@ -241,7 +238,6 @@ export default function ServicesSection() {
                     fontWeight: 800,
                     gap: 8,
                     cursor: "pointer",
-                    boxShadow: isPop ? "0 0 25px rgba(124,58,237,0.45)" : "none"
                   }}
                 >
                   {p.cta} <ArrowRight size={16} />
@@ -251,7 +247,7 @@ export default function ServicesSection() {
           })}
         </div>
 
-        {/* Guarantees in simple English */}
+        {/* Guarantees */}
         <div style={{
           display: "flex",
           justifyContent: "center",
@@ -260,19 +256,20 @@ export default function ServicesSection() {
           gap: 36,
           padding: "24px",
           borderRadius: 18,
-          background: "rgba(255,255,255,0.02)",
-          border: "1px solid rgba(255,255,255,0.05)"
+          background: "#FFFFFF",
+          border: "1px solid rgba(15,23,42,0.08)",
+          boxShadow: "0 4px 16px rgba(15,23,42,0.03)"
         }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, color: "rgba(232,232,240,0.7)", fontSize: "0.88rem" }}>
-            <Shield size={16} style={{ color: "#4ade80" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 10, color: "#0F172A", fontSize: "0.88rem", fontWeight: 600 }}>
+            <Shield size={16} style={{ color: "#10B981" }} />
             <span>No Long-Term Contracts</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, color: "rgba(232,232,240,0.7)", fontSize: "0.88rem" }}>
-            <Zap size={16} style={{ color: "#38bdf8" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 10, color: "#0F172A", fontSize: "0.88rem", fontWeight: 600 }}>
+            <Zap size={16} style={{ color: "#06B6D4" }} />
             <span>Pause or Cancel Anytime with 14-Day Notice</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, color: "rgba(232,232,240,0.7)", fontSize: "0.88rem" }}>
-            <Sparkles size={16} style={{ color: "#a855f7" }} />
+          <div style={{ display: "flex", alignItems: "center", gap: 10, color: "#0F172A", fontSize: "0.88rem", fontWeight: 600 }}>
+            <Sparkles size={16} style={{ color: "#6366F1" }} />
             <span>You Own 100% of All Created Ads</span>
           </div>
         </div>

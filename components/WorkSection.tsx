@@ -415,7 +415,7 @@ export default function WorkSection() {
         bottom: 0,
         left: 0,
         width: "clamp(60px, 9vw, 160px)",
-        background: "linear-gradient(90deg, #080810 25%, transparent 100%)",
+        background: "linear-gradient(90deg, #F8F9FA 25%, transparent 100%)",
         zIndex: 15,
         pointerEvents: "none"
       }} />
@@ -425,7 +425,7 @@ export default function WorkSection() {
         bottom: 0,
         right: 0,
         width: "clamp(60px, 9vw, 160px)",
-        background: "linear-gradient(270deg, #080810 25%, transparent 100%)",
+        background: "linear-gradient(270deg, #F8F9FA 25%, transparent 100%)",
         zIndex: 15,
         pointerEvents: "none"
       }} />
@@ -453,10 +453,10 @@ export default function WorkSection() {
                 borderRadius: 999,
                 fontSize: "0.82rem",
                 fontWeight: 700,
-                color: "rgba(232,232,240,0.85)",
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(168,85,247,0.35)",
-                boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
+                color: "#0F172A",
+                background: "#FFFFFF",
+                border: "1px solid rgba(15,23,42,0.1)",
+                boxShadow: "0 2px 8px rgba(15,23,42,0.04)",
                 cursor: "pointer",
                 transition: "all 0.2s ease"
               }}
@@ -471,10 +471,10 @@ export default function WorkSection() {
             Our Sample Work
             <span className="eyebrow-line" />
           </div>
-          <h2 className="display-lg" style={{ color: "#fff", marginBottom: 16 }}>
+          <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
             Ads Designed to <span className="gt">Get More Sales.</span>
           </h2>
-          <p style={{ color: "rgba(232,232,240,0.6)", fontSize: "1.08rem", maxWidth: 640, margin: "0 auto 18px", lineHeight: 1.6 }}>
+          <p style={{ color: "#64748B", fontSize: "1.08rem", maxWidth: 640, margin: "0 auto 18px", lineHeight: 1.6 }}>
             Take a look at the image ads, clean product photos, and short video cuts we create for online brands.
           </p>
 
@@ -482,13 +482,14 @@ export default function WorkSection() {
             display: "inline-flex",
             alignItems: "center",
             gap: 8,
-            background: "rgba(124,58,237,0.12)",
-            border: "1px solid rgba(124,58,237,0.3)",
+            background: "#FFFFFF",
+            border: "1px solid rgba(15,23,42,0.08)",
+            boxShadow: "0 2px 8px rgba(15,23,42,0.03)",
             borderRadius: 999,
             padding: "6px 18px"
           }}>
             <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" }} />
-            <span style={{ fontSize: "0.76rem", color: "#c084fc", fontWeight: 700 }}>
+            <span style={{ fontSize: "0.76rem", color: "#64748B", fontWeight: 700 }}>
               Hover over any card to pause | Click to see how it works
             </span>
           </div>
@@ -572,7 +573,7 @@ function FilmstripCard({ item, onSelect }: { item: CreativeItem; onSelect: () =>
         "--card-accent": item.accent,
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#110e24",
+        backgroundColor: "#FFFFFF",
         backgroundImage: item.poster ? `url(${item.poster})` : undefined,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -642,10 +643,11 @@ function FilmstripCard({ item, onSelect }: { item: CreativeItem; onSelect: () =>
           fontWeight: 800,
           textTransform: "uppercase",
           letterSpacing: "0.08em",
-          background: "rgba(8, 8, 18, 0.9)",
+          background: "rgba(255, 255, 255, 0.95)",
           backdropFilter: "blur(8px)",
-          border: `1px solid ${item.accent}66`,
-          color: "#fff",
+          border: "1px solid rgba(15,23,42,0.1)",
+          boxShadow: "0 2px 8px rgba(15,23,42,0.08)",
+          color: "#0F172A",
           padding: "3px 10px",
           borderRadius: 999,
           maxWidth: "100%",
@@ -674,12 +676,12 @@ function FilmstripCard({ item, onSelect }: { item: CreativeItem; onSelect: () =>
           display: "flex",
           alignItems: "center",
           gap: 5,
-          background: "rgba(8, 8, 16, 0.85)",
+          background: "rgba(255, 255, 255, 0.95)",
           backdropFilter: "blur(10px)",
-          border: "1px solid rgba(255,255,255,0.18)",
+          border: "1px solid rgba(15,23,42,0.1)",
           borderRadius: 999,
           padding: "3px 8px",
-          color: "#fff",
+          color: "#0F172A",
           fontSize: "0.65rem",
           fontWeight: 700,
           zIndex: 6
@@ -735,7 +737,7 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
         position: "fixed",
         inset: 0,
         zIndex: 99999,
-        background: "rgba(6, 5, 14, 0.98)",
+        background: "rgba(15, 23, 42, 0.75)",
         backdropFilter: "blur(28px)",
         WebkitBackdropFilter: "blur(28px)",
         display: "flex",
@@ -754,10 +756,10 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
         transition={{ duration: 0.3 }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "linear-gradient(150deg, rgba(22, 16, 42, 0.96) 0%, rgba(10, 8, 20, 0.98) 100%)",
+          background: "#FFFFFF",
           borderRadius: 24,
-          border: `1px solid ${item.accent}66`,
-          boxShadow: `0 30px 80px rgba(0,0,0,0.8), 0 0 50px ${item.accent}20`,
+          border: "1px solid rgba(15,23,42,0.1)",
+          boxShadow: "0 25px 70px rgba(15,23,42,0.25)",
           maxWidth: 960,
           width: "100%",
           maxHeight: "92vh",
@@ -772,7 +774,7 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
           alignItems: "center",
           justifyContent: "space-between",
           marginBottom: 20,
-          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          borderBottom: "1px solid rgba(15,23,42,0.08)",
           paddingBottom: 14
         }}>
           <button
@@ -785,11 +787,11 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
               display: "inline-flex",
               alignItems: "center",
               gap: 7,
-              background: "rgba(124,58,237,0.18)",
-              border: "1px solid rgba(168,85,247,0.4)",
+              background: "#F1F5F9",
+              border: "1px solid rgba(15,23,42,0.1)",
               borderRadius: 999,
               padding: "7px 16px",
-              color: "#c084fc",
+              color: "#0F172A",
               fontSize: "0.82rem",
               fontWeight: 700,
               cursor: "pointer",
@@ -807,9 +809,9 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
               width: 36,
               height: 36,
               borderRadius: "50%",
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.15)",
-              color: "#fff",
+              background: "#F1F5F9",
+              border: "1px solid rgba(15,23,42,0.1)",
+              color: "#0F172A",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -824,8 +826,8 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
           <div style={{
             borderRadius: 18,
             overflow: "hidden",
-            background: "#06060c",
-            border: "1px solid rgba(255,255,255,0.08)",
+            background: "#F8F9FA",
+            border: "1px solid rgba(15,23,42,0.08)",
             position: "relative",
             maxHeight: 520,
             display: "flex",
@@ -866,22 +868,22 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
               }}>
                 {item.brand}
               </span>
-              <span style={{ fontSize: "0.75rem", color: "rgba(232,232,240,0.5)" }}>
+              <span style={{ fontSize: "0.75rem", color: "#64748B" }}>
                 {item.categoryLabel}
               </span>
             </div>
 
-            <h3 style={{ color: "#fff", fontSize: "1.6rem", fontWeight: 900, lineHeight: 1.25, marginBottom: 16 }}>
+            <h3 style={{ color: "#0F172A", fontSize: "1.6rem", fontWeight: 900, lineHeight: 1.25, marginBottom: 16 }}>
               {item.title}
             </h3>
 
-            <p style={{ color: "rgba(232,232,240,0.75)", fontSize: "0.95rem", lineHeight: 1.65, marginBottom: 20 }}>
+            <p style={{ color: "#64748B", fontSize: "0.95rem", lineHeight: 1.65, marginBottom: 20 }}>
               {item.description}
             </p>
 
             <div style={{
-              background: "rgba(255,255,255,0.03)",
-              border: "1px solid rgba(255,255,255,0.07)",
+              background: "#F8F9FA",
+              border: "1px solid rgba(15,23,42,0.08)",
               borderRadius: 14,
               padding: "16px 20px",
               marginBottom: 24
@@ -889,7 +891,7 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
               <div style={{ fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: item.accent, marginBottom: 6 }}>
                 Why This Ad Works:
               </div>
-              <p style={{ color: "#fff", fontSize: "0.9rem", lineHeight: 1.6 }}>
+              <p style={{ color: "#0F172A", fontSize: "0.9rem", lineHeight: 1.6 }}>
                 "{item.hook}"
               </p>
             </div>
@@ -897,12 +899,12 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 28 }}>
               {item.tags.map((t, tIdx) => (
                 <span key={tIdx} style={{
-                  background: "rgba(8,8,16,0.8)",
-                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "#F1F5F9",
+                  border: "1px solid rgba(15,23,42,0.08)",
                   borderRadius: 10,
                   padding: "6px 14px",
                   fontSize: "0.78rem",
-                  color: "rgba(232,232,240,0.75)",
+                  color: "#64748B",
                   fontWeight: 600
                 }}>
                   #{t.replace(/ /g, "")}
@@ -935,9 +937,9 @@ function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => v
                   padding: "12px",
                   borderRadius: 14,
                   fontSize: "0.85rem",
-                  background: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  color: "rgba(232,232,240,0.8)"
+                  background: "#F8F9FA",
+                  border: "1px solid rgba(15,23,42,0.1)",
+                  color: "#0F172A"
                 }}
               >
                 <ArrowLeft size={14} /> Return to Home Page

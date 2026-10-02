@@ -155,7 +155,7 @@ export default function IntroExperience() {
                   textTransform: "uppercase",
                 }}
               >
-                Velocity <span style={{ color: "#38bdf8" }}>Creatives</span>
+                Velocity <span className="gt">Creatives</span>
               </span>
             </div>
 
@@ -194,9 +194,9 @@ export default function IntroExperience() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
-                  background: "linear-gradient(135deg, rgba(124, 58, 237, 0.9), rgba(56, 189, 248, 0.9))",
+                  background: "linear-gradient(135deg, #06B6D4, #6366F1)",
                   border: "1px solid rgba(255, 255, 255, 0.3)",
-                  boxShadow: "0 0 24px rgba(124, 58, 237, 0.5)",
+                  boxShadow: "0 4px 20px rgba(6, 182, 212, 0.4)",
                   color: "#fff",
                   padding: "9px 20px",
                   borderRadius: 999,
@@ -234,7 +234,7 @@ export default function IntroExperience() {
                 fontWeight: 800,
                 letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(56, 189, 248, 0.85)",
+                color: "#06B6D4",
                 marginBottom: 6,
               }}
             >
@@ -268,8 +268,8 @@ export default function IntroExperience() {
                 style={{
                   width: `${progress}%`,
                   height: "100%",
-                  background: "linear-gradient(90deg, #7c3aed, #38bdf8)",
-                  boxShadow: "0 0 10px #38bdf8",
+                  background: "linear-gradient(90deg, #06B6D4, #6366F1)",
+                  boxShadow: "0 0 10px #06B6D4",
                   transition: "width 0.1s linear",
                 }}
               />

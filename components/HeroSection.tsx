@@ -1,7 +1,7 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Zap, Palette, Smartphone, ShieldCheck, ArrowRight, Play } from "lucide-react";
+import { Zap, Palette, Smartphone, ShieldCheck, ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -25,18 +25,18 @@ export default function HeroSection() {
       {/* Grid background */}
       <div style={{
         position: "absolute", inset: 0, zIndex: 1,
-        backgroundImage: "linear-gradient(rgba(124,58,237,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(124,58,237,0.03) 1px, transparent 1px)",
+        backgroundImage: "linear-gradient(rgba(6,182,212,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.06) 1px, transparent 1px)",
         backgroundSize: "64px 64px",
         maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)",
       }} />
 
       {/* Glowing orbs */}
-      <div style={{ position: "absolute", top: "-10%", left: "5%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(124,58,237,0.22) 0%, transparent 65%)", filter: "blur(40px)", zIndex: 1, animation: "glow-pulse 4s ease infinite" }} />
-      <div style={{ position: "absolute", bottom: "-5%", right: "0%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(6,182,212,0.14) 0%, transparent 65%)", filter: "blur(40px)", zIndex: 1, animation: "glow-pulse 5s 1s ease infinite" }} />
+      <div style={{ position: "absolute", top: "-10%", left: "5%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 65%)", filter: "blur(40px)", zIndex: 1, animation: "glow-pulse 4s ease infinite" }} />
+      <div style={{ position: "absolute", bottom: "-5%", right: "0%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 65%)", filter: "blur(40px)", zIndex: 1, animation: "glow-pulse 5s 1s ease infinite" }} />
 
       <motion.div style={{ y, opacity, position: "relative", zIndex: 10, maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
         
-        {/* Status badge in simple English */}
+        {/* Status badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -45,26 +45,27 @@ export default function HeroSection() {
         >
           <div style={{
             display: "flex", alignItems: "center", gap: 8, padding: "6px 18px 6px 12px",
-            background: "rgba(12,12,22,0.8)", backdropFilter: "blur(16px)",
-            border: "1px solid rgba(74,222,128,0.3)", borderRadius: 999,
+            background: "#FFFFFF", backdropFilter: "blur(16px)",
+            border: "1px solid rgba(15,23,42,0.08)", borderRadius: 999,
+            boxShadow: "0 4px 16px rgba(15,23,42,0.04)"
           }}>
             <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80", display: "inline-block" }} />
-              <span style={{ color: "#4ade80", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }}>Now Open</span>
+              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10b981", boxShadow: "0 0 8px #10b981", display: "inline-block" }} />
+              <span style={{ color: "#059669", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }}>Now Open</span>
             </span>
-            <span style={{ width: 1, height: 14, background: "rgba(255,255,255,0.12)" }} />
-            <span style={{ color: "rgba(232,232,240,0.75)", fontSize: "0.75rem", fontWeight: 600 }}>Accepting New Brands</span>
+            <span style={{ width: 1, height: 14, background: "rgba(15,23,42,0.12)" }} />
+            <span style={{ color: "#64748B", fontSize: "0.75rem", fontWeight: 600 }}>Accepting New Brands</span>
           </div>
         </motion.div>
 
-        {/* Headline in simple English */}
+        {/* Headline */}
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
           style={{ perspective: 1000 }}
         >
-          <div className="display-xl" style={{ color: "#fff", marginBottom: 8, display: "block" }}>
+          <div className="display-xl" style={{ color: "#0F172A", marginBottom: 8, display: "block" }}>
             {"We Make".split(" ").map((w, i) => (
               <motion.span key={i} variants={word} style={{ display: "inline-block", marginRight: "0.25em" }}>{w}</motion.span>
             ))}
@@ -74,19 +75,19 @@ export default function HeroSection() {
               <motion.span key={i} variants={word} className="gt" style={{ display: "inline-block", marginRight: "0.25em" }}>{w}</motion.span>
             ))}
           </div>
-          <div className="display-xl" style={{ color: "rgba(232,232,240,0.45)", display: "block" }}>
+          <div className="display-xl" style={{ color: "#64748B", display: "block" }}>
             {"for Online Brands.".split(" ").map((w, i) => (
               <motion.span key={i} variants={word} style={{ display: "inline-block", marginRight: "0.25em" }}>{w}</motion.span>
             ))}
           </div>
         </motion.div>
 
-        {/* Subtitle in simple English */}
+        {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ fontSize: "clamp(1.05rem, 2vw, 1.25rem)", color: "rgba(232,232,240,0.6)", maxWidth: 620, margin: "32px auto 44px", lineHeight: 1.7 }}
+          style={{ fontSize: "clamp(1.05rem, 2vw, 1.25rem)", color: "#64748B", maxWidth: 620, margin: "32px auto 44px", lineHeight: 1.7 }}
         >
           Get fresh, eye-catching image ads, product carousels, and short video cuts made for your store every single month.
         </motion.p>
@@ -114,7 +115,7 @@ export default function HeroSection() {
           </button>
         </motion.div>
 
-        {/* Four honest agency pillars using clean Lucide icons */}
+        {/* Four agency pillars */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -122,22 +123,22 @@ export default function HeroSection() {
           className="hero-pillars-grid"
         >
           {[
-            { n: "24-48 Hours", l: "Fast Delivery", icon: Zap, color: "#38bdf8" },
-            { n: "100% Custom", l: "Made for Your Brand", icon: Palette, color: "#a855f7" },
-            { n: "HD & 4K", l: "Instagram & Reels Ready", icon: Smartphone, color: "#e879f9" },
-            { n: "No Contracts", l: "Cancel Anytime", icon: ShieldCheck, color: "#4ade80" },
+            { n: "24-48 Hours", l: "Fast Delivery", icon: Zap, color: "#06B6D4" },
+            { n: "100% Custom", l: "Made for Your Brand", icon: Palette, color: "#6366F1" },
+            { n: "HD & 4K", l: "Instagram & Reels Ready", icon: Smartphone, color: "#0EA5E9" },
+            { n: "No Contracts", l: "Cancel Anytime", icon: ShieldCheck, color: "#10B981" },
           ].map(({ n, l, icon: Icon, color }) => (
             <div
               key={l}
-              className="glass hero-pillar-item"
+              className="hero-pillar-item"
             >
               <div style={{ display: "flex", justifyContent: "center", marginBottom: 8, color: color }}>
                 <Icon size={20} />
               </div>
-              <div style={{ fontSize: "1.35rem", fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 4, color: "#fff" }}>
+              <div style={{ fontSize: "1.35rem", fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 4, color: "#0F172A" }}>
                 {n}
               </div>
-              <div style={{ fontSize: "0.72rem", color: "rgba(232,232,240,0.5)", fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+              <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>
                 {l}
               </div>
             </div>
@@ -152,8 +153,8 @@ export default function HeroSection() {
         transition={{ delay: 1.5 }}
         style={{ position: "absolute", bottom: 28, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
       >
-        <div style={{ width: 1, height: 44, background: "linear-gradient(to bottom, rgba(124,58,237,0.8), transparent)" }} />
-        <span style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(232,232,240,0.25)" }}>Scroll</span>
+        <div style={{ width: 1, height: 44, background: "linear-gradient(to bottom, #06B6D4, transparent)" }} />
+        <span style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#64748B" }}>Scroll</span>
       </motion.div>
     </section>
   );
