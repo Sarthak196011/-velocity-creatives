@@ -1,7 +1,7 @@
 "use client";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import { Zap, Palette, Smartphone, ShieldCheck, ArrowRight } from "lucide-react";
+import { Zap, Palette, Smartphone, ShieldCheck, ArrowRight, Play } from "lucide-react";
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -96,7 +96,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.85 }}
-          style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center", marginBottom: 60 }}
+          style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center", marginBottom: 44 }}
         >
           <button
             onClick={() => go("work")}
@@ -112,6 +112,95 @@ export default function HeroSection() {
           >
             View Pricing Plans
           </button>
+        </motion.div>
+
+        {/* Featured Homepage Introduction Video */}
+        <motion.div
+          initial={{ opacity: 0, y: 35, scale: 0.96 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, delay: 0.95, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            maxWidth: 960,
+            margin: "0 auto 60px",
+            position: "relative",
+            zIndex: 10
+          }}
+        >
+          {/* Ambient Glow */}
+          <div style={{
+            position: "absolute",
+            inset: -4,
+            background: "linear-gradient(135deg, rgba(124, 58, 237, 0.45), rgba(56, 189, 248, 0.45))",
+            borderRadius: 26,
+            filter: "blur(22px)",
+            opacity: 0.65,
+            zIndex: -1
+          }} />
+
+          {/* Glass Card Container */}
+          <div style={{
+            background: "linear-gradient(160deg, rgba(14, 11, 30, 0.95) 0%, rgba(6, 5, 14, 0.98) 100%)",
+            backdropFilter: "blur(24px)",
+            borderRadius: 22,
+            border: "1px solid rgba(255, 255, 255, 0.14)",
+            overflow: "hidden",
+            boxShadow: "0 30px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 58, 237, 0.25)"
+          }}>
+            {/* Top Bar with Brand Badge */}
+            <div style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "12px 20px",
+              borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+              background: "rgba(255, 255, 255, 0.02)"
+            }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#ef4444" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#f59e0b" }} />
+                <span style={{ width: 10, height: 10, borderRadius: "50%", background: "#10b981" }} />
+                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "rgba(232, 232, 240, 0.8)", marginLeft: 6 }}>
+                  Velocity Creatives — Official Introduction
+                </span>
+              </div>
+              <div style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 6,
+                fontSize: "0.72rem",
+                fontWeight: 800,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                background: "rgba(56, 189, 248, 0.15)",
+                border: "1px solid rgba(56, 189, 248, 0.4)",
+                color: "#38bdf8",
+                padding: "4px 12px",
+                borderRadius: 999
+              }}>
+                <Play size={10} fill="currentColor" />
+                <span>Agency Commercial</span>
+              </div>
+            </div>
+
+            {/* Video Player */}
+            <div style={{ position: "relative", width: "100%", aspectRatio: "16/9", background: "#040308" }}>
+              <video
+                src="/velocity-intro.mp4"
+                poster="/velocity-intro-poster.png"
+                autoPlay
+                loop
+                muted
+                controls
+                playsInline
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  display: "block"
+                }}
+              />
+            </div>
+          </div>
         </motion.div>
 
         {/* Four honest agency pillars using clean Lucide icons */}

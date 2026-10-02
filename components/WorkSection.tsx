@@ -21,6 +21,22 @@ interface CreativeItem {
 }
 
 const creatives: CreativeItem[] = [
+  // --- OFFICIAL BRAND COMMERCIAL SHOWREEL ---
+  {
+    id: "v0",
+    title: "Velocity Creatives - Agency Commercial",
+    brand: "Velocity Creatives",
+    category: "video",
+    categoryLabel: "Agency Showreel",
+    type: "video",
+    src: "/sample-work/velocity-creatives-commercial.mp4",
+    poster: "/sample-work/velocity-creatives-commercial.png",
+    tags: ["Agency Showreel", "AI Production", "Brand Commercial"],
+    hook: "Next-gen cinematic commercial showcasing our cutting-edge AI creative studio, viral hooks, and high-converting ad formats.",
+    specTag: "Agency Film",
+    accent: "#38bdf8",
+    description: "The official agency commercial for Velocity Creatives featuring digital studio motion, high-converting product montages, and our 24-48h delivery engine."
+  },
   // --- 4 COMMERCIAL VIDEO CUTS ---
   {
     id: "v1",
@@ -350,8 +366,9 @@ export default function WorkSection() {
   const byId = (id: string) => creatives.find((c) => c.id === id) || creatives[0];
 
   const row1 = [
+    byId("v0"), // Velocity Creatives Official Commercial (New!)
     byId("v1"), // Auraa Video
-    byId("v5"), // Artisan Bakery Video (New!)
+    byId("v5"), // Artisan Bakery Video
     byId("i3"), // Fuel Splash
     byId("i10"),// BULLMER Bamboo
     byId("i7"), // Apple Watch Ocean
@@ -372,7 +389,8 @@ export default function WorkSection() {
   ];
 
   const row3 = [
-    byId("v6"), // Miniature Samosa Video (New!)
+    byId("v0"), // Velocity Creatives Official Commercial (New!)
+    byId("v6"), // Miniature Samosa Video
     byId("v2"), // Haute Paris Video
     byId("i5"), // Fish Oil
     byId("v5"), // Artisan Bakery Video (New!)

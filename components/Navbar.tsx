@@ -55,19 +55,16 @@ export default function Navbar() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             style={{ display: "flex", alignItems: "center", gap: 10, background: "none", border: "none", cursor: "pointer" }}
           >
-            <div style={{
-              width: 32,
-              height: 32,
-              borderRadius: 10,
-              background: "linear-gradient(135deg, #7c3aed, #a855f7)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              boxShadow: "0 0 16px rgba(124,58,237,0.5)",
-              color: "#fff"
-            }}>
-              <Zap size={16} />
-            </div>
+            <img
+              src="/velocity-logo-v.png"
+              alt="Velocity Creatives Logo"
+              style={{
+                width: 36,
+                height: 36,
+                objectFit: "contain",
+                filter: "drop-shadow(0 0 10px rgba(56,189,248,0.7))"
+              }}
+            />
             <span style={{ color: "#fff", fontWeight: 800, fontSize: "0.95rem", letterSpacing: "-0.01em" }}>
               Velocity <span className="gt">Creatives</span>
             </span>
