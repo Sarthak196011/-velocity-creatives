@@ -6,11 +6,9 @@ import { ArrowRight } from "lucide-react";
 export default function IntroExperience() {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
-  const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // Check if user already completed the intro in this session
     const hasSeen = sessionStorage.getItem("vc_intro_seen");
     if (hasSeen === "true") {
       setVisible(false);
@@ -21,7 +19,7 @@ export default function IntroExperience() {
     try {
       sessionStorage.setItem("vc_intro_seen", "true");
     } catch {
-      // ignore in restricted mode
+      // ignore
     }
     setVisible(false);
   };
@@ -32,7 +30,7 @@ export default function IntroExperience() {
     }
   };
 
-  // Ensure sound is ALWAYS ON from the start
+  // Sound ALWAYS ON & Bullet-Proof Autoplay
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -42,29 +40,38 @@ export default function IntroExperience() {
 
     const playPromise = video.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // If the browser enforces a strict autoplay policy requiring a user gesture before sound,
-        // start playback and immediately unlock sound on the very first interaction anywhere on screen
-        video.muted = true;
-        video.play().catch(() => {});
+      playPromise
+        .then(() => {
+          // Autoplay with sound succeeded
+          video.muted = false;
+          video.volume = 1.0;
+        })
+        .catch(() => {
+          // If browser policy strictly requires a user gesture for audio,
+          // play with muted fallback so visual is NEVER delayed or black,
+          // and instantly unmute on first gesture anywhere on screen
+          video.muted = true;
+          video.play().catch(() => {});
 
-        const unlockAudio = () => {
-          if (videoRef.current) {
-            videoRef.current.muted = false;
-            videoRef.current.volume = 1.0;
-            videoRef.current.play().catch(() => {});
-          }
-          window.removeEventListener("pointerdown", unlockAudio);
-          window.removeEventListener("touchstart", unlockAudio);
-          window.removeEventListener("keydown", unlockAudio);
-        };
+          const unmute = () => {
+            if (videoRef.current) {
+              videoRef.current.muted = false;
+              videoRef.current.volume = 1.0;
+              videoRef.current.play().catch(() => {});
+            }
+            window.removeEventListener("pointerdown", unmute);
+            window.removeEventListener("click", unmute);
+            window.removeEventListener("touchstart", unmute);
+            window.removeEventListener("keydown", unmute);
+          };
 
-        window.addEventListener("pointerdown", unlockAudio, { once: true });
-        window.addEventListener("touchstart", unlockAudio, { once: true });
-        window.addEventListener("keydown", unlockAudio, { once: true });
-      });
+          window.addEventListener("pointerdown", unmute, { once: true });
+          window.addEventListener("click", unmute, { once: true });
+          window.addEventListener("touchstart", unmute, { once: true });
+          window.addEventListener("keydown", unmute, { once: true });
+        });
     }
-  }, [videoLoaded]);
+  }, []);
 
   // Keyboard shortcut: Escape or Enter to skip
   useEffect(() => {
@@ -85,12 +92,17 @@ export default function IntroExperience() {
           initial={{ opacity: 1 }}
           exit={{
             opacity: 0,
-            scale: 1.08,
+            scale: 1.06,
             filter: "blur(14px)",
-            transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
           }}
           onClick={() => {
-            // Any tap/click on screen ensures unmuted audio
+            if (videoRef.current) {
+              videoRef.current.muted = false;
+              videoRef.current.volume = 1.0;
+            }
+          }}
+          onPointerDown={() => {
             if (videoRef.current) {
               videoRef.current.muted = false;
               videoRef.current.volume = 1.0;
@@ -107,15 +119,16 @@ export default function IntroExperience() {
             justifyContent: "center",
           }}
         >
-          {/* Fullscreen Background Video - Sound Always On */}
+          {/* Fullscreen Background Video - 100% VISIBLE ALWAYS */}
           <video
             ref={videoRef}
             src="/velocity-intro.mp4"
+            poster="/velocity-intro-poster.png"
             autoPlay
             playsInline
+            preload="auto"
             onTimeUpdate={handleTimeUpdate}
             onEnded={handleFinish}
-            onCanPlay={() => setVideoLoaded(true)}
             style={{
               position: "absolute",
               inset: 0,
@@ -123,19 +136,18 @@ export default function IntroExperience() {
               height: "100%",
               objectFit: "cover",
               zIndex: 1,
-              opacity: videoLoaded ? 1 : 0,
-              transition: "opacity 0.6s ease",
+              display: "block",
             }}
           />
 
-          {/* Cinematic Vignette Overlay */}
+          {/* Subtle Bottom Shade for Text Readability Only (Keeps Video 100% Bright) */}
           <div
             style={{
               position: "absolute",
               inset: 0,
               zIndex: 2,
               background:
-                "radial-gradient(ellipse at center, rgba(6, 5, 14, 0.15) 0%, rgba(6, 5, 14, 0.85) 100%)",
+                "linear-gradient(to top, rgba(3, 2, 6, 0.85) 0%, rgba(3, 2, 6, 0.3) 35%, transparent 60%)",
               pointerEvents: "none",
             }}
           />
@@ -159,9 +171,9 @@ export default function IntroExperience() {
                 display: "flex",
                 alignItems: "center",
                 gap: 12,
-                background: "rgba(10, 8, 22, 0.7)",
+                background: "rgba(10, 8, 22, 0.75)",
                 backdropFilter: "blur(16px)",
-                border: "1px solid rgba(255, 255, 255, 0.12)",
+                border: "1px solid rgba(255, 255, 255, 0.15)",
                 padding: "8px 18px",
                 borderRadius: 999,
               }}
@@ -189,7 +201,7 @@ export default function IntroExperience() {
               </span>
             </div>
 
-            {/* Skip Intro Control (Turn Sound On button removed - sound is always enabled) */}
+            {/* Skip Intro Button */}
             <div style={{ display: "flex", alignItems: "center" }}>
               <button
                 type="button"
@@ -265,7 +277,7 @@ export default function IntroExperience() {
               style={{
                 width: "100%",
                 height: 3,
-                background: "rgba(255, 255, 255, 0.15)",
+                background: "rgba(255, 255, 255, 0.2)",
                 borderRadius: 999,
                 overflow: "hidden",
                 position: "relative",
