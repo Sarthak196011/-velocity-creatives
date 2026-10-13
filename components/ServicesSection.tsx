@@ -20,7 +20,7 @@ const plans = [
       "2 revision rounds per deliverable",
       "You own 100% of all files and designs",
     ],
-    cta: "Choose Starter Plan"
+    cta: "Get Custom Quote"
   },
   {
     id: "growth",
@@ -39,7 +39,7 @@ const plans = [
       "Unlimited revisions",
       "Direct WhatsApp and Slack support",
     ],
-    cta: "Choose Growth Plan"
+    cta: "Get Custom Quote"
   },
   {
     id: "domination",
@@ -58,7 +58,7 @@ const plans = [
       "Unlimited revisions",
       "Monthly 1-on-1 strategy and ad review call",
     ],
-    cta: "Choose Pro Plan"
+    cta: "Get Custom Quote"
   }
 ];
 
@@ -85,14 +85,14 @@ export default function ServicesSection() {
         >
           <div className="eyebrow" style={{ marginBottom: 20, justifyContent: "center" }}>
             <span className="eyebrow-line" />
-            Simple Monthly Pricing
+            Agency Creative Packages
             <span className="eyebrow-line" />
           </div>
           <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
-            Clear Plans. <span className="gt">No Hidden Fees.</span>
+            Tailored Plans. <span className="gt">Built for Your Brand.</span>
           </h2>
           <p style={{ color: "#64748B", fontSize: "1.1rem", maxWidth: 580, margin: "0 auto", lineHeight: 1.6 }}>
-            Simple monthly subscriptions built for direct-to-consumer brands. No contracts. Pause or cancel anytime.
+            Choose the creative volume that fits your monthly ad goals. Book a call to get a custom quote tailored to your store.
           </p>
         </motion.div>
 
