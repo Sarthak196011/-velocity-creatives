@@ -7,7 +7,6 @@ const plans = [
   {
     id: "starter",
     name: "Starter Plan",
-    price: "1,999",
     tagline: "Great for new stores testing social ads for the first time.",
     popular: false,
     accent: "#06B6D4",
@@ -25,7 +24,6 @@ const plans = [
   {
     id: "growth",
     name: "Growth Plan",
-    price: "2,999",
     tagline: "Our most popular plan for brands that want video ads to get more customers.",
     popular: true,
     accent: "#6366F1",
@@ -44,7 +42,6 @@ const plans = [
   {
     id: "domination",
     name: "Pro Plan",
-    price: "3,999",
     tagline: "For active brands that need lots of fresh image and video ads each month.",
     popular: false,
     accent: "#4F46E5",
@@ -175,19 +172,21 @@ export default function ServicesSection() {
                     {p.tagline}
                   </p>
 
-                  {/* Price */}
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 32, borderBottom: "1px solid rgba(15,23,42,0.08)", paddingBottom: 28 }}>
-                    <span style={{ fontSize: "1.6rem", fontWeight: 800, color: "#06B6D4" }}>Rs.</span>
-                    <span style={{
-                      fontSize: "clamp(2.6rem, 4vw, 3.4rem)",
+                  {/* Custom Quote / Pricing */}
+                  <div style={{ marginBottom: 32, borderBottom: "1px solid rgba(15,23,42,0.08)", paddingBottom: 26 }}>
+                    <div style={{
+                      fontSize: "clamp(1.9rem, 3.4vw, 2.4rem)",
                       fontWeight: 900,
                       color: "#0F172A",
-                      letterSpacing: "-0.03em",
+                      letterSpacing: "-0.02em",
                       lineHeight: 1
                     }}>
-                      {p.price}
-                    </span>
-                    <span style={{ color: "#64748B", fontSize: "0.9rem", fontWeight: 600 }}>/ month</span>
+                      Custom Quote
+                    </div>
+                    <div style={{ color: "#64748B", fontSize: "0.85rem", fontWeight: 600, marginTop: 8, display: "flex", alignItems: "center", gap: 7 }}>
+                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: p.accent, flexShrink: 0 }} />
+                      Tailored to your monthly ad volume
+                    </div>
                   </div>
 
                   {/* Features List */}
