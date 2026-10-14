@@ -33,7 +33,7 @@ export default function ContactSection() {
     phone: "",
     email: "",
     brandUrl: "",
-    creativeNeed: "Need 15+ fresh image ads",
+    creativeNeed: "Trial Pack — ₹999 (2 Static Creatives, No Commitment)",
   });
 
   // Booking process states
@@ -795,10 +795,11 @@ export default function ContactSection() {
                         outline: "none"
                       }}
                     >
-                      <option value="Need 15+ fresh image ads">Need 15+ fresh image ads</option>
-                      <option value="Need short video ads for Reels">Need short video ads for Reels</option>
-                      <option value="Need educational carousels">Need educational carousels</option>
-                      <option value="Current ads are getting tired / need new ideas">Current ads are getting tired / need new ideas</option>
+                      <option value="Trial Pack — ₹999 (2 Static Creatives, No Commitment)">Trial Pack — ₹999 (2 Static Creatives, No Commitment)</option>
+                      <option value="Starter Plan — ₹1,999/mo (5 Static Creatives)">Starter Plan — ₹1,999/mo (5 Static Creatives)</option>
+                      <option value="Growth Plan — ₹3,499/mo (8 Statics + 1 Carousel)">Growth Plan — ₹3,499/mo (8 Statics + 1 Carousel)</option>
+                      <option value="Video Plan — ₹5,999/mo (8 Statics + 2 Reels/Shorts)">Video Plan — ₹5,999/mo (8 Statics + 2 Reels/Shorts)</option>
+                      <option value="Custom Ad Volume / Consultation">Custom Ad Volume / Consultation</option>
                     </select>
                   </div>
 

@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "Can I request changes if I want something adjusted?",
-    a: "Yes, of course! We want you to love your ads. Starter includes 2 rounds of revisions, while Growth and Pro include unlimited revisions."
+    a: "Yes, of course! We want you to love your ads. Every deliverable batch includes 1 full revision round so you can adjust text, hooks, or visual assets before launching your ads."
   },
   {
     q: "Can you work with our existing media buyer or marketing manager?",

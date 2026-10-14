@@ -54,7 +54,7 @@ export default function HeroSection() {
               <span style={{ color: "#059669", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }}>Now Open</span>
             </span>
             <span style={{ width: 1, height: 14, background: "rgba(15,23,42,0.12)" }} />
-            <span style={{ color: "#64748B", fontSize: "0.75rem", fontWeight: 600 }}>Accepting New Brands</span>
+            <span style={{ color: "#64748B", fontSize: "0.75rem", fontWeight: 600 }}>Ad Creatives from ₹1,999/mo • ₹999 Trial Pack</span>
           </div>
         </motion.div>
 
@@ -89,7 +89,7 @@ export default function HeroSection() {
           transition={{ duration: 0.75, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
           style={{ fontSize: "clamp(1.05rem, 2vw, 1.25rem)", color: "#64748B", maxWidth: 620, margin: "32px auto 44px", lineHeight: 1.7 }}
         >
-          Get fresh, eye-catching image ads, product carousels, and short video cuts made for your store every single month.
+          Get fresh, high-converting static image ads, carousels, and short video reels made for your store starting from ₹1,999/month (or test with our ₹999 trial).
         </motion.p>
 
         {/* CTAs */}
