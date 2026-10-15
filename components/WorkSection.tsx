@@ -23,7 +23,7 @@ const beforeAfterList: BeforeAfterItem[] = [
     title: "Auraa Barrier Peptide Cream",
     brand: "Auraa Skin",
     category: "Product Images",
-    beforeImg: "/auraa-skincare.jpg",
+    beforeImg: "/before-after/raw-auraa-skincare.png",
     afterImg: "/sample-work/auraa-moisturizer.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
@@ -35,7 +35,7 @@ const beforeAfterList: BeforeAfterItem[] = [
     title: "Fuel One Whey - Dynamic Collision",
     brand: "Fuel One",
     category: "Ads",
-    beforeImg: "/fuel-preworkout.jpg",
+    beforeImg: "/before-after/raw-fuel-whey.png",
     afterImg: "/sample-work/fuel-whey-splash.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
@@ -44,10 +44,46 @@ const beforeAfterList: BeforeAfterItem[] = [
   },
   {
     id: "ba-3",
+    title: "BULLMER Bamboo Summer Shirt",
+    brand: "BULLMER",
+    category: "Product Images",
+    beforeImg: "/before-after/raw-bullmer-shirt.png",
+    afterImg: "/sample-work/bullmer-bamboo-shirt.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From flat studio photo to Mediterranean villa stone pedestal editorial.",
+    details: "We extracted the shirt shape, preserved the geometric leaf pattern, placket and buttons, and set it against natural travertine stone with sun-cast palm leaves and bonsai greenery."
+  },
+  {
+    id: "ba-4",
+    title: "Apple Watch Ultra - Ocean Wave Crash",
+    brand: "Smart Wearable",
+    category: "Ads",
+    beforeImg: "/before-after/raw-apple-watch.png",
+    afterImg: "/sample-work/apple-watch-ocean.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From plain product photo to turbulent crashing ocean rock visual.",
+    details: "Retained the exact titanium casing, orange action button, and crystal face while placing it amidst turbulent sea spray to visually prove extreme durability and water resistance."
+  },
+  {
+    id: "ba-5",
+    title: "Urban Streetwear Sneakers",
+    brand: "Urban Kicks",
+    category: "Ads",
+    beforeImg: "/before-after/raw-urban-sneakers.png",
+    afterImg: "/sample-work/urban-sneakers.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From floor sneaker snap to dynamic floating perspective over skate ramp.",
+    details: "We isolated the shoes, preserved the rubber outsole texture and lace styling, and placed them in an action-oriented sunlit skatepark angle to capture youth street culture."
+  },
+  {
+    id: "ba-6",
     title: "NOMAD Leather Carry & Apple Watch",
     brand: "NOMAD Goods",
     category: "Product Images",
-    beforeImg: "/nomad-watch-wallet.jpg",
+    beforeImg: "/before-after/raw-leather-wallet.png",
     afterImg: "/sample-work/luxury-leather-wallet.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
@@ -55,16 +91,40 @@ const beforeAfterList: BeforeAfterItem[] = [
     details: "We extracted the handcrafted leather wallet and watch strap, maintaining real leather stitching and grain, then composed a timeless executive desk scene with warm reading lamp glow."
   },
   {
-    id: "ba-4",
-    title: "Urban Streetwear Sneakers",
-    brand: "Urban Kicks",
-    category: "Ads",
-    beforeImg: "/sneakers.jpg",
-    afterImg: "/sample-work/urban-sneakers.png",
+    id: "ba-7",
+    title: "Mo's Bakery Ragi Cookies",
+    brand: "Mo's Bakery",
+    category: "Product Images",
+    beforeImg: "/before-after/raw-mos-cookies.png",
+    afterImg: "/sample-work/mos-ragi-cookies.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
-    summary: "From floor sneaker snap to dynamic floating perspective over skate ramp.",
-    details: "We isolated the shoes, preserved the rubber outsole texture and lace styling, and placed them in an action-oriented sunlit skatepark angle to capture youth street culture."
+    summary: "From plain retail canister to cozy morning breakfast table scene.",
+    details: "Placed the authentic container alongside golden baked cookies, honey drippers, and natural grains to highlight taste, purity and artisan craftsmanship."
+  },
+  {
+    id: "ba-8",
+    title: "Right Shift Nutrient Seeds",
+    brand: "Right Shift",
+    category: "Carousels",
+    beforeImg: "/before-after/raw-rightshift.png",
+    afterImg: "/sample-work/rightshift-dryfruit.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From flat retail pouch to vibrant ingredient spread with real nuts & dry fruits.",
+    details: "We isolated the branded pouch and staged it on clean marble surrounded by nutrient-dense almonds, cashews and berries for carousel educational storytelling."
+  },
+  {
+    id: "ba-9",
+    title: "MuscleTech Platinum Fish Oil",
+    brand: "MuscleTech",
+    category: "Ads",
+    beforeImg: "/before-after/raw-muscletech-fishoil.png",
+    afterImg: "/sample-work/muscletech-fishoil.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From plain bottle shot to fresh coastal driftwood and crystal splash ad.",
+    details: "Preserved exact label foil and bottle curvature while crafting a pristine marine setting with clear water droplets demonstrating 100% pure omega-3 sourcing."
   }
 ];
 
@@ -391,7 +451,7 @@ export default function WorkSection() {
                     transition: "all 0.2s ease",
                   }}
                 >
-                  Example {idx + 1}: {item.brand}
+                  {item.brand}
                 </button>
               ))}
             </div>
@@ -410,11 +470,20 @@ export default function WorkSection() {
             }}
           >
             {/* Left: Photo You Send */}
-            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", aspectRatio: "1 / 1", background: "#1E293B" }}>
+            <div style={{
+              position: "relative",
+              borderRadius: 16,
+              overflow: "hidden",
+              aspectRatio: "1 / 1",
+              background: "#F8FAFC",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
               <img
                 src={activeBeforeAfter.beforeImg}
                 alt={activeBeforeAfter.beforeLabel}
-                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                style={{ width: "100%", height: "100%", objectFit: "contain", padding: 16, display: "block" }}
               />
               <div
                 style={{
@@ -438,16 +507,17 @@ export default function WorkSection() {
                   bottom: 12,
                   left: 12,
                   right: 12,
-                  background: "rgba(0,0,0,0.7)",
+                  background: "rgba(15,23,42,0.75)",
                   backdropFilter: "blur(6px)",
-                  color: "#CBD5E1",
+                  color: "#F1F5F9",
                   fontSize: "0.78rem",
+                  fontWeight: 600,
                   padding: "8px 12px",
                   borderRadius: 8,
                   textAlign: "center",
                 }}
               >
-                Existing customer raw photo with plain backdrop
+                Existing customer raw photo
               </div>
             </div>
 

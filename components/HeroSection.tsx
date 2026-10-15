@@ -18,8 +18,8 @@ const comparisons: ProductComparison[] = [
   {
     id: "skincare",
     name: "Auraa Peptide Cream",
-    category: "Skincare & Beauty",
-    beforeImg: "/auraa-skincare.jpg",
+    category: "Skincare",
+    beforeImg: "/before-after/raw-auraa-skincare.png",
     afterImg: "/sample-work/auraa-moisturizer.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
@@ -28,18 +28,38 @@ const comparisons: ProductComparison[] = [
   {
     id: "fitness",
     name: "Fuel One Whey Protein",
-    category: "Fitness & Nutrition",
-    beforeImg: "/fuel-preworkout.jpg",
+    category: "Fitness",
+    beforeImg: "/before-after/raw-fuel-whey.png",
     afterImg: "/sample-work/fuel-whey-splash.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
     description: "Standard container photo transformed into high-impact dynamic milk collision ad."
   },
   {
+    id: "apparel",
+    name: "BULLMER Bamboo Shirt",
+    category: "Apparel",
+    beforeImg: "/before-after/raw-bullmer-shirt.png",
+    afterImg: "/sample-work/bullmer-bamboo-shirt.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    description: "Flat clothing photo transformed into an editorial summer resort visual on stone pedestal."
+  },
+  {
+    id: "gadgets",
+    name: "Apple Watch Ultra",
+    category: "Gadgets",
+    beforeImg: "/before-after/raw-apple-watch.png",
+    afterImg: "/sample-work/apple-watch-ocean.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    description: "Simple watch shot transformed into dramatic crashing ocean wave visual."
+  },
+  {
     id: "edc",
     name: "NOMAD Leather Carry",
-    category: "Gear & Accessories",
-    beforeImg: "/nomad-watch-wallet.jpg",
+    category: "Leather",
+    beforeImg: "/before-after/raw-leather-wallet.png",
     afterImg: "/sample-work/luxury-leather-wallet.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
@@ -361,7 +381,7 @@ export default function HeroSection() {
               </div>
 
               {/* Product selector buttons */}
-              <div style={{ display: "flex", gap: 6, background: "#F1F5F9", padding: 4, borderRadius: 12 }}>
+              <div style={{ display: "flex", gap: 6, background: "#F1F5F9", padding: 4, borderRadius: 12, overflowX: "auto" }}>
                 {comparisons.map((c) => (
                   <button
                     key={c.id}
@@ -380,7 +400,7 @@ export default function HeroSection() {
                       transition: "all 0.2s ease",
                     }}
                   >
-                    {c.id === "skincare" ? "Skincare" : c.id === "fitness" ? "Fitness" : "Leather"}
+                    {c.category}
                   </button>
                 ))}
               </div>
@@ -406,13 +426,16 @@ export default function HeroSection() {
                   borderRadius: 14,
                   overflow: "hidden",
                   aspectRatio: "1 / 1",
-                  background: "#1E293B",
+                  background: "#F8FAFC",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <img
                   src={activeComp.beforeImg}
                   alt={activeComp.beforeLabel}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  style={{ width: "100%", height: "100%", objectFit: "contain", padding: 10, display: "block" }}
                 />
                 <div
                   style={{
@@ -437,10 +460,11 @@ export default function HeroSection() {
                     bottom: 8,
                     left: 8,
                     right: 8,
-                    background: "rgba(0,0,0,0.65)",
+                    background: "rgba(15,23,42,0.75)",
                     backdropFilter: "blur(4px)",
-                    color: "#CBD5E1",
+                    color: "#F1F5F9",
                     fontSize: "0.68rem",
+                    fontWeight: 600,
                     padding: "4px 8px",
                     borderRadius: 6,
                     textAlign: "center",
