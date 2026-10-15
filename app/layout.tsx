@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Velocity Creatives - AI-Powered Ad Creatives for D2C Brands",
-  description: "Scale your e-commerce store past 7-figures with fresh visual hooks, video scripts, and carousels delivered monthly by Velocity Creatives.",
+  title: "Velocity Creatives | Product Photos, Ads & Videos",
+  description: "Send us your existing product photos. We transform them into polished images, ad creatives and carousels for your website and social media.",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

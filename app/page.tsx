@@ -8,12 +8,10 @@ import FaqSection from "@/components/FaqSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
-import IntroExperience from "@/components/IntroExperience";
 
 export default function Home() {
   return (
     <>
-      <IntroExperience />
       <div className="mesh-bg" />
       <div className="noise" />
       <Navbar />

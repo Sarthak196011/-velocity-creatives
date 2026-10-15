@@ -2,934 +2,867 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { ArrowRight, ArrowLeft, X, Tag, Play } from "lucide-react";
+import { ArrowRight, ArrowLeft, X, Play, Sparkles, Layers, Camera, LayoutGrid, Film } from "lucide-react";
 
-interface CreativeItem {
+interface BeforeAfterItem {
   id: string;
   title: string;
   brand: string;
-  category: "video" | "skincare" | "fitness" | "edc" | "fashion" | "food";
-  categoryLabel: string;
-  type: "video" | "image";
-  src: string;
-  poster?: string;
-  tags: string[];
-  hook: string;
-  specTag: string;
-  accent: string;
-  description: string;
+  category: "Product Images" | "Ads" | "Carousels" | "Videos";
+  beforeImg: string;
+  afterImg: string;
+  beforeLabel: string;
+  afterLabel: string;
+  summary: string;
+  details: string;
 }
 
-const creatives: CreativeItem[] = [
-  // --- 4 COMMERCIAL VIDEO CUTS ---
+const beforeAfterList: BeforeAfterItem[] = [
+  {
+    id: "ba-1",
+    title: "Auraa Barrier Peptide Cream",
+    brand: "Auraa Skin",
+    category: "Product Images",
+    beforeImg: "/auraa-skincare.jpg",
+    afterImg: "/sample-work/auraa-moisturizer.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From casual tabletop snapshot to dewy, water-splashed luxury skincare visual.",
+    details: "We isolated the real bottle, preserved the authentic label typography and cap texture, and built a custom morning light studio setup with fresh blueberries and dewy water droplets."
+  },
+  {
+    id: "ba-2",
+    title: "Fuel One Whey - Dynamic Collision",
+    brand: "Fuel One",
+    category: "Ads",
+    beforeImg: "/fuel-preworkout.jpg",
+    afterImg: "/sample-work/fuel-whey-splash.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From plain product container to high-impact milk collision & powder splash ad.",
+    details: "Using the raw customer bottle photo, we placed the exact container inside an energetic chocolate-milk splash environment on dark industrial slate, designed to immediately stop feed scrollers."
+  },
+  {
+    id: "ba-3",
+    title: "NOMAD Leather Carry & Apple Watch",
+    brand: "NOMAD Goods",
+    category: "Product Images",
+    beforeImg: "/nomad-watch-wallet.jpg",
+    afterImg: "/sample-work/luxury-leather-wallet.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From casual phone camera photo to rich mahogany executive desk setup.",
+    details: "We extracted the handcrafted leather wallet and watch strap, maintaining real leather stitching and grain, then composed a timeless executive desk scene with warm reading lamp glow."
+  },
+  {
+    id: "ba-4",
+    title: "Urban Streetwear Sneakers",
+    brand: "Urban Kicks",
+    category: "Ads",
+    beforeImg: "/sneakers.jpg",
+    afterImg: "/sample-work/urban-sneakers.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From floor sneaker snap to dynamic floating perspective over skate ramp.",
+    details: "We isolated the shoes, preserved the rubber outsole texture and lace styling, and placed them in an action-oriented sunlit skatepark angle to capture youth street culture."
+  }
+];
+
+type PortfolioFilter = "All" | "Product Images" | "Ads" | "Carousels" | "Videos";
+
+interface PortfolioItem {
+  id: string;
+  title: string;
+  brand: string;
+  filterCategory: "Product Images" | "Ads" | "Carousels" | "Videos";
+  type: "video" | "image" | "carousel";
+  src: string;
+  poster?: string;
+  slidesCount?: number;
+  hook: string;
+  accent: string;
+  description: string;
+  isConceptWork: boolean;
+}
+
+const portfolioItems: PortfolioItem[] = [
+  // --- PRODUCT IMAGES ---
+  {
+    id: "p1",
+    title: "Auraa Barrier Cream - Studio Drops",
+    brand: "Auraa Skin",
+    filterCategory: "Product Images",
+    type: "image",
+    src: "/sample-work/auraa-moisturizer.png",
+    hook: "Dewy water drops on frosted glass highlight deep hydration for website and catalog use.",
+    accent: "#06B6D4",
+    description: "Crisp studio lighting on frosted glass with fresh blueberries to highlight moisture.",
+    isConceptWork: true
+  },
+  {
+    id: "p2",
+    title: "Rose Quartz Facial Roller Kit",
+    brand: "Natural Glow",
+    filterCategory: "Product Images",
+    type: "image",
+    src: "/sample-work/getmecraft-guasha.png",
+    hook: "Natural pink salt background highlights authentic mineral beauty and spa luxury.",
+    accent: "#e879f9",
+    description: "Soft morning window light and green leaves highlighting gold-plated roller hardware.",
+    isConceptWork: true
+  },
+  {
+    id: "p3",
+    title: "NOMAD Leather Valet Tray Set",
+    brand: "NOMAD Goods",
+    filterCategory: "Product Images",
+    type: "image",
+    src: "/sample-work/nomad-valet-tray.png",
+    hook: "Displays wallet and watch together in a matching tray to encourage product bundling.",
+    accent: "#f59e0b",
+    description: "Real leather tray with matching accessories set for luxury bedside or desk display.",
+    isConceptWork: true
+  },
+  {
+    id: "p4",
+    title: "BULLMER Bamboo Summer Shirt",
+    brand: "BULLMER",
+    filterCategory: "Product Images",
+    type: "image",
+    src: "/sample-work/bullmer-bamboo-shirt.png",
+    hook: "Stone pedestal inside a sunny villa turns a casual vacation shirt into an editorial feature.",
+    accent: "#64748B",
+    description: "Natural stone pedestal with warm sunlight and bonsai tree to showcase summer drape.",
+    isConceptWork: true
+  },
+
+  // --- ADS (AD CREATIVES) ---
+  {
+    id: "a1",
+    title: "Fuel One Whey - Dynamic Milk Splash",
+    brand: "Fuel One",
+    filterCategory: "Ads",
+    type: "image",
+    src: "/sample-work/fuel-whey-splash.png",
+    hook: "Dynamic milk collision creates immediate sensory appetite and stops scrollers cold.",
+    accent: "#f97316",
+    description: "High-energy fluid splash shot placed on gym floor to make protein powder look delicious.",
+    isConceptWork: true
+  },
+  {
+    id: "a2",
+    title: "Fuel One Dead Lift - Max Energy",
+    brand: "Fuel One",
+    filterCategory: "Ads",
+    type: "image",
+    src: "/sample-work/fuel-deadlift.png",
+    hook: "Electric glow and bold dark background speaks directly to serious gym-goers.",
+    accent: "#ef4444",
+    description: "Dark studio photo with barbell weights and golden highlights designed for fitness conversion.",
+    isConceptWork: true
+  },
+  {
+    id: "a3",
+    title: "MuscleTech Pure Fish Oil - Ocean Fresh",
+    brand: "MuscleTech",
+    filterCategory: "Ads",
+    type: "image",
+    src: "/sample-work/muscletech-fishoil.png",
+    hook: "Fresh ocean water and natural driftwood shows marine purity in a split second.",
+    accent: "#0ea5e9",
+    description: "Sunny coastal photo with water droplets demonstrating ultra-pure omega-3.",
+    isConceptWork: true
+  },
+  {
+    id: "a4",
+    title: "Apple Watch Ultra - Ocean Wave Crash",
+    brand: "Smart Wearable",
+    filterCategory: "Ads",
+    type: "image",
+    src: "/sample-work/apple-watch-ocean.png",
+    hook: "Crashing ocean wave against volcanic sea rocks proves water resistance without words.",
+    accent: "#06B6D4",
+    description: "Wet volcanic sea rocks and water spray highlighting titanium durability.",
+    isConceptWork: true
+  },
+  {
+    id: "a5",
+    title: "Urban Streetwear Sneakers - Skatepark",
+    brand: "Urban Kicks",
+    filterCategory: "Ads",
+    type: "image",
+    src: "/sample-work/urban-sneakers.png",
+    hook: "Floating sneaker angle over sunlit skate ramp grabs youth attention immediately.",
+    accent: "#6366F1",
+    description: "Floating streetwear angle crafted to drive impulse clicks on social feeds.",
+    isConceptWork: true
+  },
+
+  // --- CAROUSELS ---
+  {
+    id: "c1",
+    title: "Auraa 5-Step Skin Barrier Routine",
+    brand: "Auraa Skin",
+    filterCategory: "Carousels",
+    type: "carousel",
+    src: "/sample-work/auraa-moisturizer.png",
+    slidesCount: 5,
+    hook: "Swipe-through educational breakdown of peptide benefits, morning routine and skin results.",
+    accent: "#06B6D4",
+    description: "5-slide visual carousel breaking down ceramide formulation, dermatological claims and user proofs.",
+    isConceptWork: true
+  },
+  {
+    id: "c2",
+    title: "Fuel One Whey vs Standard Protein",
+    brand: "Fuel One",
+    filterCategory: "Carousels",
+    type: "carousel",
+    src: "/sample-work/fuel-whey-gym.png",
+    slidesCount: 4,
+    hook: "Side-by-side nutrition fact comparison slides that systematically overcome buyer hesitation.",
+    accent: "#f59e0b",
+    description: "Comparison carousel highlighting 24g protein purity, zero bloat formulation and amino profile.",
+    isConceptWork: true
+  },
+  {
+    id: "c3",
+    title: "Right Shift Healthy Seeds Breakdown",
+    brand: "Right Shift",
+    filterCategory: "Carousels",
+    type: "carousel",
+    src: "/sample-work/rightshift-dryfruit.png",
+    slidesCount: 4,
+    hook: "Nutrient-dense ingredient breakdown carousel showing real almonds, cashews and natural energy.",
+    accent: "#ef4444",
+    description: "Clean kitchen layout carousel detailing sustained energy, zero added sugars and morning snack use.",
+    isConceptWork: true
+  },
+
+  // --- VIDEOS ---
   {
     id: "v1",
-    title: "Auraa Peptide Cream - Morning Glow",
+    title: "Auraa Peptide Cream - Morning Glow Reel",
     brand: "Auraa Skin",
-    category: "video",
-    categoryLabel: "Short Video Ad",
+    filterCategory: "Videos",
     type: "video",
     src: "/sample-work/video-skincare.mp4",
     poster: "/sample-work/auraa-moisturizer.png",
-    tags: ["Skincare Video", "Peptides", "Clean Studio"],
-    hook: "Soft morning sunlight on natural stone creates an immediate calm, luxury feeling that makes people stop scrolling.",
-    specTag: "Short Video",
+    hook: "Soft morning sunlight on natural stone creates immediate calm luxury that stops scrolling.",
     accent: "#e879f9",
-    description: "Cinematic product lighting with realistic shadows designed for Facebook, Instagram, and Reels ads."
+    description: "Vertical product video ad with cinematic lighting and realistic shadow motion for Reels and Meta.",
+    isConceptWork: true
   },
   {
     id: "v2",
-    title: "Haute Paris - Autumn Collection",
+    title: "Haute Paris - Autumn Collection Reel",
     brand: "Maison Paris",
-    category: "video",
-    categoryLabel: "Short Video Ad",
+    filterCategory: "Videos",
     type: "video",
     src: "/sample-work/video-fashion.mp4",
     poster: "/sample-work/resortwear-model.png",
-    tags: ["Fashion Video", "Paris Street", "Outerwear"],
-    hook: "A quick walk past the Eiffel Tower with smooth close-ups on gold jewelry and boots catches the eye right away.",
-    specTag: "Reels / TikTok",
+    hook: "Fast walk past the Eiffel Tower with smooth close-ups catches fashion shoppers right away.",
     accent: "#f59e0b",
-    description: "Fast-paced fashion video built specifically to grab attention in the first 2 seconds on Instagram Reels."
+    description: "High-energy fashion reel built specifically to grab attention in the first 2 seconds on Instagram.",
+    isConceptWork: true
   },
   {
     id: "v3",
     title: "NOMAD - Everyday Carry Essentials",
     brand: "NOMAD Goods",
-    category: "video",
-    categoryLabel: "Short Video Ad",
+    filterCategory: "Videos",
     type: "video",
     src: "/sample-work/video-edc.mp4",
     poster: "/sample-work/luxury-leather-wallet.png",
-    tags: ["Leather Goods", "Apple Watch Strap", "Desk Setup"],
-    hook: "Smooth transition between a clean wooden desk and slate stone pairs classic leather with modern tech.",
-    specTag: "Product Video",
+    hook: "Smooth motion between wooden desk and slate stone highlights classic leather with modern tech.",
     accent: "#f97316",
-    description: "Pairs a handmade leather wallet with a titanium watch strap to show how good the bundle looks together."
+    description: "Pairs handmade leather wallet with titanium watch strap to show how good the bundle looks together.",
+    isConceptWork: true
   },
   {
     id: "v4",
-    title: "Fresh Farm Snacks - Healthy Bites",
-    brand: "Clean Bites",
-    category: "video",
-    categoryLabel: "Short Video Ad",
-    type: "video",
-    src: "/sample-work/video-snack.mp4",
-    poster: "/sample-work/mos-ragi-cookies.png",
-    tags: ["Food Video", "Natural Ingredients", "Appetite Appeal"],
-    hook: "Golden sunlight over farm fields with fresh cookies and dates gives an instant feeling of pure, healthy food.",
-    specTag: "Food Video",
-    accent: "#4ade80",
-    description: "Appetite-driven video highlighting real whole ingredients, crisp cookie texture, and clean snacking."
-  },
-  {
-    id: "v5",
-    title: "Rustic Harvest - Artisan Bakery Batter",
-    brand: "Maison Bakehouse",
-    category: "food",
-    categoryLabel: "Short Video Ad",
-    type: "video",
-    src: "/sample-work/video-showcase-1.mp4",
-    poster: "/sample-work/video-showcase-1.png",
-    tags: ["Artisan Kitchen", "Sensory Food", "Slow Baking"],
-    hook: "Warm rustic kitchen atmosphere with rhythmic batter whisking builds instant trust in pure, homemade culinary quality.",
-    specTag: "Artisan Video",
-    accent: "#f59e0b",
-    description: "Cinematic culinary video capturing organic flour texture, farm-fresh eggs, and slow-crafted baking storytelling."
-  },
-  {
-    id: "v6",
-    title: "The Great Crunch - Miniature World",
+    title: "The Great Crunch - Miniature World Viral Reel",
     brand: "Crunch Crafters",
-    category: "food",
-    categoryLabel: "Viral Concept Ad",
+    filterCategory: "Videos",
     type: "video",
     src: "/sample-work/video-showcase-2.mp4",
     poster: "/sample-work/video-showcase-2.png",
-    tags: ["Viral Creative", "Miniature Toys", "Crunch Hook"],
-    hook: "Miniature toy excavators cracking open golden crispy samosas is an irresistible pattern interrupt that stops 100% of feed scrollers.",
-    specTag: "Viral Reel",
+    hook: "Miniature toy excavators cracking open golden crispy snack is a viral pattern interrupt.",
     accent: "#eab308",
-    description: "High-engagement miniature scale concept ad built specifically to drive viral shares and boost direct conversions."
-  },
-
-  // --- FITNESS & NUTRITION ---
-  {
-    id: "i3",
-    title: "Fuel One Whey - Dynamic Milk Splash",
-    brand: "Fuel One",
-    category: "fitness",
-    categoryLabel: "Fitness",
-    type: "image",
-    src: "/sample-work/fuel-whey-splash.png",
-    tags: ["High Impact", "Splash Effect", "24g Protein"],
-    hook: "Dynamic milk collision and chocolate powder explosion creates instant craving and stops fast scrollers.",
-    specTag: "Fluid Splash",
-    accent: "#f97316",
-    description: "High-energy splash shot placed on an industrial gym floor to make the protein powder look delicious and powerful."
-  },
-  {
-    id: "i4",
-    title: "Fuel One Dead Lift - Workout Energy",
-    brand: "Fuel One",
-    category: "fitness",
-    categoryLabel: "Fitness",
-    type: "image",
-    src: "/sample-work/fuel-deadlift.png",
-    tags: ["Workout Energy", "Citrulline", "Weightlifting"],
-    hook: "Electric glow and bold dark background speaks directly to serious gym-goers looking for maximum energy.",
-    specTag: "High Energy",
-    accent: "#ef4444",
-    description: "Dark studio photo with barbell weights and golden highlights designed to attract fitness enthusiasts."
-  },
-  {
-    id: "i5",
-    title: "MuscleTech Pure Fish Oil - Ocean Fresh",
-    brand: "MuscleTech",
-    category: "fitness",
-    categoryLabel: "Fitness",
-    type: "image",
-    src: "/sample-work/muscletech-fishoil.png",
-    tags: ["Pure Omega-3", "Ocean Water", "No Fishy Taste"],
-    hook: "Fresh ocean water and natural driftwood shows where the pure sea ingredients come from in a split second.",
-    specTag: "Natural Marine",
-    accent: "#06b6d4",
-    description: "Sunny coastal photo with palm leaves and clean water droplets to show freshness and purity."
-  },
-  {
-    id: "i6",
-    title: "Fuel One Whey - Clean Studio Monolith",
-    brand: "Fuel One",
-    category: "fitness",
-    categoryLabel: "Fitness",
-    type: "image",
-    src: "/sample-work/fuel-whey-gym.png",
-    tags: ["Minimalist", "Concrete Studio", "Clean Look"],
-    hook: "A clean concrete block in a sunlit private gym makes the brand look high-end and trustworthy.",
-    specTag: "Clean Studio",
-    accent: "#f59e0b",
-    description: "Architectural concrete texture and warm sunlight for a clean, premium fitness look."
-  },
-
-  // --- LUXURY EDC & TECH ---
-  {
-    id: "i7",
-    title: "Apple Watch Ultra - Ocean Rock Wave",
-    brand: "Smart Wearable",
-    category: "edc",
-    categoryLabel: "Gear & Tech",
-    type: "image",
-    src: "/sample-work/apple-watch-ocean.png",
-    tags: ["Tough Build", "Ocean Water", "Sport Strap"],
-    hook: "Crashing ocean waves against volcanic sea rocks proves water resistance without needing a single word.",
-    specTag: "Action Shot",
-    accent: "#f97316",
-    description: "Wet volcanic sea rocks and water spray highlighting the tough titanium case."
-  },
-  {
-    id: "i8",
-    title: "Handmade Leather Wallet & Pen",
-    brand: "NOMAD Carry",
-    category: "edc",
-    categoryLabel: "Gear & Tech",
-    type: "image",
-    src: "/sample-work/luxury-leather-wallet.png",
-    tags: ["Real Leather", "Desk Setup", "Everyday Carry"],
-    hook: "Warm mahogany wood, glasses, and rich brown leather gives a timeless, premium feel that converts working professionals.",
-    specTag: "Desk Setup",
-    accent: "#b45309",
-    description: "Deep wood grain and warm desk lamp lighting highlighting the real leather stitching."
-  },
-  {
-    id: "i9",
-    title: "Leather Valet Tray - Watch & Wallet Set",
-    brand: "NOMAD Goods",
-    category: "edc",
-    categoryLabel: "Gear & Tech",
-    type: "image",
-    src: "/sample-work/nomad-valet-tray.png",
-    tags: ["Leather Tray", "Product Bundle", "Nightstand"],
-    hook: "Displaying the wallet and watch together in a matching tray naturally encourages customers to buy the complete bundle.",
-    specTag: "Product Bundle",
-    accent: "#d97706",
-    description: "Real leather tray with matching watch and wallet to increase bundle sales."
-  },
-
-  // --- SKINCARE & WELLNESS ---
-  {
-    id: "i1",
-    title: "Barrier Hydration Cream - Pure Drops",
-    brand: "Aura Beauty",
-    category: "skincare",
-    categoryLabel: "Skincare",
-    type: "image",
-    src: "/sample-work/auraa-moisturizer.png",
-    tags: ["Dewy Drops", "Ceramides", "Clean Bottle"],
-    hook: "Clear water drops on a frosted bottle next to fresh blueberries instantly tells buyers this cream is deeply hydrating.",
-    specTag: "Dewy Fresh",
-    accent: "#38bdf8",
-    description: "Crisp studio lighting on frosted glass with fresh blueberries to highlight moisture."
-  },
-  {
-    id: "i2",
-    title: "Rose Quartz Facial Roller Kit",
-    brand: "Natural Glow",
-    category: "skincare",
-    categoryLabel: "Skincare",
-    type: "image",
-    src: "/sample-work/getmecraft-guasha.png",
-    tags: ["Gift Box", "Natural Stone", "Relaxing Spa"],
-    hook: "Natural pink salt background shows authentic mineral beauty and a calming self-care routine.",
-    specTag: "Spa & Beauty",
-    accent: "#e879f9",
-    description: "Soft morning window light and green leaves highlighting the gold-plated roller."
-  },
-
-  // --- FASHION & STREETWEAR ---
-  {
-    id: "i10",
-    title: "BULLMER Bamboo Summer Shirt",
-    brand: "BULLMER",
-    category: "fashion",
-    categoryLabel: "Fashion",
-    type: "image",
-    src: "/sample-work/bullmer-bamboo-shirt.png",
-    tags: ["Camp Collar", "Summer Style", "Clean Plinth"],
-    hook: "A clean stone pedestal inside a sunny villa turns a casual vacation shirt into a premium product.",
-    specTag: "Fashion Display",
-    accent: "#e2e8f0",
-    description: "Stone pedestal with warm sunlight and green bonsai plant to showcase resort clothing."
-  },
-  {
-    id: "i11",
-    title: "Bandana Pattern Patchwork Shirt",
-    brand: "Urban Wear",
-    category: "fashion",
-    categoryLabel: "Fashion",
-    type: "image",
-    src: "/sample-work/bandana-streetwear.png",
-    tags: ["3D Fabric", "Summer Layering", "Streetwear"],
-    hook: "Floating fabric with realistic folds lets customers picture exactly how the relaxed fit will look on them.",
-    specTag: "3D Fit",
-    accent: "#60a5fa",
-    description: "Sunlit studio with natural cotton textures to display shirt fit and patterns."
-  },
-  {
-    id: "i12",
-    title: "Linen Beach Shirt - Coastal Style",
-    brand: "Coastal Wear",
-    category: "fashion",
-    categoryLabel: "Fashion",
-    type: "image",
-    src: "/sample-work/resortwear-model.png",
-    tags: ["Vacation Style", "Linen Shirt", "Beach Lifestyle"],
-    hook: "Sunny balcony overlooking clear ocean water makes customers immediately want to dress for their next vacation.",
-    specTag: "Lifestyle",
-    accent: "#38bdf8",
-    description: "Model wearing white linen trousers by the sea with natural beach breezes."
-  },
-  {
-    id: "i13",
-    title: "Streetwear Sneakers - Skatepark Angle",
-    brand: "Urban Shoes",
-    category: "fashion",
-    categoryLabel: "Fashion",
-    type: "image",
-    src: "/sample-work/urban-sneakers.png",
-    tags: ["Streetwear", "Floating Shoes", "Skate Culture"],
-    hook: "Floating sneaker angle over a sunlit skate ramp grabs attention instantly in busy social media feeds.",
-    specTag: "Street Style",
-    accent: "#38bdf8",
-    description: "Skatepark ramp in afternoon sunlight showing off shoe materials and stitching."
-  },
-
-  // --- GOURMET FOOD & SNACKS ---
-  {
-    id: "i14",
-    title: "Vegan Ragi Cookies - Kitchen Harvest",
-    brand: "Healthy Bakery",
-    category: "food",
-    categoryLabel: "Food & Snacks",
-    type: "image",
-    src: "/sample-work/mos-ragi-cookies.png",
-    tags: ["Real Millets", "Almonds", "Warm Kitchen"],
-    hook: "Real ragi grains and whole raw almonds on a warm wooden counter proves healthy, clean ingredients in one second.",
-    specTag: "Healthy Snacks",
-    accent: "#f59e0b",
-    description: "Warm wooden table with healthy grains and almonds to highlight clean baking."
-  },
-  {
-    id: "i15",
-    title: "Nut & Seed Energy Bar - High Protein",
-    brand: "Clean Nutrition",
-    category: "food",
-    categoryLabel: "Food & Snacks",
-    type: "image",
-    src: "/sample-work/rightshift-dryfruit.png",
-    tags: ["Real Nuts", "High Fibre", "No Added Sugar"],
-    hook: "Cut-open energy bar packed with pumpkin seeds, cashews, and dates immediately shows how healthy and filling it is.",
-    specTag: "Nutrient Dense",
-    accent: "#ef4444",
-    description: "White kitchen counter with scattered natural nuts and dates around the healthy snack bar."
+    description: "High-engagement miniature scale reel designed to drive organic shares and direct clicks.",
+    isConceptWork: true
   }
 ];
 
 export default function WorkSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [selectedCreative, setSelectedCreative] = useState<CreativeItem | null>(null);
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setSelectedCreative(null);
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  const byId = (id: string) => creatives.find((c) => c.id === id) || creatives[0];
-
-  const row1 = [
-    byId("v1"), // Auraa Video
-    byId("v5"), // Artisan Bakery Video
-    byId("i3"), // Fuel Splash
-    byId("i10"),// BULLMER Bamboo
-    byId("i7"), // Apple Watch Ocean
-    byId("i15"),// Right Shift Dry Fruit
-    byId("i1"), // Auraa Cream
-    byId("v2"), // Haute Paris Video
-  ];
-
-  const row2 = [
-    byId("v3"), // NOMAD EDC Video
-    byId("v6"), // Miniature Samosa Video (New!)
-    byId("i4"), // Fuel Dead Lift
-    byId("i11"),// Urban Bandana
-    byId("i2"), // Gua Sha Kit
-    byId("i14"),// Ragi Cookies
-    byId("i9"), // Nomad Tray
-    byId("v4"), // Snack Video
-  ];
-
-  const row3 = [
-    byId("v6"), // Miniature Samosa Video
-    byId("v2"), // Haute Paris Video
-    byId("i5"), // Fish Oil
-    byId("v5"), // Artisan Bakery Video (New!)
-    byId("i6"), // Fuel Monolith
-    byId("i8"), // Nomad Wallet
-    byId("v1"), // Auraa Video
-    byId("i1"), // Auraa Cream
-  ];
+  const [activeFilter, setActiveFilter] = useState<PortfolioFilter>("All");
+  const [selectedItem, setSelectedItem] = useState<PortfolioItem | null>(null);
+  const [activeBeforeAfter, setActiveBeforeAfter] = useState<BeforeAfterItem>(beforeAfterList[0]);
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  return (
-    <section id="work" style={{ position: "relative", zIndex: 10, padding: "120px 0 130px", overflow: "hidden" }}>
-      
-      {/* Edge gradient fade masks for smooth entry and exit */}
-      <div style={{
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        width: "clamp(60px, 9vw, 160px)",
-        background: "linear-gradient(90deg, #F8F9FA 25%, transparent 100%)",
-        zIndex: 15,
-        pointerEvents: "none"
-      }} />
-      <div style={{
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        right: 0,
-        width: "clamp(60px, 9vw, 160px)",
-        background: "linear-gradient(270deg, #F8F9FA 25%, transparent 100%)",
-        zIndex: 15,
-        pointerEvents: "none"
-      }} />
+  const filteredItems = portfolioItems.filter((item) => {
+    if (activeFilter === "All") return true;
+    return item.filterCategory === activeFilter;
+  });
 
-      {/* Header in simple English */}
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 24px", textAlign: "center", marginBottom: 44, position: "relative", zIndex: 16 }}>
+  return (
+    <section id="work" style={{ position: "relative", zIndex: 10, padding: "120px 24px" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+        
+        {/* Section Header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
+          style={{ textAlign: "center", marginBottom: 60 }}
         >
-          
-          {/* Prominent Back to Home button */}
-          <div style={{ display: "flex", justifyContent: "center", marginBottom: 22 }}>
-            <button
-              type="button"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="btn-ghost"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                padding: "8px 20px",
-                borderRadius: 999,
-                fontSize: "0.82rem",
-                fontWeight: 700,
-                color: "#0F172A",
-                background: "#FFFFFF",
-                border: "1px solid rgba(15,23,42,0.1)",
-                boxShadow: "0 2px 8px rgba(15,23,42,0.04)",
-                cursor: "pointer",
-                transition: "all 0.2s ease"
-              }}
-            >
-              <ArrowLeft size={14} style={{ color: "#c084fc" }} />
-              <span>Back to Home Page</span>
-            </button>
-          </div>
-
-          <div className="eyebrow" style={{ marginBottom: 20, justifyContent: "center" }}>
+          <div className="eyebrow" style={{ marginBottom: 18, justifyContent: "center" }}>
             <span className="eyebrow-line" />
-            Our Sample Work
+            Portfolio &amp; Transformations
             <span className="eyebrow-line" />
           </div>
           <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
-            Ads Designed to <span className="gt">Get More Sales.</span>
+            From Raw Photos To <span className="gt">Polished Visuals.</span>
           </h2>
-          <p style={{ color: "#64748B", fontSize: "1.08rem", maxWidth: 640, margin: "0 auto 18px", lineHeight: 1.6 }}>
-            Take a look at the image ads, clean product photos, and short video cuts we create for online brands.
+          <p style={{ color: "#64748B", fontSize: "1.1rem", maxWidth: 620, margin: "0 auto", lineHeight: 1.6 }}>
+            Browse our original-to-result transformations and filter across our four core creative formats.
           </p>
-
-          <div style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            background: "#FFFFFF",
-            border: "1px solid rgba(15,23,42,0.08)",
-            boxShadow: "0 2px 8px rgba(15,23,42,0.03)",
-            borderRadius: 999,
-            padding: "6px 18px"
-          }}>
-            <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#4ade80", boxShadow: "0 0 8px #4ade80" }} />
-            <span style={{ fontSize: "0.76rem", color: "#64748B", fontWeight: 700 }}>
-              Hover over any card to pause | Click to see how it works
-            </span>
-          </div>
         </motion.div>
-      </div>
 
-      {/* 3 Hardware-Accelerated Continuous Filmstrip Conveyors */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 24, position: "relative", zIndex: 5 }}>
-        <FilmstripTrack items={row1} direction="left" speed={54} onSelect={setSelectedCreative} />
-        <FilmstripTrack items={row2} direction="right" speed={48} onSelect={setSelectedCreative} />
-        <FilmstripTrack items={row3} direction="left" speed={58} onSelect={setSelectedCreative} />
-      </div>
-
-      {/* High-Fidelity Modal Mounted at document.body via Portal to eliminate any parent stacking context issues */}
-      {mounted && typeof document !== "undefined" && createPortal(
-        <AnimatePresence>
-          {selectedCreative && (
-            <CreativeModal item={selectedCreative} onClose={() => setSelectedCreative(null)} />
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
-    </section>
-  );
-}
-
-function FilmstripTrack({
-  items,
-  direction,
-  speed,
-  onSelect
-}: {
-  items: CreativeItem[];
-  direction: "left" | "right";
-  speed: number;
-  onSelect: (item: CreativeItem) => void;
-}) {
-  return (
-    <div className="filmstrip-viewport">
-      <div
-        className={`filmstrip-track ${direction === "left" ? "track-left" : "track-right"}`}
-        style={{ "--speed": `${speed}s` } as React.CSSProperties}
-      >
-        {/* Group 1 */}
-        <div className="filmstrip-group">
-          {items.map((item, idx) => (
-            <FilmstripCard
-              key={`g1-${item.id}-${idx}`}
-              item={item}
-              onSelect={() => onSelect(item)}
-            />
-          ))}
-        </div>
-
-        {/* Group 2 (Exact duplicate for seamless looping) */}
-        <div className="filmstrip-group" aria-hidden="true">
-          {items.map((item, idx) => (
-            <FilmstripCard
-              key={`g2-${item.id}-${idx}`}
-              item={item}
-              onSelect={() => onSelect(item)}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function FilmstripCard({ item, onSelect }: { item: CreativeItem; onSelect: () => void }) {
-  const isVideo = item.type === "video";
-  const [videoReady, setVideoReady] = useState(false);
-
-  return (
-    <div
-      onClick={onSelect}
-      className={`filmstrip-card ${isVideo ? "is-video-card" : ""}`}
-      style={{
-        width: isVideo ? 350 : 280,
-        height: 270,
-        "--card-accent": item.accent,
-        position: "relative",
-        overflow: "hidden",
-        backgroundColor: "#FFFFFF",
-        backgroundImage: item.poster ? `url(${item.poster})` : undefined,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      } as React.CSSProperties}
-    >
-      {isVideo ? (
-        <>
-          {item.poster && (
-            <img
-              src={item.poster}
-              alt={item.title}
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                zIndex: 1,
-                opacity: videoReady ? 0 : 1,
-                transition: "opacity 0.4s ease",
-              }}
-            />
-          )}
-          <video
-            src={item.src}
-            poster={item.poster}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            onCanPlay={() => setVideoReady(true)}
-            onPlaying={() => setVideoReady(true)}
+        {/* 1. ORIGINAL-PHOTO-TO-FINAL-RESULT SHOWCASE (At least 3 examples) */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          style={{
+            background: "#FFFFFF",
+            borderRadius: 28,
+            border: "1px solid rgba(15,23,42,0.1)",
+            boxShadow: "0 10px 40px rgba(15,23,42,0.05)",
+            padding: "clamp(24px, 4vw, 36px)",
+            marginBottom: 72,
+          }}
+        >
+          {/* Header of Before & After Area */}
+          <div
             style={{
-              position: "relative",
-              zIndex: 2,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              opacity: videoReady ? 1 : 0,
-              transition: "opacity 0.4s ease",
-            }}
-          />
-        </>
-      ) : (
-        <img
-          src={item.src}
-          alt={item.title}
-          loading="lazy"
-          style={{ width: "100%", height: "100%", objectFit: "cover" }}
-        />
-      )}
-
-      {/* Top Bar Single Clean Badge (Zero Overlap on Mobile) */}
-      <div style={{
-        position: "absolute",
-        top: 10,
-        left: 10,
-        right: 10,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        zIndex: 5
-      }}>
-        <span style={{
-          fontSize: "0.66rem",
-          fontWeight: 800,
-          textTransform: "uppercase",
-          letterSpacing: "0.08em",
-          background: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(8px)",
-          border: "1px solid rgba(15,23,42,0.1)",
-          boxShadow: "0 2px 8px rgba(15,23,42,0.08)",
-          color: "#0F172A",
-          padding: "3px 10px",
-          borderRadius: 999,
-          maxWidth: "100%",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis"
-        }}>
-          {item.categoryLabel}
-        </span>
-      </div>
-
-      {/* Gradient Shade for Title Legibility */}
-      <div style={{
-        position: "absolute",
-        inset: 0,
-        background: "linear-gradient(to top, rgba(8,8,16,0.95) 0%, rgba(8,8,16,0.2) 55%, transparent 100%)",
-        pointerEvents: "none"
-      }} />
-
-      {/* Video Indicator Pill */}
-      {isVideo && (
-        <div style={{
-          position: "absolute",
-          bottom: 46,
-          right: 12,
-          display: "flex",
-          alignItems: "center",
-          gap: 5,
-          background: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(10px)",
-          border: "1px solid rgba(15,23,42,0.1)",
-          borderRadius: 999,
-          padding: "3px 8px",
-          color: "#0F172A",
-          fontSize: "0.65rem",
-          fontWeight: 700,
-          zIndex: 6
-        }}>
-          <Play size={9} fill="currentColor" style={{ color: item.accent }} />
-          <span>Video Ad</span>
-        </div>
-      )}
-
-      {/* Bottom Text Area */}
-      <div style={{
-        position: "absolute",
-        bottom: 12,
-        left: 14,
-        right: 14,
-        zIndex: 5
-      }}>
-        <div style={{ fontSize: "0.68rem", fontWeight: 800, color: item.accent, textTransform: "uppercase", letterSpacing: "0.1em" }}>
-          {item.brand}
-        </div>
-        <h4 style={{
-          color: "#fff",
-          fontSize: "0.95rem",
-          fontWeight: 800,
-          lineHeight: 1.25,
-          marginTop: 2,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis"
-        }}>
-          {item.title}
-        </h4>
-      </div>
-    </div>
-  );
-}
-
-function CreativeModal({ item, onClose }: { item: CreativeItem; onClose: () => void }) {
-  useEffect(() => {
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, []);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 99999,
-        background: "rgba(15, 23, 42, 0.75)",
-        backdropFilter: "blur(28px)",
-        WebkitBackdropFilter: "blur(28px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "clamp(12px, 3.5vw, 28px)",
-        paddingTop: "max(18px, env(safe-area-inset-top, 18px))",
-        paddingBottom: "max(18px, env(safe-area-inset-bottom, 18px))",
-      }}
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ scale: 0.94, opacity: 0, y: 20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.94, opacity: 0, y: 20 }}
-        transition={{ duration: 0.3 }}
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: "#FFFFFF",
-          borderRadius: 24,
-          border: "1px solid rgba(15,23,42,0.1)",
-          boxShadow: "0 25px 70px rgba(15,23,42,0.25)",
-          maxWidth: 960,
-          width: "100%",
-          maxHeight: "92vh",
-          overflowY: "auto",
-          padding: "clamp(20px, 4vw, 36px)",
-          position: "relative"
-        }}
-      >
-        {/* Top Header inside Modal: Back to Home Page & Close */}
-        <div style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: 20,
-          borderBottom: "1px solid rgba(15,23,42,0.08)",
-          paddingBottom: 14
-        }}>
-          <button
-            type="button"
-            onClick={() => {
-              onClose();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 7,
-              background: "#F1F5F9",
-              border: "1px solid rgba(15,23,42,0.1)",
-              borderRadius: 999,
-              padding: "7px 16px",
-              color: "#0F172A",
-              fontSize: "0.82rem",
-              fontWeight: 700,
-              cursor: "pointer",
-              transition: "all 0.2s ease"
-            }}
-          >
-            <ArrowLeft size={14} /> Back to Home Page
-          </button>
-
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close"
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: "50%",
-              background: "#F1F5F9",
-              border: "1px solid rgba(15,23,42,0.1)",
-              color: "#0F172A",
               display: "flex",
+              flexWrap: "wrap",
               alignItems: "center",
-              justifyContent: "center",
-              cursor: "pointer"
+              justifyContent: "space-between",
+              gap: 16,
+              marginBottom: 24,
             }}
           >
-            <X size={18} />
-          </button>
-        </div>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 28, alignItems: "center" }}>
-          <div style={{
-            borderRadius: 18,
-            overflow: "hidden",
-            background: "#F8F9FA",
-            border: "1px solid rgba(15,23,42,0.08)",
-            position: "relative",
-            maxHeight: 520,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center"
-          }}>
-            {item.type === "video" ? (
-              <video
-                src={item.src}
-                poster={item.poster}
-                autoPlay
-                loop
-                controls
-                playsInline
-                style={{ width: "100%", maxHeight: 520, objectFit: "contain" }}
-              />
-            ) : (
-              <img
-                src={item.src}
-                alt={item.title}
-                style={{ width: "100%", maxHeight: 520, objectFit: "contain" }}
-              />
-            )}
-          </div>
-
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-              <span style={{
-                fontSize: "0.72rem",
-                fontWeight: 800,
-                textTransform: "uppercase",
-                letterSpacing: "0.1em",
-                color: item.accent,
-                background: `${item.accent}15`,
-                border: `1px solid ${item.accent}35`,
-                padding: "4px 12px",
-                borderRadius: 999
-              }}>
-                {item.brand}
-              </span>
-              <span style={{ fontSize: "0.75rem", color: "#64748B" }}>
-                {item.categoryLabel}
-              </span>
-            </div>
-
-            <h3 style={{ color: "#0F172A", fontSize: "1.6rem", fontWeight: 900, lineHeight: 1.25, marginBottom: 16 }}>
-              {item.title}
-            </h3>
-
-            <p style={{ color: "#64748B", fontSize: "0.95rem", lineHeight: 1.65, marginBottom: 20 }}>
-              {item.description}
-            </p>
-
-            <div style={{
-              background: "#F8F9FA",
-              border: "1px solid rgba(15,23,42,0.08)",
-              borderRadius: 14,
-              padding: "16px 20px",
-              marginBottom: 24
-            }}>
-              <div style={{ fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: item.accent, marginBottom: 6 }}>
-                Why This Ad Works:
+            <div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6366F1", marginBottom: 4 }}>
+                <Sparkles size={14} /> Side-by-Side Proof
               </div>
-              <p style={{ color: "#0F172A", fontSize: "0.9rem", lineHeight: 1.6 }}>
-                "{item.hook}"
-              </p>
+              <h3 style={{ fontSize: "1.45rem", fontWeight: 900, color: "#0F172A" }}>
+                {activeBeforeAfter.title}
+              </h3>
             </div>
 
-            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 28 }}>
-              {item.tags.map((t, tIdx) => (
-                <span key={tIdx} style={{
-                  background: "#F1F5F9",
-                  border: "1px solid rgba(15,23,42,0.08)",
-                  borderRadius: 10,
-                  padding: "6px 14px",
-                  fontSize: "0.78rem",
-                  color: "#64748B",
-                  fontWeight: 600
-                }}>
-                  #{t.replace(/ /g, "")}
-                </span>
+            {/* Example Switcher Tabs */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, background: "#F1F5F9", padding: 6, borderRadius: 14 }}>
+              {beforeAfterList.map((item, idx) => (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => setActiveBeforeAfter(item)}
+                  style={{
+                    background: activeBeforeAfter.id === item.id ? "#FFFFFF" : "transparent",
+                    border: "none",
+                    borderRadius: 10,
+                    padding: "8px 14px",
+                    fontSize: "0.82rem",
+                    fontWeight: 700,
+                    color: activeBeforeAfter.id === item.id ? "#0F172A" : "#64748B",
+                    cursor: "pointer",
+                    boxShadow: activeBeforeAfter.id === item.id ? "0 2px 10px rgba(0,0,0,0.06)" : "none",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  Example {idx + 1}: {item.brand}
+                </button>
               ))}
             </div>
+          </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-              <button
-                type="button"
-                onClick={() => {
-                  onClose();
-                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="btn-primary"
-                style={{ width: "100%", justifyContent: "center", padding: "14px", borderRadius: 14 }}
-              >
-                Get Ads Like This For My Brand <ArrowRight size={16} />
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  onClose();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-                className="btn-ghost"
+          {/* Side-by-Side Comparison Container */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 360px), 1fr))",
+              gap: 20,
+              background: "#0F172A",
+              borderRadius: 22,
+              padding: "clamp(16px, 2.5vw, 24px)",
+              marginBottom: 20,
+            }}
+          >
+            {/* Left: Photo You Send */}
+            <div style={{ position: "relative", borderRadius: 16, overflow: "hidden", aspectRatio: "1 / 1", background: "#1E293B" }}>
+              <img
+                src={activeBeforeAfter.beforeImg}
+                alt={activeBeforeAfter.beforeLabel}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+              <div
                 style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  padding: "12px",
-                  borderRadius: 14,
-                  fontSize: "0.85rem",
-                  background: "#F8F9FA",
-                  border: "1px solid rgba(15,23,42,0.1)",
-                  color: "#0F172A"
+                  position: "absolute",
+                  top: 14,
+                  left: 14,
+                  background: "rgba(15,23,42,0.85)",
+                  backdropFilter: "blur(8px)",
+                  color: "#FFFFFF",
+                  fontSize: "0.78rem",
+                  fontWeight: 800,
+                  padding: "6px 14px",
+                  borderRadius: 8,
                 }}
               >
-                <ArrowLeft size={14} /> Return to Home Page
-              </button>
+                {activeBeforeAfter.beforeLabel}
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 12,
+                  left: 12,
+                  right: 12,
+                  background: "rgba(0,0,0,0.7)",
+                  backdropFilter: "blur(6px)",
+                  color: "#CBD5E1",
+                  fontSize: "0.78rem",
+                  padding: "8px 12px",
+                  borderRadius: 8,
+                  textAlign: "center",
+                }}
+              >
+                Existing customer raw photo with plain backdrop
+              </div>
+            </div>
+
+            {/* Right: Visual We Create */}
+            <div
+              style={{
+                position: "relative",
+                borderRadius: 16,
+                overflow: "hidden",
+                aspectRatio: "1 / 1",
+                background: "#1E293B",
+                border: "2px solid #06B6D4",
+              }}
+            >
+              <img
+                src={activeBeforeAfter.afterImg}
+                alt={activeBeforeAfter.afterLabel}
+                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  top: 14,
+                  right: 14,
+                  background: "linear-gradient(135deg, #06B6D4, #6366F1)",
+                  color: "#FFFFFF",
+                  fontSize: "0.78rem",
+                  fontWeight: 800,
+                  padding: "6px 14px",
+                  borderRadius: 8,
+                  boxShadow: "0 4px 15px rgba(6,182,212,0.5)",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 5,
+                }}
+              >
+                <Sparkles size={13} /> {activeBeforeAfter.afterLabel}
+              </div>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 12,
+                  left: 12,
+                  right: 12,
+                  background: "rgba(6,182,212,0.92)",
+                  color: "#FFFFFF",
+                  fontSize: "0.78rem",
+                  fontWeight: 700,
+                  padding: "8px 12px",
+                  borderRadius: 8,
+                  textAlign: "center",
+                }}
+              >
+                Polished product visual ready for ad campaigns &amp; store
+              </div>
             </div>
           </div>
+
+          {/* Description & Concept Work Label */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: 14,
+              padding: "16px 20px",
+              background: "#F8F9FA",
+              borderRadius: 16,
+            }}
+          >
+            <div style={{ maxWidth: 840 }}>
+              <div style={{ color: "#0F172A", fontWeight: 700, fontSize: "0.92rem", marginBottom: 3 }}>
+                {activeBeforeAfter.summary}
+              </div>
+              <div style={{ color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
+                {activeBeforeAfter.details}
+              </div>
+            </div>
+            <div
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 800,
+                color: "#6366F1",
+                background: "rgba(99,102,241,0.08)",
+                border: "1px solid rgba(99,102,241,0.2)",
+                padding: "6px 12px",
+                borderRadius: 8,
+                whiteSpace: "nowrap",
+              }}
+            >
+              Concept Work
+            </div>
+          </div>
+        </motion.div>
+
+        {/* 2. FOUR PORTFOLIO FILTERS: Product Images / Ads / Carousels / Videos */}
+        <div style={{ textAlign: "center", marginBottom: 36 }}>
+          <h3 style={{ fontSize: "1.7rem", fontWeight: 900, color: "#0F172A", marginBottom: 10 }}>
+            Explore Deliverable Formats
+          </h3>
+          <p style={{ color: "#64748B", fontSize: "0.95rem", marginBottom: 24 }}>
+            Filter our work by the format included in your chosen package.
+          </p>
+
+          <div
+            style={{
+              display: "inline-flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: 8,
+              background: "#FFFFFF",
+              border: "1px solid rgba(15,23,42,0.1)",
+              padding: "6px",
+              borderRadius: 16,
+              boxShadow: "0 4px 16px rgba(15,23,42,0.04)",
+            }}
+          >
+            {(["All", "Product Images", "Ads", "Carousels", "Videos"] as PortfolioFilter[]).map((filter) => {
+              const isActive = activeFilter === filter;
+              return (
+                <button
+                  key={filter}
+                  type="button"
+                  onClick={() => setActiveFilter(filter)}
+                  style={{
+                    background: isActive ? "linear-gradient(135deg, #06B6D4, #6366F1)" : "transparent",
+                    color: isActive ? "#FFFFFF" : "#64748B",
+                    border: "none",
+                    borderRadius: 12,
+                    padding: "10px 20px",
+                    fontSize: "0.86rem",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    boxShadow: isActive ? "0 4px 15px rgba(6,182,212,0.3)" : "none",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  {filter}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </motion.div>
-    </motion.div>
+
+        {/* Portfolio Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 280px), 1fr))",
+            gap: 22,
+          }}
+        >
+          {filteredItems.map((item) => (
+            <motion.div
+              key={item.id}
+              layout
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.4 }}
+              onClick={() => setSelectedItem(item)}
+              style={{
+                background: "#FFFFFF",
+                borderRadius: 22,
+                border: "1px solid rgba(15,23,42,0.08)",
+                overflow: "hidden",
+                boxShadow: "0 4px 20px rgba(15,23,42,0.03)",
+                cursor: "pointer",
+                display: "flex",
+                flexDirection: "column",
+                transition: "transform 0.25s ease, box-shadow 0.25s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-4px)";
+                e.currentTarget.style.boxShadow = "0 12px 30px rgba(15,23,42,0.08)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 4px 20px rgba(15,23,42,0.03)";
+              }}
+            >
+              {/* Media Preview Box */}
+              <div style={{ position: "relative", width: "100%", aspectRatio: "1 / 1", background: "#0F172A", overflow: "hidden" }}>
+                <img
+                  src={item.type === "video" ? (item.poster || item.src) : item.src}
+                  alt={item.title}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+
+                {/* Concept Work Badge */}
+                {item.isConceptWork && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 12,
+                      left: 12,
+                      background: "rgba(15,23,42,0.85)",
+                      backdropFilter: "blur(8px)",
+                      color: "#FFFFFF",
+                      fontSize: "0.7rem",
+                      fontWeight: 800,
+                      padding: "4px 10px",
+                      borderRadius: 8,
+                      letterSpacing: "0.04em",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    Concept Work
+                  </div>
+                )}
+
+                {/* Format Pill (Video/Carousel/Image) */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 12,
+                    right: 12,
+                    background: "rgba(255,255,255,0.9)",
+                    backdropFilter: "blur(8px)",
+                    color: "#0F172A",
+                    fontSize: "0.72rem",
+                    fontWeight: 800,
+                    padding: "4px 10px",
+                    borderRadius: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 5,
+                  }}
+                >
+                  {item.type === "video" ? (
+                    <>
+                      <Play size={10} fill="#0F172A" /> Short Video
+                    </>
+                  ) : item.type === "carousel" ? (
+                    <>
+                      <Layers size={11} color="#06B6D4" /> Carousel ({item.slidesCount} Slides)
+                    </>
+                  ) : (
+                    <>
+                      <Camera size={11} color="#6366F1" /> {item.filterCategory}
+                    </>
+                  )}
+                </div>
+
+                {/* Video Play Overlay Indicator */}
+                {item.type === "video" && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: "rgba(0,0,0,0.25)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 48,
+                        height: 48,
+                        borderRadius: "50%",
+                        background: "rgba(255,255,255,0.9)",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        boxShadow: "0 4px 20px rgba(0,0,0,0.3)",
+                      }}
+                    >
+                      <Play size={20} fill="#0F172A" color="#0F172A" style={{ marginLeft: 3 }} />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Card Text Content */}
+              <div style={{ padding: "18px 20px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+                <div style={{ fontSize: "0.72rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748B", marginBottom: 4 }}>
+                  {item.brand} • {item.filterCategory}
+                </div>
+                <h4 style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A", marginBottom: 8, lineHeight: 1.3 }}>
+                  {item.title}
+                </h4>
+                <p style={{ fontSize: "0.82rem", color: "#64748B", lineHeight: 1.5, marginTop: "auto" }}>
+                  {item.hook}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+      </div>
+
+      {/* Modal Dialog Portal for Detailed Inspection */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {selectedItem && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{
+                  position: "fixed",
+                  inset: 0,
+                  zIndex: 999999,
+                  background: "rgba(15,23,42,0.85)",
+                  backdropFilter: "blur(14px)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "clamp(16px, 3vw, 32px)",
+                }}
+                onClick={() => setSelectedItem(null)}
+              >
+                <motion.div
+                  initial={{ scale: 0.95, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.95, opacity: 0 }}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    background: "#FFFFFF",
+                    borderRadius: 24,
+                    overflow: "hidden",
+                    maxWidth: 820,
+                    width: "100%",
+                    maxHeight: "90vh",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: "0 25px 60px rgba(0,0,0,0.4)",
+                  }}
+                >
+                  {/* Modal Header */}
+                  <div
+                    style={{
+                      padding: "18px 24px",
+                      borderBottom: "1px solid rgba(15,23,42,0.08)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <div>
+                      <span
+                        style={{
+                          fontSize: "0.72rem",
+                          fontWeight: 800,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.1em",
+                          color: "#6366F1",
+                          marginRight: 8,
+                        }}
+                      >
+                        Concept Work
+                      </span>
+                      <strong style={{ fontSize: "1.05rem", color: "#0F172A" }}>{selectedItem.title}</strong>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedItem(null)}
+                      style={{
+                        background: "#F1F5F9",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: 32,
+                        height: 32,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+
+                  {/* Modal Content */}
+                  <div style={{ overflowY: "auto", padding: "24px" }}>
+                    <div style={{ borderRadius: 16, overflow: "hidden", background: "#000", marginBottom: 20 }}>
+                      {selectedItem.type === "video" ? (
+                        <video
+                          src={selectedItem.src}
+                          poster={selectedItem.poster}
+                          controls
+                          autoPlay
+                          playsInline
+                          style={{ width: "100%", maxHeight: "55vh", display: "block" }}
+                        />
+                      ) : (
+                        <img
+                          src={selectedItem.src}
+                          alt={selectedItem.title}
+                          style={{ width: "100%", maxHeight: "55vh", objectFit: "contain", display: "block" }}
+                        />
+                      )}
+                    </div>
+
+                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                      <div style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0F172A" }}>
+                        Angle &amp; Conversion Strategy:
+                      </div>
+                      <p style={{ color: "#475569", fontSize: "0.9rem", lineHeight: 1.6 }}>
+                        {selectedItem.hook}
+                      </p>
+                      <p style={{ color: "#64748B", fontSize: "0.85rem", lineHeight: 1.5 }}>
+                        {selectedItem.description}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
+    </section>
   );
 }

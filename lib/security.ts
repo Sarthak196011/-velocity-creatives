@@ -24,7 +24,7 @@ if (typeof setInterval !== 'undefined') {
  */
 export function checkRateLimit(
   ip: string, 
-  maxRequests: number = 4, 
+  maxRequests: number = 6, 
   windowMs: number = 10 * 60 * 1000
 ): { allowed: boolean; remaining: number; resetInSeconds: number } {
   const now = Date.now();
@@ -81,7 +81,7 @@ export function sanitizeForExcel(value: any): string {
 }
 
 /**
- * Strict Input Validator for Meeting Bookings
+ * Strict Input Validator for Meeting Bookings & Trial Requests
  */
 export function validateBookingInput(body: any): {
   valid: boolean;
@@ -133,20 +133,13 @@ export function validateBookingInput(body: any): {
   if (!rawBrand || rawBrand.length < 2) {
     return { valid: false, error: 'Please provide your store or Instagram link.' };
   }
-  if (rawBrand.length > 120) {
-    return { valid: false, error: 'Brand link is too long (maximum 120 characters).' };
+  if (rawBrand.length > 150) {
+    return { valid: false, error: 'Brand link is too long (maximum 150 characters).' };
   }
 
-  // 6. Whitelist allowed creative need
-  const allowedNeeds = [
-    'Need 15+ fresh image ads',
-    'Need short video ads for Reels',
-    'Need educational carousels',
-    'Current ads are getting tired / need new ideas',
-  ];
-  const creativeNeed = allowedNeeds.includes(body.creativeNeed)
-    ? body.creativeNeed
-    : 'Need 15+ fresh image ads';
+  // 6. Creative need sanitization (Allow trial pack, plans, and custom needs up to 250 chars)
+  const rawNeed = String(body.creativeNeed || 'Trial Pack — ₹999').trim();
+  const safeNeed = rawNeed.length > 250 ? rawNeed.substring(0, 250) : rawNeed;
 
   return {
     valid: true,
@@ -155,7 +148,7 @@ export function validateBookingInput(body: any): {
       phone: sanitizeForExcel(rawPhone),
       email: sanitizeForExcel(rawEmail),
       brandUrl: sanitizeForExcel(rawBrand),
-      creativeNeed: sanitizeForExcel(creativeNeed),
+      creativeNeed: sanitizeForExcel(safeNeed),
       date: sanitizeForExcel(body.date || 'Tomorrow'),
       time: sanitizeForExcel(body.time || '2:30 PM'),
     },

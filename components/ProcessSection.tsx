@@ -1,67 +1,46 @@
 "use client";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState } from "react";
-import { MessageSquare, FileText, Layers, CheckCircle, ArrowRight } from "lucide-react";
+import { useRef } from "react";
+import { UploadCloud, Sparkles, CheckCircle2, Clock, ArrowRight } from "lucide-react";
 
-const steps = [
+const threeSteps = [
   {
     num: "01",
     phase: "Step 01",
-    duration: "Days 1 to 3",
-    title: "Tell Us About Your Brand",
-    tagline: "We learn about your products and target customers.",
-    description: "Send us your product photos, website link, and what you want to achieve. We look at your competitors and plan the best angles to attract buyers.",
-    icon: MessageSquare,
-    accent: "#6366F1",
-    deliverables: [
-      "Target Customer Review",
-      "Competitor Ad Review",
-      "Ad Ideas Plan"
+    title: "Send Your Photos",
+    description: "Share your product images, brand references and requirements.",
+    icon: UploadCloud,
+    accent: "#06B6D4",
+    highlights: [
+      "Upload existing phone or camera product photos",
+      "Share your brand logo, guidelines and website link",
+      "Specify your target customers, offers and ad goals"
     ]
   },
   {
     num: "02",
     phase: "Step 02",
-    duration: "Days 4 to 7",
-    title: "We Write the Ad Scripts & Copy",
-    tagline: "Catchy headlines and clear benefits that get clicks.",
-    description: "We write simple, persuasive headlines and short video scripts. Every script is crafted to grab attention in the first 3 seconds.",
-    icon: FileText,
-    accent: "#06B6D4",
-    deliverables: [
-      "Scroll-Stopping Headlines",
-      "Short Video Scripts",
-      "Carousel Slide Layouts"
+    title: "We Create Your Visuals",
+    description: "We develop the content included in your chosen package.",
+    icon: Sparkles,
+    accent: "#6366F1",
+    highlights: [
+      "Clean studio isolation & texture styling",
+      "High-converting layout design & hook text placement",
+      "Short video editing or motion animation from your assets"
     ]
   },
   {
     num: "03",
     phase: "Step 03",
-    duration: "Days 8 to 12",
-    title: "We Design Your Images & Videos",
-    tagline: "High-quality graphics, 3D renders, and video edits.",
-    description: "Our team designs high-resolution image ads, carousels, and edited short videos ready to post on Instagram, Facebook, and Reels.",
-    icon: Layers,
-    accent: "#4F46E5",
-    deliverables: [
-      "HD Image Ads (Feeds & Stories)",
-      "Short Video Cuts for Reels",
-      "Ready-to-Post Files"
-    ]
-  },
-  {
-    num: "04",
-    phase: "Step 04",
-    duration: "Ongoing",
-    title: "Review, Launch & Keep Growing",
-    tagline: "Review your ads, launch campaigns, and request updates.",
-    description: "You receive your complete ad batch. If you need any tweaks, we make revisions quickly. Then launch them and watch your store grow.",
-    icon: CheckCircle,
+    title: "Review and Receive",
+    description: "Review the designs, request included revisions and receive the approved files.",
+    icon: CheckCircle2,
     accent: "#10B981",
-    deliverables: [
-      "Quick 24-48h Revisions",
-      "Monthly Creative Batches",
-      "Direct Support Channel"
+    highlights: [
+      "Check product shape, colours, packaging and labels",
+      "1 included revision round to fine-tune text and visual balance",
+      "Receive final high-res files formatted for ads and store"
     ]
   }
 ];
@@ -69,11 +48,12 @@ const steps = [
 export default function ProcessSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [activeStep, setActiveStep] = useState(0);
+
+  const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section id="process" style={{ position: "relative", zIndex: 10, padding: "140px 24px" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section id="process" style={{ position: "relative", zIndex: 10, padding: "120px 24px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         
         {/* Section Header */}
         <motion.div
@@ -81,155 +61,220 @@ export default function ProcessSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          style={{ textAlign: "center", marginBottom: 70 }}
+          style={{ textAlign: "center", marginBottom: 54 }}
         >
-          <div className="eyebrow" style={{ marginBottom: 20, justifyContent: "center" }}>
+          <div className="eyebrow" style={{ marginBottom: 18, justifyContent: "center" }}>
             <span className="eyebrow-line" />
-            How It Works
+            Simple 3-Step Process
             <span className="eyebrow-line" />
           </div>
           <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
-            A Simple <span className="gt">4-Step Process.</span>
+            How It <span className="gt">Works.</span>
           </h2>
           <p style={{ color: "#64748B", fontSize: "1.1rem", maxWidth: 580, margin: "0 auto", lineHeight: 1.6 }}>
-            No complicated onboarding. No endless meetings. Just a straightforward system to get fresh ads every month.
+            No complicated onboarding. No endless back-and-forth. Just three straightforward steps from raw photo to final delivery.
           </p>
         </motion.div>
 
-        {/* Process Cards Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24, marginBottom: 40 }}>
-          {steps.map((s, idx) => {
-            const Icon = s.icon;
-            const isHovered = activeStep === idx;
+        {/* 3 Step Process Cards Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
+            gap: 28,
+            marginBottom: 44,
+          }}
+        >
+          {threeSteps.map((step, idx) => {
+            const Icon = step.icon;
             return (
               <motion.div
-                key={s.num}
-                initial={{ opacity: 0, y: 40 }}
+                key={step.num}
+                initial={{ opacity: 0, y: 35 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: idx * 0.12 }}
-                onMouseEnter={() => setActiveStep(idx)}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
                 style={{
                   background: "#FFFFFF",
                   borderRadius: 24,
-                  border: `1px solid ${isHovered ? s.accent : "rgba(15,23,42,0.08)"}`,
-                  padding: "36px 30px",
+                  border: "1px solid rgba(15,23,42,0.08)",
+                  padding: "clamp(26px, 3.5vw, 36px)",
                   display: "flex",
                   flexDirection: "column",
+                  boxShadow: "0 4px 20px rgba(15,23,42,0.03)",
                   position: "relative",
-                  cursor: "pointer",
-                  transition: "all 0.4s ease",
-                  transform: isHovered ? "translateY(-6px)" : "translateY(0)",
-                  boxShadow: isHovered ? `0 20px 45px rgba(99,102,241,0.12)` : "0 4px 20px rgba(15,23,42,0.04)",
+                  transition: "transform 0.25s ease, box-shadow 0.25s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-4px)";
+                  e.currentTarget.style.boxShadow = "0 12px 30px rgba(15,23,42,0.08)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 20px rgba(15,23,42,0.03)";
                 }}
               >
-                {/* Header Row */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 24 }}>
-                  <div style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 14,
-                    background: `${s.accent}15`,
-                    border: `1px solid ${s.accent}30`,
+                {/* Step Number & Icon */}
+                <div
+                  style={{
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center",
-                    color: s.accent,
-                  }}>
-                    <Icon size={22} />
+                    justifyContent: "space-between",
+                    marginBottom: 20,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: 14,
+                      background: `${step.accent}14`,
+                      border: `1px solid ${step.accent}33`,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: step.accent,
+                    }}
+                  >
+                    <Icon size={24} />
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                    <span style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 700,
-                      color: s.accent,
-                      background: `${s.accent}12`,
-                      border: `1px solid ${s.accent}25`,
-                      padding: "4px 10px",
-                      borderRadius: 999
-                    }}>
-                      {s.duration}
-                    </span>
-                    <span style={{ fontSize: "1.8rem", fontWeight: 900, color: "rgba(15,23,42,0.1)", letterSpacing: "-0.04em" }}>
-                      {s.num}
-                    </span>
-                  </div>
+
+                  <span
+                    style={{
+                      fontSize: "2rem",
+                      fontWeight: 900,
+                      color: "rgba(15,23,42,0.1)",
+                      letterSpacing: "-0.04em",
+                      lineHeight: 1,
+                    }}
+                  >
+                    {step.num}
+                  </span>
                 </div>
 
-                <div style={{ fontSize: "0.75rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.12em", color: s.accent, marginBottom: 8 }}>
-                  {s.phase}
+                <div
+                  style={{
+                    fontSize: "0.72rem",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.12em",
+                    color: step.accent,
+                    marginBottom: 6,
+                  }}
+                >
+                  {step.phase}
                 </div>
 
-                <h3 style={{ color: "#0F172A", fontSize: "1.25rem", fontWeight: 800, lineHeight: 1.3, marginBottom: 12 }}>
-                  {s.title}
+                <h3
+                  style={{
+                    fontSize: "1.35rem",
+                    fontWeight: 800,
+                    color: "#0F172A",
+                    marginBottom: 10,
+                  }}
+                >
+                  {step.title}
                 </h3>
 
-                <p style={{ color: "#64748B", fontSize: "0.9rem", lineHeight: 1.65, marginBottom: 24, flexGrow: 1 }}>
-                  {s.description}
+                <p
+                  style={{
+                    color: "#475569",
+                    fontSize: "0.92rem",
+                    lineHeight: 1.6,
+                    marginBottom: 22,
+                    minHeight: 48,
+                  }}
+                >
+                  {step.description}
                 </p>
 
-                {/* Deliverables checklist */}
-                <div style={{ borderTop: "1px solid rgba(15,23,42,0.08)", paddingTop: 18 }}>
-                  <div style={{ fontSize: "0.68rem", fontWeight: 800, textTransform: "uppercase", letterSpacing: "0.1em", color: "#64748B", marginBottom: 10 }}>
-                    What We Deliver:
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                    {s.deliverables.map((item, dIdx) => (
-                      <div key={dIdx} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                        <CheckCircle size={13} style={{ color: s.accent, flexShrink: 0 }} />
-                        <span style={{ fontSize: "0.82rem", color: "#0F172A", fontWeight: 500 }}>
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                {/* Highlights List */}
+                <div
+                  style={{
+                    borderTop: "1px solid rgba(15,23,42,0.06)",
+                    paddingTop: 16,
+                    marginTop: "auto",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                  }}
+                >
+                  {step.highlights.map((h, hIdx) => (
+                    <div
+                      key={hIdx}
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        gap: 9,
+                        fontSize: "0.82rem",
+                        color: "#64748B",
+                        lineHeight: 1.45,
+                      }}
+                    >
+                      <CheckCircle2 size={13} color={step.accent} style={{ marginTop: 2, flexShrink: 0 }} />
+                      <span>{h}</span>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
             );
           })}
         </div>
 
-        {/* Speed Guarantee Bar */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
+        {/* Clear Delivery Commitment Notice */}
+        <div
           style={{
-            maxWidth: 920,
-            margin: "0 auto",
+            background: "#F8FAFC",
+            border: "1px solid rgba(15,23,42,0.1)",
             borderRadius: 20,
-            background: "linear-gradient(90deg, rgba(6,182,212,0.08) 0%, rgba(99,102,241,0.08) 100%)",
-            border: "1px solid rgba(6,182,212,0.25)",
             padding: "20px 28px",
             display: "flex",
+            flexWrap: "wrap",
             alignItems: "center",
             justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: 16
+            gap: 16,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#10B981", boxShadow: "0 0 10px #10B981" }} />
-            <span style={{ color: "#0F172A", fontSize: "0.95rem", fontWeight: 700 }}>
-              Delivery Promise: Your first complete batch of ads arrives in 7 business days or less.
-            </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+            <div
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: 10,
+                background: "rgba(6,182,212,0.12)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#06B6D4",
+                flexShrink: 0,
+              }}
+            >
+              <Clock size={18} />
+            </div>
+            <div>
+              <div style={{ color: "#0F172A", fontWeight: 700, fontSize: "0.92rem", marginBottom: 2 }}>
+                Clear Delivery Policy
+              </div>
+              <div style={{ color: "#64748B", fontSize: "0.85rem" }}>
+                Your delivery date is confirmed after we review your brief and receive the required assets.
+              </div>
+            </div>
           </div>
+
           <button
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            type="button"
+            onClick={() => go("services")}
+            className="btn-primary"
             style={{
-              background: "none",
-              border: "none",
-              color: "#06B6D4",
-              fontWeight: 700,
-              fontSize: "0.88rem",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              cursor: "pointer"
+              padding: "10px 22px",
+              borderRadius: 12,
+              fontSize: "0.84rem",
+              fontWeight: 800,
+              cursor: "pointer",
             }}
           >
-            Get Started <ArrowRight size={15} />
+            View Packages <ArrowRight size={14} />
           </button>
-        </motion.div>
+        </div>
 
       </div>
     </section>

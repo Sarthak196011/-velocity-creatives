@@ -6,27 +6,35 @@ import { Plus, Minus } from "lucide-react";
 const faqs = [
   {
     q: "What do you need from me to start?",
-    a: "Just your product photos, website link, and any logo or brand colors you have. We take care of all the writing, design, and video editing from start to finish."
+    a: "You provide the product details, offers and approved text. We handle the design and layout. Ask us about copywriting before booking if you need it."
   },
   {
-    q: "How quickly will I receive my first ads?",
-    a: "Your first batch of ads will be delivered to you within 7 business days of signing up. After that, any edits or revisions take only 24 to 48 hours."
+    q: "Will my product still look like the real product?",
+    a: "We’ll ask you to review product shape, colours, packaging, labels and claims before approving the final visuals."
+  },
+  {
+    q: "How quickly will I receive my visuals?",
+    a: "Your delivery date is confirmed after we review your brief and receive the required assets."
+  },
+  {
+    q: "Is there a trial before committing to a monthly plan?",
+    a: "Yes! We offer our ₹999 Starter Trial Pack for 2 custom static ad images with zero monthly commitment. You can test our speed and creative quality on your brand before choosing a monthly package."
+  },
+  {
+    q: "Do I supply video footage or do you create videos from photos?",
+    a: "Both options are supported. You can supply your own raw video clips for commercial editing and hook text overlays, or we can animate dynamic motion visuals and reels directly from your high-resolution static product photos."
   },
   {
     q: "Can I request changes if I want something adjusted?",
-    a: "Yes, of course! We want you to love your ads. Every deliverable batch includes 1 full revision round so you can adjust text, hooks, or visual assets before launching your ads."
-  },
-  {
-    q: "Can you work with our existing media buyer or marketing manager?",
-    a: "Yes, absolutely. We can work directly with your media buyer or founder via WhatsApp or Slack. We deliver all creative files formatted and ready to upload directly into your Meta or TikTok ad accounts."
+    a: "Yes! Every deliverable batch includes 1 comprehensive revision round to adjust text, visual hooks, or layout balance before you publish."
   },
   {
     q: "Are there any long-term contracts?",
-    a: "No contracts at all. All plans are simple month-to-month subscriptions. You can pause or cancel anytime with a quick 14-day notice."
+    a: "No contracts at all. All plans are simple month-to-month subscriptions that you can pause or cancel anytime."
   },
   {
-    q: "Who owns the ads once they are delivered?",
-    a: "You do. 100% of the image designs, video cuts, and copy belong completely to you to use wherever you want."
+    q: "Who owns the visuals once they are delivered?",
+    a: "You do. You receive 100% full commercial rights and ownership of all final image designs, carousel files, and video edits."
   }
 ];
 
@@ -49,9 +57,9 @@ export default function FaqSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          style={{ textAlign: "center", marginBottom: 60 }}
+          style={{ textAlign: "center", marginBottom: 54 }}
         >
-          <div className="eyebrow" style={{ marginBottom: 20, justifyContent: "center" }}>
+          <div className="eyebrow" style={{ marginBottom: 18, justifyContent: "center" }}>
             <span className="eyebrow-line" />
             Frequently Asked Questions
             <span className="eyebrow-line" />
@@ -60,7 +68,7 @@ export default function FaqSection() {
             Simple Answers to <span className="gt">Common Questions.</span>
           </h2>
           <p style={{ color: "#64748B", fontSize: "1.08rem", lineHeight: 1.6 }}>
-            Everything you need to know about working with us.
+            Everything you need to know about our packages, deliverables, and process.
           </p>
         </motion.div>
 
@@ -73,7 +81,7 @@ export default function FaqSection() {
                 key={idx}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                transition={{ duration: 0.5, delay: idx * 0.06 }}
                 style={{
                   background: "#FFFFFF",
                   borderRadius: 18,
@@ -88,7 +96,7 @@ export default function FaqSection() {
                   onClick={() => toggle(idx)}
                   style={{
                     width: "100%",
-                    padding: "24px 28px",
+                    padding: "22px 26px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
@@ -98,7 +106,7 @@ export default function FaqSection() {
                     textAlign: "left"
                   }}
                 >
-                  <span style={{ color: "#0F172A", fontSize: "1.05rem", fontWeight: 700, paddingRight: 16 }}>
+                  <span style={{ color: "#0F172A", fontSize: "1.02rem", fontWeight: 700, paddingRight: 16 }}>
                     {faq.q}
                   </span>
                   <div style={{
@@ -125,7 +133,7 @@ export default function FaqSection() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                     >
-                      <div style={{ padding: "0 28px 26px", color: "#64748B", fontSize: "0.95rem", lineHeight: 1.7, borderTop: "1px solid rgba(15,23,42,0.06)", paddingTop: 18 }}>
+                      <div style={{ padding: "0 26px 24px", color: "#64748B", fontSize: "0.94rem", lineHeight: 1.7, borderTop: "1px solid rgba(15,23,42,0.06)", paddingTop: 16 }}>
                         {faq.a}
                       </div>
                     </motion.div>

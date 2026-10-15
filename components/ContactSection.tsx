@@ -4,12 +4,18 @@ import { useState, useRef, useMemo, useEffect } from "react";
 import { 
   Clock, Video, CheckCircle, ShieldCheck, ArrowRight, 
   ChevronLeft, ChevronRight, Calendar as CalendarIcon, Phone,
-  Mail, Loader2
+  Mail, Loader2, Sparkles, Check
 } from "lucide-react";
 
 export default function ContactSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  // Tab mode: "trial" (Short Form) or "meeting" (Calendar Call)
+  const [activeTab, setActiveTab] = useState<"trial" | "meeting">("trial");
+
+  // Optional call checkbox inside trial short form
+  const [wantsCall, setWantsCall] = useState(false);
 
   // Current viewed month in calendar
   const [viewDate, setViewDate] = useState(() => {
@@ -34,6 +40,7 @@ export default function ContactSection() {
     email: "",
     brandUrl: "",
     creativeNeed: "Trial Pack — ₹999 (2 Static Creatives, No Commitment)",
+    requiredContent: "",
   });
 
   // Booking process states
@@ -60,42 +67,45 @@ export default function ContactSection() {
     fetchBookedSlots();
   }, []);
 
-  const isSlotBookedForCurrentDate = (time: string) => {
-    if (!selectedDate) return false;
-    const currentNormDate = selectedDate.toDateString();
-    const currentNormTime = time.trim().toLowerCase().replace(/^0/, "");
-
-    return bookedSlots.some((slot) => {
-      const slotD = new Date(slot.date);
-      const slotNormDate = !isNaN(slotD.getTime()) ? slotD.toDateString() : slot.date.trim().toLowerCase();
-      const slotNormTime = slot.time.trim().toLowerCase().replace(/^0/, "");
-
-      return slotNormDate === currentNormDate && slotNormTime === currentNormTime;
-    });
-  };
-
-  // Calendar calculations
-  const year = viewDate.getFullYear();
-  const month = viewDate.getMonth();
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const monthLabel = `${monthNames[month]} ${year}`;
-
-  const daysInMonth = useMemo(() => new Date(year, month + 1, 0).getDate(), [year, month]);
-  const firstDayOfWeek = useMemo(() => new Date(year, month, 1).getDay(), [year, month]);
-
-  const today = useMemo(() => {
-    const d = new Date();
-    d.setHours(0, 0, 0, 0);
-    return d;
+  // Listen to custom event from pricing cards
+  useEffect(() => {
+    const handleSelectPackage = (e: any) => {
+      const pkg = e.detail;
+      if (pkg.includes("Trial")) {
+        setActiveTab("trial");
+        setFormData((prev) => ({ ...prev, creativeNeed: "Trial Pack — ₹999 (2 Static Creatives, No Commitment)" }));
+      } else {
+        setActiveTab("meeting");
+        setFormData((prev) => ({ ...prev, creativeNeed: pkg }));
+      }
+    };
+    window.addEventListener("select-package-preference", handleSelectPackage);
+    return () => window.removeEventListener("select-package-preference", handleSelectPackage);
   }, []);
 
-  const isCurrentMonth = useMemo(() => {
-    const now = new Date();
-    return year === now.getFullYear() && month === now.getMonth();
-  }, [year, month]);
+  // Calendar logic
+  const year = viewDate.getFullYear();
+  const month = viewDate.getMonth();
+  const monthName = viewDate.toLocaleString("en-US", { month: "long" });
+
+  const firstDayOfWeek = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const isCurrentMonth = today.getFullYear() === year && today.getMonth() === month;
+
+  const isSlotBookedForCurrentDate = (timeStr: string) => {
+    if (!selectedDate) return false;
+    const year = selectedDate.getFullYear();
+    const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+    const day = String(selectedDate.getDate()).padStart(2, "0");
+    const norm = `${year}-${month}-${day}`;
+    return bookedSlots.some(
+      (b) => (b.normalizedDate === norm || b.date === formattedSelectedDate) && b.time.trim() === timeStr.trim()
+    );
+  };
 
   const prevMonth = () => {
     if (isCurrentMonth) return;
@@ -126,7 +136,7 @@ export default function ContactSection() {
     "6:30 PM"
   ];
 
-  // Auto-switch to next available free slot if current time is booked on selected date
+  // Auto-switch to next available free slot if current time is booked
   useEffect(() => {
     if (selectedDate && isSlotBookedForCurrentDate(selectedTime)) {
       const firstAvailable = availableTimeSlots.find((t) => !isSlotBookedForCurrentDate(t));
@@ -141,6 +151,13 @@ export default function ContactSection() {
     setIsSubmitting(true);
     setSubmitError(null);
 
+    const isTrialDirect = activeTab === "trial" && !wantsCall;
+    const bookingDate = isTrialDirect ? "Trial Brief (No Call Required)" : formattedSelectedDate;
+    const bookingTime = isTrialDirect ? "Asynchronous" : selectedTime;
+    const noteNeed = activeTab === "trial" 
+      ? `Trial Pack — ₹999 | Needs: ${formData.requiredContent || "2 Static Ad Creatives"}`
+      : formData.creativeNeed;
+
     try {
       const response = await fetch("/api/book-meeting", {
         method: "POST",
@@ -150,45 +167,44 @@ export default function ContactSection() {
           phone: formData.phone,
           email: formData.email,
           brandUrl: formData.brandUrl,
-          creativeNeed: formData.creativeNeed,
-          date: formattedSelectedDate,
-          time: selectedTime,
+          creativeNeed: noteNeed,
+          date: bookingDate,
+          time: bookingTime,
         }),
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to book meeting. Please try again.");
+        throw new Error(data.error || "Failed to submit request.");
       }
 
       setBookingResult(data);
       setBooked(true);
-      fetchBookedSlots();
     } catch (err: any) {
-      setSubmitError(err.message || "An unexpected error occurred. Please check your connection.");
+      setSubmitError(err.message || "An unexpected error occurred. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-
-
   const handleReset = () => {
     setBooked(false);
     setBookingResult(null);
+    setSubmitError(null);
     setFormData({
       name: "",
       phone: "",
       email: "",
       brandUrl: "",
-      creativeNeed: "Need 15+ fresh image ads",
+      creativeNeed: "Trial Pack — ₹999 (2 Static Creatives, No Commitment)",
+      requiredContent: "",
     });
   };
 
   return (
-    <section id="contact" style={{ position: "relative", zIndex: 10, padding: "140px 24px" }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto" }}>
+    <section id="contact" style={{ position: "relative", zIndex: 10, padding: "120px 24px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         
         {/* Section Header */}
         <motion.div
@@ -196,443 +212,136 @@ export default function ContactSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          style={{ textAlign: "center", marginBottom: 70 }}
+          style={{ textAlign: "center", marginBottom: 44 }}
         >
-          <div className="eyebrow" style={{ marginBottom: 20, justifyContent: "center" }}>
+          <div className="eyebrow" style={{ marginBottom: 18, justifyContent: "center" }}>
             <span className="eyebrow-line" />
-            Book a Meeting
+            Get Started
             <span className="eyebrow-line" />
           </div>
           <h2 className="display-lg" style={{ color: "#0F172A", marginBottom: 16 }}>
-            Let&apos;s Talk About <span className="gt">Your Brand.</span>
+            Ready to Upgrade <span className="gt">Your Product Visuals?</span>
           </h2>
-          <p style={{ color: "rgba(232,232,240,0.6)", fontSize: "1.1rem", maxWidth: 620, margin: "0 auto", lineHeight: 1.6 }}>
-            Pick a date and time on the calendar. We will instantly create your Zoom room, send a welcome email to your inbox, and prepare 3 custom ad ideas for your store.
+          <p style={{ color: "#64748B", fontSize: "1.08rem", maxWidth: 620, margin: "0 auto", lineHeight: 1.6 }}>
+            Start with our ₹999 trial pack (2 custom static ad images with no commitment) or schedule a call to discuss our monthly packages.
           </p>
-        </motion.div>
 
-        {/* Main Grid: Interactive Full Calendar + Clean Form */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
-          gap: 32,
-          maxWidth: 1160,
-          margin: "0 auto",
-          alignItems: "start"
-        }}>
-
-          {/* Left Column: Full Interactive Calendar & Time Slot Picker */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15 }}
+          {/* Mode Switcher Tabs */}
+          <div
             style={{
-              background: "linear-gradient(160deg, rgba(20, 16, 38, 0.85) 0%, rgba(10, 8, 20, 0.98) 100%)",
-              backdropFilter: "blur(28px)",
-              borderRadius: 28,
-              border: "1px solid rgba(124,58,237,0.25)",
-              padding: "clamp(20px, 4vw, 36px) clamp(16px, 3.5vw, 30px)",
-              boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
-              display: "flex",
-              flexDirection: "column",
-              gap: 28
+              display: "inline-flex",
+              background: "#FFFFFF",
+              border: "1px solid rgba(15,23,42,0.1)",
+              borderRadius: 16,
+              padding: 6,
+              boxShadow: "0 4px 16px rgba(15,23,42,0.04)",
+              marginTop: 28,
+              gap: 8,
             }}
           >
-            {/* Host Profile Header */}
-            <div style={{ display: "flex", alignItems: "center", gap: 16, borderBottom: "1px solid rgba(255,255,255,0.06)", paddingBottom: 22 }}>
-              <div style={{
-                width: 50,
-                height: 50,
-                borderRadius: 15,
-                background: "linear-gradient(135deg, #06B6D4, #6366F1)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                boxShadow: "0 4px 16px rgba(6,182,212,0.35)",
-                color: "#fff",
-                fontWeight: 800,
-                fontSize: "1.1rem"
-              }}>
-                VC
-              </div>
-              <div>
-                <div style={{ color: "#0F172A", fontWeight: 700, fontSize: "1.05rem" }}>
-                  Velocity Creatives
-                </div>
-                <div style={{ color: "#64748B", fontSize: "0.82rem" }}>
-                  Ad Strategy &amp; Creative Review Call
-                </div>
-              </div>
-            </div>
-
-            {/* Call Perks Pills */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              <div style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 7,
-                background: "rgba(99,102,241,0.08)",
-                border: "1px solid rgba(99,102,241,0.2)",
-                borderRadius: 999,
-                padding: "6px 14px",
-                fontSize: "0.8rem",
-                color: "#6366F1",
-                fontWeight: 600
-              }}>
-                <Clock size={14} /> 30-Min Call
-              </div>
-              <div style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 7,
-                background: "rgba(6,182,212,0.08)",
-                border: "1px solid rgba(6,182,212,0.2)",
-                borderRadius: 999,
-                padding: "6px 14px",
-                fontSize: "0.8rem",
-                color: "#0891b2",
-                fontWeight: 600
-              }}>
-                <Video size={14} /> Zoom Video Meeting
-              </div>
-              <div style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 7,
-                background: "rgba(16,185,129,0.08)",
-                border: "1px solid rgba(16,185,129,0.2)",
-                borderRadius: 999,
-                padding: "6px 14px",
-                fontSize: "0.8rem",
-                color: "#059669",
-                fontWeight: 600
-              }}>
-                <ShieldCheck size={14} /> 100% Free
-              </div>
-            </div>
-
-            {/* Interactive Month-by-Month Calendar */}
-            <div style={{
-              background: "#F8F9FA",
-              border: "1px solid rgba(15,23,42,0.08)",
-              borderRadius: 20,
-              padding: "20px"
-            }}>
-              {/* Calendar Month Header with Nav Arrows */}
-              <div style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 18
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                  <CalendarIcon size={16} style={{ color: "#06B6D4" }} />
-                  <span style={{ color: "#0F172A", fontWeight: 700, fontSize: "0.95rem" }}>
-                    {monthLabel}
-                  </span>
-                </div>
-                <div style={{ display: "flex", gap: 6 }}>
-                  <button
-                    type="button"
-                    onClick={prevMonth}
-                    disabled={isCurrentMonth}
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid rgba(15,23,42,0.12)",
-                      borderRadius: 8,
-                      width: 32,
-                      height: 32,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: isCurrentMonth ? "#CBD5E1" : "#0F172A",
-                      cursor: isCurrentMonth ? "not-allowed" : "pointer"
-                    }}
-                  >
-                    <ChevronLeft size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={nextMonth}
-                    style={{
-                      background: "#FFFFFF",
-                      border: "1px solid rgba(15,23,42,0.12)",
-                      borderRadius: 8,
-                      width: 32,
-                      height: 32,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#0F172A",
-                      cursor: "pointer"
-                    }}
-                  >
-                    <ChevronRight size={16} />
-                  </button>
-                </div>
-              </div>
-
-              {/* Day of Week Headers */}
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(7, 1fr)",
-                textAlign: "center",
-                marginBottom: 10,
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                color: "#64748B",
-                letterSpacing: "0.05em"
-              }}>
-                <span>SUN</span>
-                <span>MON</span>
-                <span>TUE</span>
-                <span>WED</span>
-                <span>THU</span>
-                <span>FRI</span>
-                <span>SAT</span>
-              </div>
-
-              {/* Day Grid */}
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(7, 1fr)",
-                gap: 6
-              }}>
-                {/* Empty cells before month starts */}
-                {Array.from({ length: firstDayOfWeek }).map((_, i) => (
-                  <div key={`empty-${i}`} style={{ height: 36 }} />
-                ))}
-
-                {/* Day numbers */}
-                {Array.from({ length: daysInMonth }).map((_, i) => {
-                  const dayNum = i + 1;
-                  const cellDate = new Date(year, month, dayNum);
-                  cellDate.setHours(0, 0, 0, 0);
-
-                  const isPast = cellDate < today;
-                  const isToday = cellDate.getTime() === today.getTime();
-                  const isSelected = selectedDate &&
-                    selectedDate.getFullYear() === year &&
-                    selectedDate.getMonth() === month &&
-                    selectedDate.getDate() === dayNum;
-
-                  return (
-                    <button
-                      key={`day-${dayNum}`}
-                      type="button"
-                      disabled={isPast}
-                      onClick={() => setSelectedDate(cellDate)}
-                      style={{
-                        height: 36,
-                        borderRadius: 10,
-                        border: isSelected
-                          ? "none"
-                          : isToday
-                          ? "1px solid #06B6D4"
-                          : "1px solid transparent",
-                        background: isSelected
-                          ? "linear-gradient(135deg, #06B6D4, #6366F1)"
-                          : isToday
-                          ? "rgba(6,182,212,0.08)"
-                          : "transparent",
-                        color: isPast
-                          ? "#CBD5E1"
-                          : isSelected
-                          ? "#fff"
-                          : "#0F172A",
-                        fontWeight: isSelected ? 800 : isToday ? 700 : 500,
-                        fontSize: "0.85rem",
-                        cursor: isPast ? "not-allowed" : "pointer",
-                        transition: "all 0.15s ease",
-                        boxShadow: isSelected ? "0 0 16px rgba(6,182,212,0.4)" : "none"
-                      }}
-                    >
-                      {dayNum}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Time Slot Picker */}
-            <div>
-              <div style={{
-                display: "flex",
+            <button
+              type="button"
+              onClick={() => setActiveTab("trial")}
+              style={{
+                display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                marginBottom: 12,
-                color: "#0F172A",
-                fontWeight: 700,
-                fontSize: "0.9rem"
-              }}>
-                <Clock size={16} style={{ color: "#06B6D4" }} />
-                Select Time Slot (IST)
-              </div>
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: 10
-              }}>
-                {availableTimeSlots.map((time) => {
-                  const isSelected = selectedTime === time;
-                  const isBooked = isSlotBookedForCurrentDate(time);
+                background: activeTab === "trial" ? "linear-gradient(135deg, #06B6D4, #6366F1)" : "transparent",
+                color: activeTab === "trial" ? "#FFFFFF" : "#64748B",
+                border: "none",
+                borderRadius: 12,
+                padding: "10px 20px",
+                fontSize: "0.88rem",
+                fontWeight: 800,
+                cursor: "pointer",
+                boxShadow: activeTab === "trial" ? "0 4px 15px rgba(6,182,212,0.3)" : "none",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <Sparkles size={14} /> Request the ₹999 Trial (Quick Form)
+            </button>
 
-                  return (
-                    <button
-                      key={time}
-                      type="button"
-                      disabled={isBooked}
-                      onClick={() => !isBooked && setSelectedTime(time)}
-                      title={isBooked ? "This slot is already booked" : "Available slot"}
-                      style={{
-                        padding: isBooked ? "8px 10px" : "10px 12px",
-                        borderRadius: 12,
-                        border: isBooked
-                          ? "1px dashed rgba(239,68,68,0.3)"
-                          : isSelected
-                          ? "none"
-                          : "1px solid rgba(15,23,42,0.12)",
-                        background: isBooked
-                          ? "rgba(239,68,68,0.06)"
-                          : isSelected
-                          ? "linear-gradient(135deg, #06B6D4, #6366F1)"
-                          : "#FFFFFF",
-                        color: isBooked
-                          ? "#EF4444"
-                          : isSelected
-                          ? "#fff"
-                          : "#0F172A",
-                        fontWeight: isSelected ? 700 : 500,
-                        fontSize: "0.85rem",
-                        cursor: isBooked ? "not-allowed" : "pointer",
-                        transition: "all 0.15s ease",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        gap: 2
-                      }}
-                    >
-                      <span style={{ textDecoration: isBooked ? "line-through" : "none" }}>
-                        {time}
-                      </span>
-                      {isBooked && (
-                        <span style={{
-                          fontSize: "0.62rem",
-                          fontWeight: 800,
-                          color: "#f87171",
-                          textTransform: "uppercase",
-                          letterSpacing: "0.06em",
-                          lineHeight: 1
-                        }}>
-                          Booked
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+            <button
+              type="button"
+              onClick={() => setActiveTab("meeting")}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                background: activeTab === "meeting" ? "linear-gradient(135deg, #06B6D4, #6366F1)" : "transparent",
+                color: activeTab === "meeting" ? "#FFFFFF" : "#64748B",
+                border: "none",
+                borderRadius: 12,
+                padding: "10px 20px",
+                fontSize: "0.88rem",
+                fontWeight: 800,
+                cursor: "pointer",
+                boxShadow: activeTab === "meeting" ? "0 4px 15px rgba(6,182,212,0.3)" : "none",
+                transition: "all 0.2s ease",
+              }}
+            >
+              <CalendarIcon size={14} /> Discuss Your Trial / Monthly Plans (Call)
+            </button>
+          </div>
+        </motion.div>
 
-            {/* Selected Summary Pill */}
-            <div style={{
-              background: "rgba(6,182,212,0.08)",
-              border: "1px solid rgba(6,182,212,0.2)",
-              borderRadius: 14,
-              padding: "16px 20px",
-              display: "flex",
-              alignItems: "center",
-              gap: 12
-            }}>
-              <ShieldCheck size={20} style={{ color: "#06B6D4", flexShrink: 0 }} />
-              <span style={{ fontSize: "0.85rem", color: "#64748B", lineHeight: 1.45 }}>
-                Selected: <strong style={{ color: "#0F172A" }}>{formattedSelectedDate} at {selectedTime}</strong>. 100% free meeting with zero pressure.
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Right Column: Clean Application Form & Booking Confirmation */}
+        {/* Form Container */}
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.25 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
             style={{
               background: "#FFFFFF",
               borderRadius: 28,
-              border: "1px solid rgba(15,23,42,0.08)",
-              padding: "clamp(24px, 4vw, 40px) clamp(16px, 3.5vw, 32px)",
+              border: "1px solid rgba(15,23,42,0.1)",
+              padding: "clamp(24px, 4vw, 44px)",
               boxShadow: "0 10px 40px rgba(15,23,42,0.05)",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center"
             }}
           >
             <AnimatePresence mode="wait">
               {booked ? (
-                /* Clean Confirmation Screen */
+                /* Success Confirmation State */
                 <motion.div
                   key="booked-state"
                   initial={{ opacity: 0, scale: 0.94 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.94 }}
-                  style={{ textAlign: "center", padding: "40px 20px", display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}
+                  style={{ textAlign: "center", padding: "30px 10px", display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}
                 >
-                  {/* Success Icon */}
-                  <div style={{
-                    width: 76,
-                    height: 76,
-                    borderRadius: "50%",
-                    background: "rgba(74, 222, 128, 0.15)",
-                    border: "2px solid #4ade80",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: "0 auto",
-                    color: "#4ade80",
-                    boxShadow: "0 0 35px rgba(74, 222, 128, 0.3)"
-                  }}>
-                    <CheckCircle size={40} />
+                  <div
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: "50%",
+                      background: "rgba(16, 185, 129, 0.12)",
+                      border: "2px solid #10B981",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#10B981",
+                    }}
+                  >
+                    <CheckCircle size={38} />
                   </div>
 
                   <div>
-                    <h3 style={{ color: "#0F172A", fontSize: "1.85rem", fontWeight: 900, marginBottom: 8 }}>
-                      Meeting Booked!
+                    <h3 style={{ color: "#0F172A", fontSize: "1.75rem", fontWeight: 900, marginBottom: 8 }}>
+                      Request Received!
                     </h3>
-                    <p style={{ color: "#64748B", fontSize: "0.98rem", lineHeight: 1.6, maxWidth: 390, margin: "0 auto" }}>
-                      We have reserved your slot for <strong style={{ color: "#0F172A" }}>{bookingResult?.client?.date || formattedSelectedDate} at {bookingResult?.client?.time || selectedTime}</strong>.
+                    <p style={{ color: "#64748B", fontSize: "0.95rem", lineHeight: 1.6, maxWidth: 440, margin: "0 auto" }}>
+                      Thank you, <strong>{formData.name}</strong>. We have received your submission for <strong>{formData.brandUrl}</strong>.
                     </p>
                   </div>
 
-                  {/* Clean Email Notice Card */}
-                  <div style={{
-                    background: "#F8F9FA",
-                    border: "1px solid rgba(15,23,42,0.08)",
-                    borderRadius: 16,
-                    padding: "18px 22px",
-                    maxWidth: 420,
-                    width: "100%",
-                    textAlign: "left",
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: 14
-                  }}>
-                    <Mail size={22} style={{ color: "#06B6D4", marginTop: 2, flexShrink: 0 }} />
-                    <div>
-                      <div style={{ color: "#0F172A", fontWeight: 700, fontSize: "0.92rem", marginBottom: 4 }}>
-                        Zoom Link Sent to Your Email
-                      </div>
-                      <div style={{ color: "#64748B", fontSize: "0.84rem", lineHeight: 1.5 }}>
-                        Your welcome email with the Zoom video call link and meeting details has been sent to <strong style={{ color: "#06B6D4" }}>{bookingResult?.client?.email || formData.email}</strong>.
-                      </div>
-                    </div>
+                  <div style={{ background: "#F8FAFC", border: "1px solid rgba(15,23,42,0.08)", borderRadius: 16, padding: "16px 20px", maxWidth: 460, width: "100%", textAlign: "left", fontSize: "0.85rem", color: "#475569", lineHeight: 1.6 }}>
+                    <div>✓ Reference ID: <strong>{bookingResult?.bookingId || "VC-PENDING"}</strong></div>
+                    <div>✓ Confirmation sent to: <strong>{formData.email}</strong></div>
+                    <div>✓ Delivery policy: <strong>Your delivery date is confirmed after we review your brief and receive required assets.</strong></div>
                   </div>
 
-                  <div style={{ fontSize: "0.8rem", color: "#64748B" }}>
-                    Please check your inbox (and spam/promotions folder) for the confirmation email.
-                  </div>
-
-                  {/* Clean Reset Button */}
                   <button
+                    type="button"
                     onClick={handleReset}
                     style={{
                       background: "#F1F5F9",
@@ -640,46 +349,42 @@ export default function ContactSection() {
                       borderRadius: 12,
                       padding: "12px 28px",
                       color: "#0F172A",
-                      fontSize: "0.85rem",
+                      fontSize: "0.88rem",
                       cursor: "pointer",
-                      fontWeight: 600,
-                      marginTop: 4
+                      fontWeight: 700,
+                      marginTop: 6,
                     }}
                   >
-                    Book Another Meeting
+                    Submit Another Request
                   </button>
                 </motion.div>
               ) : (
-                /* Form State */
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+                /* Active Form */
+                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  
+                  {/* Header within form */}
                   <div>
                     <h3 style={{ color: "#0F172A", fontSize: "1.45rem", fontWeight: 800, marginBottom: 6 }}>
-                      Tell Us About Your Brand
+                      {activeTab === "trial" ? "Request the ₹999 Starter Trial" : "Discuss Your Trial & Monthly Packages"}
                     </h3>
-                    <p style={{ color: "#64748B", fontSize: "0.88rem" }}>
-                      This helps us prepare custom ad ideas for your store before we talk.
+                    <p style={{ color: "#64748B", fontSize: "0.9rem" }}>
+                      {activeTab === "trial"
+                        ? "Get 2 custom static ad images for your product. Test our speed and creative quality with zero subscription lock-in."
+                        : "Pick a time slot for a 15–30 minute Zoom conversation with our creative team to review your store and choose the right package."}
                     </p>
                   </div>
 
                   {submitError && (
-                    <div style={{
-                      background: "rgba(239, 68, 68, 0.12)",
-                      border: "1px solid rgba(239, 68, 68, 0.3)",
-                      borderRadius: 12,
-                      padding: "12px 16px",
-                      color: "#fca5a5",
-                      fontSize: "0.85rem",
-                      lineHeight: 1.4
-                    }}>
+                    <div style={{ background: "rgba(239, 68, 68, 0.1)", border: "1px solid rgba(239, 68, 68, 0.3)", borderRadius: 12, padding: "12px 16px", color: "#EF4444", fontSize: "0.86rem" }}>
                       {submitError}
                     </div>
                   )}
 
-                  {/* Row 1: Name & Phone Number */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                  {/* Row 1: Name & Phone */}
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
                     <div>
                       <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
-                        Your Name
+                        Your Full Name *
                       </label>
                       <input
                         type="text"
@@ -688,48 +393,31 @@ export default function ContactSection() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         disabled={isSubmitting}
-                        style={{
-                          width: "100%",
-                          background: "#F8F9FA",
-                          border: "1px solid rgba(15,23,42,0.12)",
-                          borderRadius: 12,
-                          padding: "13px 14px",
-                          color: "#0F172A",
-                          fontSize: "0.9rem",
-                          outline: "none"
-                        }}
+                        style={{ width: "100%", background: "#F8F9FA", border: "1px solid rgba(15,23,42,0.12)", borderRadius: 12, padding: "13px 14px", color: "#0F172A", fontSize: "0.9rem", outline: "none" }}
                       />
                     </div>
+
                     <div>
                       <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
-                        Phone / WhatsApp No.
+                        Phone / WhatsApp No. *
                       </label>
                       <input
                         type="tel"
                         required
-                        placeholder="e.g. +91 98765 43210"
+                        placeholder="+91 98765 43210"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         disabled={isSubmitting}
-                        style={{
-                          width: "100%",
-                          background: "#F8F9FA",
-                          border: "1px solid rgba(15,23,42,0.12)",
-                          borderRadius: 12,
-                          padding: "13px 14px",
-                          color: "#0F172A",
-                          fontSize: "0.9rem",
-                          outline: "none"
-                        }}
+                        style={{ width: "100%", background: "#F8F9FA", border: "1px solid rgba(15,23,42,0.12)", borderRadius: 12, padding: "13px 14px", color: "#0F172A", fontSize: "0.9rem", outline: "none" }}
                       />
                     </div>
                   </div>
 
-                  {/* Row 2: Email & Website Link */}
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+                  {/* Row 2: Email & Product Link */}
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 16 }}>
                     <div>
                       <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
-                        Email Address
+                        Work Email Address *
                       </label>
                       <input
                         type="email"
@@ -738,71 +426,191 @@ export default function ContactSection() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         disabled={isSubmitting}
-                        style={{
-                          width: "100%",
-                          background: "#F8F9FA",
-                          border: "1px solid rgba(15,23,42,0.12)",
-                          borderRadius: 12,
-                          padding: "13px 14px",
-                          color: "#0F172A",
-                          fontSize: "0.9rem",
-                          outline: "none"
-                        }}
+                        style={{ width: "100%", background: "#F8F9FA", border: "1px solid rgba(15,23,42,0.12)", borderRadius: 12, padding: "13px 14px", color: "#0F172A", fontSize: "0.9rem", outline: "none" }}
                       />
                     </div>
+
                     <div>
                       <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
-                        Website or Instagram Link
+                        Product Link or Store URL *
                       </label>
                       <input
                         type="text"
                         required
-                        placeholder="e.g. yourstore.com"
+                        placeholder="yourstore.com or instagram.com/brand"
                         value={formData.brandUrl}
                         onChange={(e) => setFormData({ ...formData, brandUrl: e.target.value })}
                         disabled={isSubmitting}
-                        style={{
-                          width: "100%",
-                          background: "#F8F9FA",
-                          border: "1px solid rgba(15,23,42,0.12)",
-                          borderRadius: 12,
-                          padding: "13px 14px",
-                          color: "#0F172A",
-                          fontSize: "0.9rem",
-                          outline: "none"
-                        }}
+                        style={{ width: "100%", background: "#F8F9FA", border: "1px solid rgba(15,23,42,0.12)", borderRadius: 12, padding: "13px 14px", color: "#0F172A", fontSize: "0.9rem", outline: "none" }}
                       />
                     </div>
                   </div>
 
-                  {/* Row 3: Needs Dropdown */}
-                  <div>
-                    <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
-                      What do you need help with most?
-                    </label>
-                    <select
-                      value={formData.creativeNeed}
-                      onChange={(e) => setFormData({ ...formData, creativeNeed: e.target.value })}
-                      disabled={isSubmitting}
-                      style={{
-                        width: "100%",
-                        background: "#F8F9FA",
-                        border: "1px solid rgba(15,23,42,0.12)",
-                        borderRadius: 12,
-                        padding: "13px 14px",
-                        color: "#0F172A",
-                        fontSize: "0.9rem",
-                        outline: "none"
-                      }}
-                    >
-                      <option value="Trial Pack — ₹999 (2 Static Creatives, No Commitment)">Trial Pack — ₹999 (2 Static Creatives, No Commitment)</option>
-                      <option value="Starter Plan — ₹1,999/mo (5 Static Creatives)">Starter Plan — ₹1,999/mo (5 Static Creatives)</option>
-                      <option value="Growth Plan — ₹3,499/mo (8 Statics + 1 Carousel)">Growth Plan — ₹3,499/mo (8 Statics + 1 Carousel)</option>
-                      <option value="Video Plan — ₹5,999/mo (8 Statics + 2 Reels/Shorts)">Video Plan — ₹5,999/mo (8 Statics + 2 Reels/Shorts)</option>
-                      <option value="Custom Ad Volume / Consultation">Custom Ad Volume / Consultation</option>
-                    </select>
-                  </div>
+                  {/* Package Choice or Required Content */}
+                  {activeTab === "trial" ? (
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
+                        Required Content &amp; Visual Goal (Optional details)
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Need 2 static ad images for our new skincare moisturizer to test Instagram feed ads"
+                        value={formData.requiredContent}
+                        onChange={(e) => setFormData({ ...formData, requiredContent: e.target.value })}
+                        disabled={isSubmitting}
+                        style={{ width: "100%", background: "#F8F9FA", border: "1px solid rgba(15,23,42,0.12)", borderRadius: 12, padding: "13px 14px", color: "#0F172A", fontSize: "0.9rem", outline: "none" }}
+                      />
+                    </div>
+                  ) : (
+                    <div>
+                      <label style={{ display: "block", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", color: "#0F172A", marginBottom: 6 }}>
+                        Which Package Fits Your Goals?
+                      </label>
+                      <select
+                        value={formData.creativeNeed}
+                        onChange={(e) => setFormData({ ...formData, creativeNeed: e.target.value })}
+                        disabled={isSubmitting}
+                        style={{ width: "100%", background: "#F8F9FA", border: "1px solid rgba(15,23,42,0.12)", borderRadius: 12, padding: "13px 14px", color: "#0F172A", fontSize: "0.9rem", outline: "none" }}
+                      >
+                        <option value="Trial Pack — ₹999 (2 Static Creatives, No Commitment)">Trial Pack — ₹999 (2 Static Images, No Commitment)</option>
+                        <option value="Starter Plan — ₹1,999/mo (5 Static Creatives)">Starter Plan — ₹1,999/mo (5 Final Static Ad Images)</option>
+                        <option value="Growth Plan — ₹3,499/mo (8 Statics + 1 Carousel)">Growth Plan — ₹3,499/mo (8 Statics + 1 Carousel of 5 Slides)</option>
+                        <option value="Video Plan — ₹5,999/mo (8 Statics + 2 Reels/Shorts)">Video Plan — ₹5,999/mo (8 Statics + 2 Simple Reels up to 30s)</option>
+                        <option value="Custom Ad Volume / Consultation">Custom Volume / Enterprise Needs</option>
+                      </select>
+                    </div>
+                  )}
 
+                  {/* If in trial mode: Optional Call Checkbox */}
+                  {activeTab === "trial" && (
+                    <div style={{ background: "#F8FAFC", border: "1px solid rgba(15,23,42,0.08)", borderRadius: 14, padding: "14px 18px" }}>
+                      <label style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer", fontSize: "0.88rem", color: "#0F172A", fontWeight: 600 }}>
+                        <input
+                          type="checkbox"
+                          checked={wantsCall}
+                          onChange={(e) => setWantsCall(e.target.checked)}
+                          style={{ width: 18, height: 18, accentColor: "#06B6D4", cursor: "pointer" }}
+                        />
+                        <span>Optional: I would also like a quick 15-minute discovery call to discuss my product</span>
+                      </label>
+                    </div>
+                  )}
+
+                  {/* Calendar & Time Picker (Displayed if in 'meeting' tab OR if trial user checked 'wantsCall') */}
+                  {(activeTab === "meeting" || wantsCall) && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      style={{ borderTop: "1px solid rgba(15,23,42,0.08)", paddingTop: 20 }}
+                    >
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20 }}>
+                        
+                        {/* Calendar */}
+                        <div>
+                          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                            <span style={{ fontSize: "0.9rem", fontWeight: 800, color: "#0F172A" }}>
+                              {monthName} {year}
+                            </span>
+                            <div style={{ display: "flex", gap: 6 }}>
+                              <button
+                                type="button"
+                                onClick={prevMonth}
+                                disabled={isCurrentMonth}
+                                style={{ width: 28, height: 28, borderRadius: 8, border: "1px solid rgba(15,23,42,0.1)", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: isCurrentMonth ? "not-allowed" : "pointer" }}
+                              >
+                                <ChevronLeft size={14} color={isCurrentMonth ? "#CBD5E1" : "#0F172A"} />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={nextMonth}
+                                style={{ width: 28, height: 28, borderRadius: 8, border: "1px solid rgba(15,23,42,0.1)", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                              >
+                                <ChevronRight size={14} color="#0F172A" />
+                              </button>
+                            </div>
+                          </div>
+
+                          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4, textAlign: "center", fontSize: "0.75rem", color: "#64748B", marginBottom: 6 }}>
+                            <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                          </div>
+
+                          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 4 }}>
+                            {Array.from({ length: firstDayOfWeek }).map((_, i) => (
+                              <div key={`empty-${i}`} />
+                            ))}
+                            {Array.from({ length: daysInMonth }).map((_, i) => {
+                              const dayNum = i + 1;
+                              const currentIterDate = new Date(year, month, dayNum);
+                              currentIterDate.setHours(0, 0, 0, 0);
+                              const isPast = currentIterDate < today;
+                              const isSelected = selectedDate && selectedDate.toDateString() === currentIterDate.toDateString();
+
+                              return (
+                                <button
+                                  key={`day-${dayNum}`}
+                                  type="button"
+                                  disabled={isPast}
+                                  onClick={() => !isPast && setSelectedDate(currentIterDate)}
+                                  style={{
+                                    height: 32,
+                                    borderRadius: 8,
+                                    border: "none",
+                                    background: isSelected ? "#06B6D4" : "transparent",
+                                    color: isSelected ? "#fff" : isPast ? "#CBD5E1" : "#0F172A",
+                                    fontWeight: isSelected ? 800 : 500,
+                                    fontSize: "0.82rem",
+                                    cursor: isPast ? "not-allowed" : "pointer",
+                                  }}
+                                >
+                                  {dayNum}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+
+                        {/* Time slots */}
+                        <div>
+                          <div style={{ fontSize: "0.9rem", fontWeight: 800, color: "#0F172A", marginBottom: 12 }}>
+                            Select Time Slot (IST)
+                          </div>
+                          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8 }}>
+                            {availableTimeSlots.map((time) => {
+                              const isSelected = selectedTime === time;
+                              const isBooked = isSlotBookedForCurrentDate(time);
+                              return (
+                                <button
+                                  key={time}
+                                  type="button"
+                                  disabled={isBooked}
+                                  onClick={() => !isBooked && setSelectedTime(time)}
+                                  style={{
+                                    padding: "8px 12px",
+                                    borderRadius: 10,
+                                    border: isSelected ? "none" : "1px solid rgba(15,23,42,0.12)",
+                                    background: isSelected ? "linear-gradient(135deg, #06B6D4, #6366F1)" : "#FFFFFF",
+                                    color: isSelected ? "#fff" : isBooked ? "#EF4444" : "#0F172A",
+                                    fontSize: "0.82rem",
+                                    fontWeight: isSelected ? 800 : 500,
+                                    cursor: isBooked ? "not-allowed" : "pointer",
+                                  }}
+                                >
+                                  {time} {isBooked && "(Booked)"}
+                                </button>
+                              );
+                            })}
+                          </div>
+                          <div style={{ fontSize: "0.8rem", color: "#64748B", marginTop: 14 }}>
+                            Selected: <strong style={{ color: "#0F172A" }}>{formattedSelectedDate} at {selectedTime}</strong>
+                          </div>
+                        </div>
+
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Submit Button: Distinct names per user instructions */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -812,37 +620,37 @@ export default function ContactSection() {
                       padding: "16px",
                       borderRadius: 14,
                       justifyContent: "center",
-                      marginTop: 6,
-                      fontSize: "0.95rem",
-                      boxShadow: "0 0 30px rgba(124,58,237,0.4)",
+                      marginTop: 8,
+                      fontSize: "0.98rem",
+                      fontWeight: 800,
                       cursor: isSubmitting ? "wait" : "pointer",
-                      opacity: isSubmitting ? 0.8 : 1
                     }}
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 size={18} className="animate-spin" />
-                        Generating Zoom Room &amp; Booking...
+                        <Loader2 size={18} className="animate-spin" /> Processing Request...
+                      </>
+                    ) : activeTab === "trial" && !wantsCall ? (
+                      <>
+                        Request the ₹999 Trial <ArrowRight size={17} />
                       </>
                     ) : (
                       <>
-                        Confirm Meeting Booking <ArrowRight size={17} />
+                        Discuss Your Trial <ArrowRight size={17} />
                       </>
                     )}
                   </button>
 
-                  <div style={{ textAlign: "center", fontSize: "0.75rem", color: "#64748B", marginTop: 2 }}>
-                    Your details are automatically emailed to you and saved to Excel.
+                  <div style={{ textAlign: "center", fontSize: "0.78rem", color: "#64748B" }}>
+                    Your delivery date is confirmed after we review your brief and receive the required assets.
                   </div>
                 </form>
               )}
             </AnimatePresence>
           </motion.div>
-
         </div>
 
       </div>
-
-      </section>
+    </section>
   );
 }

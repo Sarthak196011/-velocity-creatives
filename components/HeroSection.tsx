@@ -1,144 +1,595 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { Zap, Palette, Smartphone, ShieldCheck, ArrowRight } from "lucide-react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import { ArrowRight, Play, X, Sparkles, Check, Eye } from "lucide-react";
+
+interface ProductComparison {
+  id: string;
+  name: string;
+  category: string;
+  beforeImg: string;
+  afterImg: string;
+  beforeLabel: string;
+  afterLabel: string;
+  description: string;
+}
+
+const comparisons: ProductComparison[] = [
+  {
+    id: "skincare",
+    name: "Auraa Peptide Cream",
+    category: "Skincare & Beauty",
+    beforeImg: "/auraa-skincare.jpg",
+    afterImg: "/sample-work/auraa-moisturizer.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    description: "Raw bottle photo transformed into a dewy, water-splashed luxury skincare visual."
+  },
+  {
+    id: "fitness",
+    name: "Fuel One Whey Protein",
+    category: "Fitness & Nutrition",
+    beforeImg: "/fuel-preworkout.jpg",
+    afterImg: "/sample-work/fuel-whey-splash.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    description: "Standard container photo transformed into high-impact dynamic milk collision ad."
+  },
+  {
+    id: "edc",
+    name: "NOMAD Leather Carry",
+    category: "Gear & Accessories",
+    beforeImg: "/nomad-watch-wallet.jpg",
+    afterImg: "/sample-work/luxury-leather-wallet.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    description: "Casual table photo transformed into rich mahogany desk setup ad visual."
+  }
+];
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "25%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  const [activeComp, setActiveComp] = useState<ProductComparison>(comparisons[0]);
+  const [showVideoModal, setShowVideoModal] = useState(false);
 
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-  const container = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.08 } },
-  };
-  const word = {
-    hidden: { opacity: 0, y: 60, rotateX: -30 },
-    show: { opacity: 1, y: 0, rotateX: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] as const } },
-  };
-
   return (
-    <section ref={ref} style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", padding: "140px 24px 80px" }}>
-      {/* Grid background */}
-      <div style={{
-        position: "absolute", inset: 0, zIndex: 1,
-        backgroundImage: "linear-gradient(rgba(6,182,212,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.06) 1px, transparent 1px)",
-        backgroundSize: "64px 64px",
-        maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)",
-      }} />
+    <section
+      ref={ref}
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        padding: "140px 24px 80px"
+      }}
+    >
+      {/* Background Gradients */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 1,
+          backgroundImage:
+            "linear-gradient(rgba(6,182,212,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.06) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+          maskImage: "radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%)",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: "-10%",
+          left: "5%",
+          width: 600,
+          height: 600,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 65%)",
+          filter: "blur(40px)",
+          zIndex: 1,
+          animation: "glow-pulse 4s ease infinite",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-5%",
+          right: "0%",
+          width: 500,
+          height: 500,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 65%)",
+          filter: "blur(40px)",
+          zIndex: 1,
+          animation: "glow-pulse 5s 1s ease infinite",
+        }}
+      />
 
-      {/* Glowing orbs */}
-      <div style={{ position: "absolute", top: "-10%", left: "5%", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 65%)", filter: "blur(40px)", zIndex: 1, animation: "glow-pulse 4s ease infinite" }} />
-      <div style={{ position: "absolute", bottom: "-5%", right: "0%", width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(99,102,241,0.10) 0%, transparent 65%)", filter: "blur(40px)", zIndex: 1, animation: "glow-pulse 5s 1s ease infinite" }} />
-
-      <motion.div style={{ y, opacity, position: "relative", zIndex: 10, maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
-        
-        {/* Status badge */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 40 }}
-        >
-          <div style={{
-            display: "flex", alignItems: "center", gap: 8, padding: "6px 18px 6px 12px",
-            background: "#FFFFFF", backdropFilter: "blur(16px)",
-            border: "1px solid rgba(15,23,42,0.08)", borderRadius: 999,
-            boxShadow: "0 4px 16px rgba(15,23,42,0.04)"
-          }}>
+      <motion.div
+        style={{
+          y,
+          opacity,
+          position: "relative",
+          zIndex: 10,
+          maxWidth: 1280,
+          width: "100%",
+          margin: "0 auto",
+        }}
+      >
+        {/* Status Badge */}
+        <div style={{ textAlign: "center", marginBottom: 32 }}>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 18px 6px 12px",
+              background: "#FFFFFF",
+              backdropFilter: "blur(16px)",
+              border: "1px solid rgba(15,23,42,0.08)",
+              borderRadius: 999,
+              boxShadow: "0 4px 16px rgba(15,23,42,0.04)",
+            }}
+          >
             <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10b981", boxShadow: "0 0 8px #10b981", display: "inline-block" }} />
-              <span style={{ color: "#059669", fontSize: "0.72rem", fontWeight: 800, letterSpacing: "0.12em", textTransform: "uppercase" }}>Now Open</span>
+              <span
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "#10b981",
+                  boxShadow: "0 0 8px #10b981",
+                  display: "inline-block",
+                }}
+              />
+              <span
+                style={{
+                  color: "#059669",
+                  fontSize: "0.72rem",
+                  fontWeight: 800,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Now Accepting Brands
+              </span>
             </span>
             <span style={{ width: 1, height: 14, background: "rgba(15,23,42,0.12)" }} />
-            <span style={{ color: "#64748B", fontSize: "0.75rem", fontWeight: 600 }}>Ad Creatives from ₹1,999/mo • ₹999 Trial Pack</span>
+            <span style={{ color: "#64748B", fontSize: "0.75rem", fontWeight: 600 }}>
+              Packages from ₹1,999/mo • ₹999 Trial Pack
+            </span>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Headline */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="show"
-          style={{ perspective: 1000 }}
+        {/* 2-Column Layout: Left Headline & Copy / Right Before-and-After Card */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 500px), 1fr))",
+            gap: "clamp(32px, 5vw, 64px)",
+            alignItems: "center",
+            marginBottom: 48,
+          }}
         >
-          <div className="display-xl" style={{ color: "#0F172A", marginBottom: 8, display: "block" }}>
-            {"We Make".split(" ").map((w, i) => (
-              <motion.span key={i} variants={word} style={{ display: "inline-block", marginRight: "0.25em" }}>{w}</motion.span>
-            ))}
-          </div>
-          <div className="display-xl" style={{ marginBottom: 8, display: "block" }}>
-            {"High-Converting Ads".split(" ").map((w, i) => (
-              <motion.span key={i} variants={word} className="gt" style={{ display: "inline-block", marginRight: "0.25em" }}>{w}</motion.span>
-            ))}
-          </div>
-          <div className="display-xl" style={{ color: "#64748B", display: "block" }}>
-            {"for Online Brands.".split(" ").map((w, i) => (
-              <motion.span key={i} variants={word} style={{ display: "inline-block", marginRight: "0.25em" }}>{w}</motion.span>
-            ))}
-          </div>
-        </motion.div>
+          {/* Left Column: Headlines, Subheading & Buttons */}
+          <div style={{ textAlign: "left" }}>
+            <motion.h1
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="display-xl"
+              style={{
+                color: "#0F172A",
+                marginBottom: 20,
+                lineHeight: 1.15,
+                letterSpacing: "-0.03em",
+              }}
+            >
+              Turn Ordinary Product Photos Into{" "}
+              <span className="gt">Professional Brand Visuals.</span>
+            </motion.h1>
 
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          style={{ fontSize: "clamp(1.05rem, 2vw, 1.25rem)", color: "#64748B", maxWidth: 620, margin: "32px auto 44px", lineHeight: 1.7 }}
-        >
-          Get fresh, high-converting static image ads, carousels, and short video reels made for your store starting from ₹1,999/month (or test with our ₹999 trial).
-        </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              style={{
+                fontSize: "clamp(1.05rem, 1.8vw, 1.22rem)",
+                color: "#475569",
+                lineHeight: 1.7,
+                marginBottom: 36,
+                maxWidth: 580,
+              }}
+            >
+              Send us your existing product photos. We transform them into polished images, ad
+              creatives and carousels for your website and social media.
+            </motion.p>
 
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.85 }}
-          style={{ display: "flex", flexWrap: "wrap", gap: 14, justifyContent: "center", marginBottom: 60 }}
-        >
-          <button
-            onClick={() => go("work")}
-            className="btn-primary"
-            style={{ padding: "16px 36px", borderRadius: 14, fontSize: "0.95rem" }}
+            {/* Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 14,
+                alignItems: "center",
+                marginBottom: 36,
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => go("work")}
+                className="btn-primary"
+                style={{
+                  padding: "16px 32px",
+                  borderRadius: 14,
+                  fontSize: "0.95rem",
+                  fontWeight: 800,
+                  cursor: "pointer",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                }}
+              >
+                See Before &amp; After <ArrowRight size={16} />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => go("services")}
+                className="btn-ghost"
+                style={{
+                  padding: "16px 28px",
+                  borderRadius: 14,
+                  fontSize: "0.95rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                }}
+              >
+                View Packages
+              </button>
+
+              {/* Optional Watch Our Work Video Trigger */}
+              <button
+                type="button"
+                onClick={() => setShowVideoModal(true)}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 8,
+                  color: "#0F172A",
+                  fontSize: "0.88rem",
+                  fontWeight: 700,
+                  cursor: "pointer",
+                  padding: "10px 14px",
+                  borderRadius: 12,
+                  transition: "color 0.2s ease",
+                }}
+              >
+                <div
+                  style={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: "50%",
+                    background: "rgba(6,182,212,0.12)",
+                    border: "1px solid rgba(6,182,212,0.3)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#06B6D4",
+                  }}
+                >
+                  <Play size={13} fill="#06B6D4" style={{ marginLeft: 2 }} />
+                </div>
+                <span>Watch Our Work</span>
+              </button>
+            </motion.div>
+
+            {/* Quick Scope Trust Points */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 20,
+                fontSize: "0.82rem",
+                color: "#64748B",
+                fontWeight: 600,
+              }}
+            >
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                <Check size={14} color="#10B981" strokeWidth={3} /> Same real product shape &amp; labels
+              </span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                <Check size={14} color="#10B981" strokeWidth={3} /> Confirmed delivery date on brief
+              </span>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                <Check size={14} color="#10B981" strokeWidth={3} /> ₹999 trial with no lock-in
+              </span>
+            </div>
+          </div>
+
+          {/* Right Column: Before-and-After Example Beside Headline */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            style={{
+              background: "#FFFFFF",
+              borderRadius: 28,
+              border: "1px solid rgba(15,23,42,0.1)",
+              boxShadow: "0 20px 50px rgba(15,23,42,0.08)",
+              padding: "clamp(20px, 3vw, 28px)",
+              position: "relative",
+            }}
           >
-            See Sample Work <ArrowRight size={16} />
-          </button>
-          <button
-            onClick={() => go("services")}
-            className="btn-ghost"
-            style={{ padding: "16px 32px", borderRadius: 14, fontSize: "0.95rem" }}
-          >
-            View Pricing Plans
-          </button>
-        </motion.div>
+            {/* Header info */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 16,
+              }}
+            >
+              <div>
+                <div
+                  style={{
+                    fontSize: "0.72rem",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.12em",
+                    color: "#06B6D4",
+                    marginBottom: 2,
+                  }}
+                >
+                  Real Transformation
+                </div>
+                <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A" }}>
+                  {activeComp.name}
+                </div>
+              </div>
 
-        {/* Four agency pillars */}
+              {/* Product selector buttons */}
+              <div style={{ display: "flex", gap: 6, background: "#F1F5F9", padding: 4, borderRadius: 12 }}>
+                {comparisons.map((c) => (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => setActiveComp(c)}
+                    style={{
+                      background: activeComp.id === c.id ? "#FFFFFF" : "transparent",
+                      border: "none",
+                      borderRadius: 8,
+                      padding: "5px 10px",
+                      fontSize: "0.72rem",
+                      fontWeight: 700,
+                      color: activeComp.id === c.id ? "#0F172A" : "#64748B",
+                      cursor: "pointer",
+                      boxShadow: activeComp.id === c.id ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
+                      transition: "all 0.2s ease",
+                    }}
+                  >
+                    {c.id === "skincare" ? "Skincare" : c.id === "fitness" ? "Fitness" : "Leather"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Side-by-Side Comparison Container */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: 12,
+                borderRadius: 20,
+                overflow: "hidden",
+                background: "#0F172A",
+                padding: 10,
+                position: "relative",
+              }}
+            >
+              {/* Left: Photo you send */}
+              <div
+                style={{
+                  position: "relative",
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  aspectRatio: "1 / 1",
+                  background: "#1E293B",
+                }}
+              >
+                <img
+                  src={activeComp.beforeImg}
+                  alt={activeComp.beforeLabel}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    left: 10,
+                    background: "rgba(15,23,42,0.85)",
+                    backdropFilter: "blur(8px)",
+                    color: "#FFFFFF",
+                    fontSize: "0.72rem",
+                    fontWeight: 800,
+                    padding: "4px 10px",
+                    borderRadius: 8,
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  {activeComp.beforeLabel}
+                </div>
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 8,
+                    left: 8,
+                    right: 8,
+                    background: "rgba(0,0,0,0.65)",
+                    backdropFilter: "blur(4px)",
+                    color: "#CBD5E1",
+                    fontSize: "0.68rem",
+                    padding: "4px 8px",
+                    borderRadius: 6,
+                    textAlign: "center",
+                  }}
+                >
+                  Raw customer photo
+                </div>
+              </div>
+
+              {/* Right: Visual we create */}
+              <div
+                style={{
+                  position: "relative",
+                  borderRadius: 14,
+                  overflow: "hidden",
+                  aspectRatio: "1 / 1",
+                  background: "#1E293B",
+                  border: "2px solid #06B6D4",
+                }}
+              >
+                <img
+                  src={activeComp.afterImg}
+                  alt={activeComp.afterLabel}
+                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 10,
+                    background: "linear-gradient(135deg, #06B6D4, #6366F1)",
+                    color: "#FFFFFF",
+                    fontSize: "0.72rem",
+                    fontWeight: 800,
+                    padding: "4px 10px",
+                    borderRadius: 8,
+                    letterSpacing: "0.02em",
+                    boxShadow: "0 2px 10px rgba(6,182,212,0.5)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 4,
+                  }}
+                >
+                  <Sparkles size={11} /> {activeComp.afterLabel}
+                </div>
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 8,
+                    left: 8,
+                    right: 8,
+                    background: "rgba(6,182,212,0.9)",
+                    color: "#FFFFFF",
+                    fontSize: "0.68rem",
+                    fontWeight: 700,
+                    padding: "4px 8px",
+                    borderRadius: 6,
+                    textAlign: "center",
+                  }}
+                >
+                  Polished brand ad visual
+                </div>
+              </div>
+            </div>
+
+            {/* Same product explanation */}
+            <div
+              style={{
+                marginTop: 14,
+                padding: "10px 14px",
+                background: "#F8F9FA",
+                borderRadius: 12,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 8,
+              }}
+            >
+              <span style={{ fontSize: "0.8rem", color: "#475569", lineHeight: 1.4 }}>
+                <strong>Same product in both images:</strong> {activeComp.description}
+              </span>
+              <span
+                style={{
+                  fontSize: "0.72rem",
+                  fontWeight: 800,
+                  color: "#6366F1",
+                  background: "rgba(99,102,241,0.08)",
+                  padding: "4px 8px",
+                  borderRadius: 6,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Concept Work
+              </span>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* 4 Pillars Grid (Updated for Clear Policies) */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           className="hero-pillars-grid"
         >
           {[
-            { n: "24-48 Hours", l: "Fast Delivery", icon: Zap, color: "#06B6D4" },
-            { n: "100% Custom", l: "Made for Your Brand", icon: Palette, color: "#6366F1" },
-            { n: "HD & 4K", l: "Instagram & Reels Ready", icon: Smartphone, color: "#0EA5E9" },
-            { n: "No Contracts", l: "Cancel Anytime", icon: ShieldCheck, color: "#10B981" },
-          ].map(({ n, l, icon: Icon, color }) => (
-            <div
-              key={l}
-              className="hero-pillar-item"
-            >
-              <div style={{ display: "flex", justifyContent: "center", marginBottom: 8, color: color }}>
-                <Icon size={20} />
-              </div>
-              <div style={{ fontSize: "1.35rem", fontWeight: 900, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: 4, color: "#0F172A" }}>
+            {
+              n: "Confirmed Date",
+              l: "Set After Brief Review",
+              color: "#06B6D4",
+            },
+            {
+              n: "True-to-Product",
+              l: "Shape & Labels Preserved",
+              color: "#6366F1",
+            },
+            {
+              n: "4 Clear Services",
+              l: "Images, Ads, Carousels & Video",
+              color: "#0EA5E9",
+            },
+            {
+              n: "No Lock-In",
+              l: "₹999 Trial Or Cancel Anytime",
+              color: "#10B981",
+            },
+          ].map(({ n, l, color }) => (
+            <div key={l} className="hero-pillar-item">
+              <div
+                style={{
+                  fontSize: "1.15rem",
+                  fontWeight: 900,
+                  letterSpacing: "-0.02em",
+                  lineHeight: 1.1,
+                  marginBottom: 4,
+                  color: "#0F172A",
+                }}
+              >
                 {n}
               </div>
-              <div style={{ fontSize: "0.72rem", color: "#64748B", fontWeight: 700, letterSpacing: "0.05em", textTransform: "uppercase" }}>
+              <div
+                style={{
+                  fontSize: "0.72rem",
+                  color: "#64748B",
+                  fontWeight: 700,
+                  letterSpacing: "0.05em",
+                  textTransform: "uppercase",
+                }}
+              >
                 {l}
               </div>
             </div>
@@ -146,16 +597,103 @@ export default function HeroSection() {
         </motion.div>
       </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        style={{ position: "absolute", bottom: 28, left: "50%", transform: "translateX(-50%)", display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}
-      >
-        <div style={{ width: 1, height: 44, background: "linear-gradient(to bottom, #06B6D4, transparent)" }} />
-        <span style={{ fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#64748B" }}>Scroll</span>
-      </motion.div>
+      {/* Optional "Watch Our Work" Video Modal */}
+      <AnimatePresence>
+        {showVideoModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 999999,
+              background: "rgba(3, 2, 6, 0.92)",
+              backdropFilter: "blur(16px)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "24px",
+            }}
+            onClick={() => setShowVideoModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              style={{
+                position: "relative",
+                maxWidth: 900,
+                width: "100%",
+                background: "#000",
+                borderRadius: 24,
+                overflow: "hidden",
+                border: "1px solid rgba(255,255,255,0.15)",
+                boxShadow: "0 25px 60px rgba(0,0,0,0.8)",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div
+                style={{
+                  position: "absolute",
+                  top: 16,
+                  left: 20,
+                  right: 20,
+                  zIndex: 20,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                <span
+                  style={{
+                    color: "#FFFFFF",
+                    fontSize: "0.85rem",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    background: "rgba(0,0,0,0.6)",
+                    padding: "6px 14px",
+                    borderRadius: 999,
+                    backdropFilter: "blur(8px)",
+                  }}
+                >
+                  Velocity Creatives • Showreel
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowVideoModal(false)}
+                  style={{
+                    background: "rgba(255,255,255,0.2)",
+                    border: "none",
+                    borderRadius: "50%",
+                    width: 36,
+                    height: 36,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                  }}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Video Player */}
+              <video
+                src="/velocity-intro.mp4"
+                poster="/velocity-intro-poster.png"
+                controls
+                autoPlay
+                playsInline
+                style={{ width: "100%", maxHeight: "75vh", display: "block" }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
