@@ -140,7 +140,7 @@ export default function Footer() {
             </h4>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: "0.85rem", color: "#64748B" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <Clock size={14} color="#06B6D4" /> Confirmed Delivery Date
+                <Clock size={14} color="#06B6D4" /> Expected 2–4 Business Days (Confirmed on Review)
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <ShieldCheck size={14} color="#10B981" /> No Long-Term Contracts

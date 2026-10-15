@@ -20,30 +20,18 @@ interface BeforeAfterItem {
 const beforeAfterList: BeforeAfterItem[] = [
   {
     id: "ba-1",
-    title: "Auraa Barrier Peptide Cream",
-    brand: "Auraa Skin",
+    title: "Mo's Bakery Ragi Cookies",
+    brand: "Mo's Bakery",
     category: "Product Images",
-    beforeImg: "/before-after/raw-auraa-skincare.png",
-    afterImg: "/sample-work/auraa-moisturizer.png",
+    beforeImg: "/before-after/raw-mos-cookies.png",
+    afterImg: "/sample-work/mos-ragi-cookies.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
-    summary: "From casual tabletop snapshot to dewy, water-splashed luxury skincare visual.",
-    details: "We isolated the real bottle, preserved the authentic label typography and cap texture, and built a custom morning light studio setup with fresh blueberries and dewy water droplets."
+    summary: "From plain retail canister snap to warm morning breakfast table scene.",
+    details: "Preserves 100% of the real jar packaging, lid, brand typography, milling artwork, veg certification, and legal label details while composing an appetizing bakery scene with raw ragi seeds and whole almonds."
   },
   {
     id: "ba-2",
-    title: "Fuel One Whey - Dynamic Collision",
-    brand: "Fuel One",
-    category: "Ads",
-    beforeImg: "/before-after/raw-fuel-whey.png",
-    afterImg: "/sample-work/fuel-whey-splash.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From plain product container to high-impact milk collision & powder splash ad.",
-    details: "Using the raw customer bottle photo, we placed the exact container inside an energetic chocolate-milk splash environment on dark industrial slate, designed to immediately stop feed scrollers."
-  },
-  {
-    id: "ba-3",
     title: "BULLMER Bamboo Summer Shirt",
     brand: "BULLMER",
     category: "Product Images",
@@ -52,7 +40,19 @@ const beforeAfterList: BeforeAfterItem[] = [
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
     summary: "From flat studio photo to Mediterranean villa stone pedestal editorial.",
-    details: "We extracted the shirt shape, preserved the geometric leaf pattern, placket and buttons, and set it against natural travertine stone with sun-cast palm leaves and bonsai greenery."
+    details: "We extracted the shirt shape, preserved the geometric leaf pattern, placket, buttons, and inner neck label, setting it against natural travertine stone with sun-cast palm leaves."
+  },
+  {
+    id: "ba-3",
+    title: "NOMAD Leather Carry & Apple Watch",
+    brand: "NOMAD Goods",
+    category: "Product Images",
+    beforeImg: "/before-after/raw-leather-wallet.png",
+    afterImg: "/sample-work/luxury-leather-wallet.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From casual phone camera photo to rich mahogany executive desk setup.",
+    details: "We extracted the handcrafted leather wallet, maintaining real leather stitching, grain, and pocket cuts, composing a timeless executive desk scene with warm reading lamp glow."
   },
   {
     id: "ba-4",
@@ -64,10 +64,22 @@ const beforeAfterList: BeforeAfterItem[] = [
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
     summary: "From plain product photo to turbulent crashing ocean rock visual.",
-    details: "Retained the exact titanium casing, orange action button, and crystal face while placing it amidst turbulent sea spray to visually prove extreme durability and water resistance."
+    details: "Retained the exact Wayfinder dial typography, titanium casing, and orange alpine loop while staging it amidst turbulent sea spray to visually prove extreme durability."
   },
   {
     id: "ba-5",
+    title: "Right Shift Nutrient Seeds",
+    brand: "Right Shift",
+    category: "Carousels",
+    beforeImg: "/before-after/raw-rightshift.png",
+    afterImg: "/sample-work/rightshift-dryfruit.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    summary: "From flat retail pouch to vibrant ingredient spread with real nuts & dry fruits.",
+    details: "We isolated the branded pouch, preserving original graphics and typography, staging it on clean marble surrounded by nutrient-dense almonds, cashews and berries."
+  },
+  {
+    id: "ba-6",
     title: "Urban Streetwear Sneakers",
     brand: "Urban Kicks",
     category: "Ads",
@@ -79,43 +91,19 @@ const beforeAfterList: BeforeAfterItem[] = [
     details: "We isolated the shoes, preserved the rubber outsole texture and lace styling, and placed them in an action-oriented sunlit skatepark angle to capture youth street culture."
   },
   {
-    id: "ba-6",
-    title: "NOMAD Leather Carry & Apple Watch",
-    brand: "NOMAD Goods",
-    category: "Product Images",
-    beforeImg: "/before-after/raw-leather-wallet.png",
-    afterImg: "/sample-work/luxury-leather-wallet.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From casual phone camera photo to rich mahogany executive desk setup.",
-    details: "We extracted the handcrafted leather wallet and watch strap, maintaining real leather stitching and grain, then composed a timeless executive desk scene with warm reading lamp glow."
-  },
-  {
     id: "ba-7",
-    title: "Mo's Bakery Ragi Cookies",
-    brand: "Mo's Bakery",
-    category: "Product Images",
-    beforeImg: "/before-after/raw-mos-cookies.png",
-    afterImg: "/sample-work/mos-ragi-cookies.png",
+    title: "Fuel One Whey - Dynamic Collision",
+    brand: "Fuel One",
+    category: "Ads",
+    beforeImg: "/before-after/raw-fuel-whey.png",
+    afterImg: "/sample-work/fuel-whey-splash.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
-    summary: "From plain retail canister to cozy morning breakfast table scene.",
-    details: "Placed the authentic container alongside golden baked cookies, honey drippers, and natural grains to highlight taste, purity and artisan craftsmanship."
+    summary: "From plain product container to high-impact milk collision & powder splash ad.",
+    details: "Using the raw customer photo, we placed the container branding inside an energetic chocolate-milk splash environment on dark industrial slate, designed to immediately stop feed scrollers."
   },
   {
     id: "ba-8",
-    title: "Right Shift Nutrient Seeds",
-    brand: "Right Shift",
-    category: "Carousels",
-    beforeImg: "/before-after/raw-rightshift.png",
-    afterImg: "/sample-work/rightshift-dryfruit.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From flat retail pouch to vibrant ingredient spread with real nuts & dry fruits.",
-    details: "We isolated the branded pouch and staged it on clean marble surrounded by nutrient-dense almonds, cashews and berries for carousel educational storytelling."
-  },
-  {
-    id: "ba-9",
     title: "MuscleTech Platinum Fish Oil",
     brand: "MuscleTech",
     category: "Ads",
@@ -124,7 +112,7 @@ const beforeAfterList: BeforeAfterItem[] = [
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
     summary: "From plain bottle shot to fresh coastal driftwood and crystal splash ad.",
-    details: "Preserved exact label foil and bottle curvature while crafting a pristine marine setting with clear water droplets demonstrating 100% pure omega-3 sourcing."
+    details: "Preserved exact label foil, omega-3 potency badges, and bottle curvature while crafting a pristine marine setting with clear water droplets demonstrating 100% pure omega-3 sourcing."
   }
 ];
 
@@ -149,14 +137,14 @@ const portfolioItems: PortfolioItem[] = [
   // --- PRODUCT IMAGES ---
   {
     id: "p1",
-    title: "Auraa Barrier Cream - Studio Drops",
-    brand: "Auraa Skin",
+    title: "Mo's Bakery Ragi Cookies - Morning Table",
+    brand: "Mo's Bakery",
     filterCategory: "Product Images",
     type: "image",
-    src: "/sample-work/auraa-moisturizer.png",
-    hook: "Dewy water drops on frosted glass highlight deep hydration for website and catalog use.",
+    src: "/sample-work/mos-ragi-cookies.png",
+    hook: "100% authentic canister packaging preserved with roasted almonds and morning window light.",
     accent: "#06B6D4",
-    description: "Crisp studio lighting on frosted glass with fresh blueberries to highlight moisture.",
+    description: "Warm morning breakfast table composition showcasing real canister branding, ingredients and cookies.",
     isConceptWork: true
   },
   {
@@ -261,15 +249,15 @@ const portfolioItems: PortfolioItem[] = [
   // --- CAROUSELS ---
   {
     id: "c1",
-    title: "Auraa 5-Step Skin Barrier Routine",
-    brand: "Auraa Skin",
+    title: "Mo's Bakery 5-Slide Ingredient Story",
+    brand: "Mo's Bakery",
     filterCategory: "Carousels",
     type: "carousel",
-    src: "/sample-work/auraa-moisturizer.png",
+    src: "/sample-work/mos-ragi-cookies.png",
     slidesCount: 5,
-    hook: "Swipe-through educational breakdown of peptide benefits, morning routine and skin results.",
+    hook: "Swipe-through educational breakdown of organic ragi benefits, zero refined sugar and artisan craft.",
     accent: "#06B6D4",
-    description: "5-slide visual carousel breaking down ceramide formulation, dermatological claims and user proofs.",
+    description: "5-slide visual carousel breaking down wholesome ancient grains, zero palm oil and breakfast tea pairings.",
     isConceptWork: true
   },
   {

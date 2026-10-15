@@ -94,7 +94,7 @@ const plans: Plan[] = [
       sizesIncluded: "1 format size per image (1:1 feed square or 9:16 vertical)",
       revisionRounds: "1 revision round per deliverable batch",
       websitePhotosAndCopy: "Client provides product details, offers & approved text; layout & visual design included (copywriting not included)",
-      deliveryDate: "Confirmed after we review your brief and receive required assets"
+      deliveryDate: "Expected in 2–4 business days (exact date confirmed upon brief & photo review)"
     },
     cta: "Choose Starter Plan"
   },
@@ -113,7 +113,7 @@ const plans: Plan[] = [
       sizesIncluded: "1 format size per visual (1:1 feed or 9:16 story)",
       revisionRounds: "1 revision round per deliverable batch",
       websitePhotosAndCopy: "Client provides product details & approved text; design, visual hooks & carousel sequence included",
-      deliveryDate: "Confirmed after we review your brief and receive required assets"
+      deliveryDate: "Expected in 3–5 business days (exact date confirmed upon brief & photo review)"
     },
     cta: "Choose Growth Plan"
   },
@@ -132,7 +132,7 @@ const plans: Plan[] = [
       sizesIncluded: "9:16 vertical for reels, 1:1 or 9:16 for static images",
       revisionRounds: "1 revision round per deliverable batch",
       websitePhotosAndCopy: "Client provides raw footage/photos & approved text; visual design, video editing & text hooks included",
-      deliveryDate: "Confirmed after we review your brief and receive required assets"
+      deliveryDate: "Expected in 4–6 business days (exact date confirmed upon brief & footage review)"
     },
     cta: "Choose Video Plan"
   }
@@ -274,7 +274,7 @@ export default function ServicesSection() {
           <span style={{ fontSize: "0.92rem", color: "#0F172A", fontWeight: 700 }}>
             Delivery Policy:{" "}
             <span style={{ color: "#475569", fontWeight: 500 }}>
-              Your delivery date is confirmed after we review your brief and receive the required assets.
+              Expected delivery within 2–4 business days (2–3 days for trial). Your exact date is confirmed within 24 hours of brief & photo review.
             </span>
           </span>
         </motion.div>
@@ -672,7 +672,7 @@ export default function ServicesSection() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, color: "#0F172A", fontSize: "0.88rem", fontWeight: 600 }}>
             <Clock size={16} style={{ color: "#06B6D4" }} />
-            <span>Delivery Date Confirmed Upon Brief &amp; Assets Receipt</span>
+            <span>Expected 2–4 Day Delivery (Exact Date Confirmed on Review)</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 10, color: "#0F172A", fontSize: "0.88rem", fontWeight: 600 }}>
             <Sparkles size={16} style={{ color: "#6366F1" }} />

@@ -252,10 +252,10 @@ export default function ProcessSection() {
             </div>
             <div>
               <div style={{ color: "#0F172A", fontWeight: 700, fontSize: "0.92rem", marginBottom: 2 }}>
-                Clear Delivery Policy
+                Realistic Turnaround Promise
               </div>
               <div style={{ color: "#64748B", fontSize: "0.85rem" }}>
-                Your delivery date is confirmed after we review your brief and receive the required assets.
+                Expected delivery within 2–4 business days (2–3 days for trial). Your exact date is confirmed within 24 hours of brief & photo review.
               </div>
             </div>
           </div>

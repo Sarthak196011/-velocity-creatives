@@ -14,7 +14,7 @@ const faqs = [
   },
   {
     q: "How quickly will I receive my visuals?",
-    a: "Your delivery date is confirmed after we review your brief and receive the required assets."
+    a: "Expected turnaround is typically 2–4 business days (2–3 business days for our ₹999 trial pack). Once you submit your product photos and brief, we review them within 24 hours and lock in your exact guaranteed delivery date."
   },
   {
     q: "Is there a trial before committing to a monthly plan?",

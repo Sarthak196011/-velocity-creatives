@@ -337,7 +337,7 @@ export default function ContactSection() {
                   <div style={{ background: "#F8FAFC", border: "1px solid rgba(15,23,42,0.08)", borderRadius: 16, padding: "16px 20px", maxWidth: 460, width: "100%", textAlign: "left", fontSize: "0.85rem", color: "#475569", lineHeight: 1.6 }}>
                     <div>✓ Reference ID: <strong>{bookingResult?.bookingId || "VC-PENDING"}</strong></div>
                     <div>✓ Confirmation sent to: <strong>{formData.email}</strong></div>
-                    <div>✓ Delivery policy: <strong>Your delivery date is confirmed after we review your brief and receive required assets.</strong></div>
+                    <div>✓ Expected turnaround: <strong>2–3 business days for trial (exact delivery date confirmed upon photo review).</strong></div>
                   </div>
 
                   <button
@@ -642,7 +642,7 @@ export default function ContactSection() {
                   </button>
 
                   <div style={{ textAlign: "center", fontSize: "0.78rem", color: "#64748B" }}>
-                    Your delivery date is confirmed after we review your brief and receive the required assets.
+                    Expected delivery in 2–3 business days for trial (exact date confirmed after reviewing your photos).
                   </div>
                 </form>
               )}

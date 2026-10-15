@@ -16,24 +16,14 @@ interface ProductComparison {
 
 const comparisons: ProductComparison[] = [
   {
-    id: "skincare",
-    name: "Auraa Peptide Cream",
-    category: "Skincare",
-    beforeImg: "/before-after/raw-auraa-skincare.png",
-    afterImg: "/sample-work/auraa-moisturizer.png",
+    id: "cookies",
+    name: "Mo's Bakery Ragi Cookies",
+    category: "Food & Snacks",
+    beforeImg: "/before-after/raw-mos-cookies.png",
+    afterImg: "/sample-work/mos-ragi-cookies.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
-    description: "Raw bottle photo transformed into a dewy, water-splashed luxury skincare visual."
-  },
-  {
-    id: "fitness",
-    name: "Fuel One Whey Protein",
-    category: "Fitness",
-    beforeImg: "/before-after/raw-fuel-whey.png",
-    afterImg: "/sample-work/fuel-whey-splash.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    description: "Standard container photo transformed into high-impact dynamic milk collision ad."
+    description: "Raw canister photo transformed into an inviting breakfast table scene with 100% real packaging, logo & label text preserved."
   },
   {
     id: "apparel",
@@ -43,7 +33,17 @@ const comparisons: ProductComparison[] = [
     afterImg: "/sample-work/bullmer-bamboo-shirt.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
-    description: "Flat clothing photo transformed into an editorial summer resort visual on stone pedestal."
+    description: "Flat clothing photo transformed into an editorial summer resort visual on stone pedestal with real print & inner label intact."
+  },
+  {
+    id: "leather",
+    name: "NOMAD Leather Carry",
+    category: "Leather",
+    beforeImg: "/before-after/raw-leather-wallet.png",
+    afterImg: "/sample-work/luxury-leather-wallet.png",
+    beforeLabel: "Photo you send",
+    afterLabel: "Visual we create",
+    description: "Casual product photo transformed into rich mahogany desk setup ad visual with real leather stitching & grain."
   },
   {
     id: "gadgets",
@@ -53,17 +53,7 @@ const comparisons: ProductComparison[] = [
     afterImg: "/sample-work/apple-watch-ocean.png",
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
-    description: "Simple watch shot transformed into dramatic crashing ocean wave visual."
-  },
-  {
-    id: "edc",
-    name: "NOMAD Leather Carry",
-    category: "Leather",
-    beforeImg: "/before-after/raw-leather-wallet.png",
-    afterImg: "/sample-work/luxury-leather-wallet.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    description: "Casual table photo transformed into rich mahogany desk setup ad visual."
+    description: "Simple watch photo staged amidst crashing ocean rocks with real Wayfinder watch face & titanium casing."
   }
 ];
 
@@ -88,7 +78,7 @@ export default function HeroSection() {
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
-        padding: "140px 24px 80px"
+        padding: "115px 24px 60px"
       }}
     >
       {/* Background Gradients */}
@@ -144,7 +134,7 @@ export default function HeroSection() {
         }}
       >
         {/* Status Badge */}
-        <div style={{ textAlign: "center", marginBottom: 32 }}>
+        <div style={{ textAlign: "center", marginBottom: 18 }}>
           <div
             style={{
               display: "inline-flex",
@@ -183,7 +173,7 @@ export default function HeroSection() {
             </span>
             <span style={{ width: 1, height: 14, background: "rgba(15,23,42,0.12)" }} />
             <span style={{ color: "#64748B", fontSize: "0.75rem", fontWeight: 600 }}>
-              Packages from ₹1,999/mo • ₹999 Trial Pack
+              Packages from ₹1,999/mo • Expected in 2–4 Days
             </span>
           </div>
         </div>
@@ -204,12 +194,14 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="display-xl"
               style={{
-                color: "#0F172A",
-                marginBottom: 20,
-                lineHeight: 1.15,
+                fontSize: "clamp(2rem, 3.2vw, 3.1rem)",
+                fontWeight: 900,
+                lineHeight: 1.16,
                 letterSpacing: "-0.03em",
+                color: "#0F172A",
+                marginBottom: 16,
+                maxWidth: 580,
               }}
             >
               Turn Ordinary Product Photos Into{" "}
@@ -221,11 +213,11 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
               style={{
-                fontSize: "clamp(1.05rem, 1.8vw, 1.22rem)",
+                fontSize: "clamp(0.96rem, 1.25vw, 1.08rem)",
                 color: "#475569",
-                lineHeight: 1.7,
-                marginBottom: 36,
-                maxWidth: 580,
+                lineHeight: 1.6,
+                marginBottom: 24,
+                maxWidth: 540,
               }}
             >
               Send us your existing product photos. We transform them into polished images, ad
@@ -242,7 +234,7 @@ export default function HeroSection() {
                 flexWrap: "wrap",
                 gap: 14,
                 alignItems: "center",
-                marginBottom: 36,
+                marginBottom: 24,
               }}
             >
               <button
@@ -250,7 +242,7 @@ export default function HeroSection() {
                 onClick={() => go("work")}
                 className="btn-primary"
                 style={{
-                  padding: "16px 32px",
+                  padding: "14px 28px",
                   borderRadius: 14,
                   fontSize: "0.95rem",
                   fontWeight: 800,
@@ -268,9 +260,9 @@ export default function HeroSection() {
                 onClick={() => go("services")}
                 className="btn-ghost"
                 style={{
-                  padding: "16px 28px",
+                  padding: "14px 24px",
                   borderRadius: 14,
-                  fontSize: "0.95rem",
+                  fontSize: "0.92rem",
                   fontWeight: 700,
                   cursor: "pointer",
                 }}
@@ -331,7 +323,7 @@ export default function HeroSection() {
                 <Check size={14} color="#10B981" strokeWidth={3} /> Same real product shape &amp; labels
               </span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                <Check size={14} color="#10B981" strokeWidth={3} /> Confirmed delivery date on brief
+                <Check size={14} color="#10B981" strokeWidth={3} /> Expected in 2–4 business days (date confirmed on review)
               </span>
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                 <Check size={14} color="#10B981" strokeWidth={3} /> ₹999 trial with no lock-in
