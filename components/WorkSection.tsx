@@ -87,30 +87,6 @@ const beforeAfterList: BeforeAfterItem[] = [
     summary: "From flat retail pouch to vibrant ingredient spread with real nuts & dry fruits.",
     details: "We isolated the branded pouch, preserving original graphics and typography, staging it on clean marble surrounded by nutrient-dense almonds, cashews and berries."
   },
-  {
-    id: "ba-7",
-    title: "Fuel One Whey - Dynamic Collision",
-    brand: "Fuel One",
-    category: "Ads",
-    beforeImg: "/before-after/raw-fuel-whey.png",
-    afterImg: "/sample-work/fuel-whey-splash.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From plain product container to high-impact milk collision & powder splash ad.",
-    details: "Using the raw customer photo, we placed the container branding inside an energetic chocolate-milk splash environment on dark industrial slate, designed to immediately stop feed scrollers."
-  },
-  {
-    id: "ba-8",
-    title: "MuscleTech Platinum Fish Oil",
-    brand: "MuscleTech",
-    category: "Ads",
-    beforeImg: "/before-after/raw-muscletech-fishoil.png",
-    afterImg: "/sample-work/muscletech-fishoil.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From plain bottle shot to fresh coastal driftwood and crystal splash ad.",
-    details: "Preserved exact label foil, omega-3 potency badges, and bottle curvature while crafting a pristine marine setting with clear water droplets demonstrating 100% pure omega-3 sourcing."
-  }
 ];
 
 // --- 2. 21 CAMPAIGN-READY AD CONCEPTS ACROSS 9 INDUSTRIES ---
