@@ -88,18 +88,6 @@ const beforeAfterList: BeforeAfterItem[] = [
     details: "We isolated the branded pouch, preserving original graphics and typography, staging it on clean marble surrounded by nutrient-dense almonds, cashews and berries."
   },
   {
-    id: "ba-6",
-    title: "Urban Streetwear Sneakers",
-    brand: "Urban Kicks",
-    category: "Ads",
-    beforeImg: "/before-after/raw-urban-sneakers.png",
-    afterImg: "/sample-work/urban-sneakers.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From floor sneaker snap to dynamic floating perspective over skate ramp.",
-    details: "We isolated the shoes, preserved the rubber outsole texture and lace styling, and placed them in an action-oriented sunlit skatepark angle to capture youth street culture."
-  },
-  {
     id: "ba-7",
     title: "Fuel One Whey - Dynamic Collision",
     brand: "Fuel One",
