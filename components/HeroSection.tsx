@@ -44,16 +44,6 @@ const comparisons: ProductComparison[] = [
     beforeLabel: "Photo you send",
     afterLabel: "Visual we create",
     description: "Casual product photo transformed into rich mahogany desk setup ad visual with real leather stitching & grain."
-  },
-  {
-    id: "gadgets",
-    name: "Apple Watch Ultra",
-    category: "Gadgets",
-    beforeImg: "/before-after/raw-apple-watch.png",
-    afterImg: "/sample-work/apple-watch-ocean.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    description: "Simple watch photo staged amidst crashing ocean rocks with real Wayfinder watch face & titanium casing."
   }
 ];
 

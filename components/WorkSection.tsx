@@ -62,7 +62,7 @@ const beforeAfterList: BeforeAfterItem[] = [
   },
   {
     id: "ba-3",
-    title: "NOMAD Leather Carry & Apple Watch",
+    title: "NOMAD Leather Executive Wallet",
     brand: "NOMAD Goods",
     category: "Product Images",
     beforeImg: "/before-after/raw-leather-wallet.png",
@@ -71,30 +71,6 @@ const beforeAfterList: BeforeAfterItem[] = [
     afterLabel: "Visual we create",
     summary: "From casual phone camera photo to rich mahogany executive desk setup.",
     details: "We extracted the handcrafted leather wallet, maintaining real leather stitching, grain, and pocket cuts, composing a timeless executive desk scene with warm reading lamp glow."
-  },
-  {
-    id: "ba-4",
-    title: "Apple Watch Ultra - Ocean Wave Crash",
-    brand: "Smart Wearable",
-    category: "Ads",
-    beforeImg: "/before-after/raw-apple-watch.png",
-    afterImg: "/sample-work/apple-watch-ocean.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From plain product photo to turbulent crashing ocean rock visual.",
-    details: "Retained the exact Wayfinder dial typography, titanium casing, and orange alpine loop while staging it amidst turbulent sea spray to visually prove extreme durability."
-  },
-  {
-    id: "ba-5",
-    title: "Right Shift Nutrient Seeds",
-    brand: "Right Shift",
-    category: "Carousels",
-    beforeImg: "/before-after/raw-rightshift.png",
-    afterImg: "/sample-work/rightshift-dryfruit.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    summary: "From flat retail pouch to vibrant ingredient spread with real nuts & dry fruits.",
-    details: "We isolated the branded pouch, preserving original graphics and typography, staging it on clean marble surrounded by nutrient-dense almonds, cashews and berries."
   },
 ];
 
