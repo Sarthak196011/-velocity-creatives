@@ -601,6 +601,17 @@ export const videoReels: VideoReel[] = [
     accent: "#06B6D4",
     hook: "Dynamic color-burst shockwave and rotational camera tracking built for footwear drops and sports releases.",
     benefit: "Create high-energy product launch teasers from standard product photos with custom VFX, sound design and speed ramps."
+    },
+  {
+    id: "packaging-reveal",
+    title: "Cinematic Luxury Packaging Reveal Commercial",
+    brand: "Luxe Unboxing",
+    technique: "Dynamic 3D Camera Pan & Unboxing VFX",
+    badge: "30-Sec Reel • Video Plan (₹5,999/mo)",
+    src: "/videos/packaging-reveal-vfx.mp4",
+    accent: "#F59E0B",
+    hook: "Seamless cinematic camera sweep revealing premium packaging folds, metallic foil embossing, and unboxing anticipation.",
+    benefit: "Transform flat box and packaging mockups into high-converting unboxing commercials that drive direct product pre-orders."
   }
 ];
 
@@ -1988,7 +1999,7 @@ export default function WorkSection() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 340px), 1fr))",
               gap: "clamp(24px, 4vw, 36px)",
             }}
           >
