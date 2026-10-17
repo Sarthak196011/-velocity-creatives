@@ -298,6 +298,192 @@ export const conceptDesigns: ConceptDesign[] = [
 ];
 
 
+
+// --- 2. 5-THEME CREATIVE EXPLORATIONS (1 PRODUCT -> 5 WORLDS) ---
+export interface ThemeVariant {
+  id: string;
+  name: string;
+  accent: string;
+  badge: string;
+  src: string;
+  hook: string;
+  description: string;
+}
+
+export interface ProductThemes {
+  id: string;
+  title: string;
+  brand: string;
+  category: string;
+  summary: string;
+  themes: ThemeVariant[];
+}
+
+export const productThemesList: ProductThemes[] = [
+  {
+    id: "camera",
+    title: "Vintage Rangefinder 35mm Camera",
+    brand: "Optics Heritage",
+    category: "Consumer Tech & Photography",
+    summary: "One single raw camera photo adapted into 5 distinct commercial worlds — demonstrating how styling matches your exact target demographic.",
+    themes: [
+      {
+        id: "studio",
+        name: "Minimalist Studio",
+        accent: "#64748B",
+        badge: "Clean Scandinavian",
+        src: "/themes/camera/01_studio.png",
+        hook: "Pristine white-plaster pedestal with soft directional window light for clean e-commerce.",
+        description: "Focuses on exact camera textures, knurled dials, and mechanical precision without background distraction."
+      },
+      {
+        id: "neon",
+        name: "Neon Futuristic",
+        accent: "#EC4899",
+        badge: "Cyberpunk & Street",
+        src: "/themes/camera/02_neon.png",
+        hook: "High-contrast magenta and cobalt reflections engineered for nightlife and urban creators.",
+        description: "Creates dramatic nocturnal energy and high click-through rates on Instagram and TikTok feeds."
+      },
+      {
+        id: "nature",
+        name: "Organic Nature",
+        accent: "#10B981",
+        badge: "Outdoor & Travel",
+        src: "/themes/camera/03_nature.png",
+        hook: "Forest moss and volcanic rock bed with natural morning mist lighting.",
+        description: "Perfect for adventure travel campaigns, outdoor lifestyle branding, and documentary storytelling."
+      },
+      {
+        id: "luxury",
+        name: "Dark Luxury",
+        accent: "#F59E0B",
+        badge: "Executive & Heritage",
+        src: "/themes/camera/04_luxury.png",
+        hook: "Black veined marble, golden rim highlights, and deep shadows for luxury positioning.",
+        description: "Positions the product as an heirloom investment piece with high-AOV appeal."
+      },
+      {
+        id: "surreal",
+        name: "Surreal Floating",
+        accent: "#8B5CF6",
+        badge: "Conceptual & Artistic",
+        src: "/themes/camera/05_surreal.png",
+        hook: "Zero-gravity levitation with dreamscape pastel architecture and sculptural geometry.",
+        description: "Stops feed scrollers with unexpected physics and modern editorial aesthetics."
+      }
+    ]
+  },
+  {
+    id: "controller",
+    title: "Next-Gen Pro Wireless Controller",
+    brand: "Apex Gaming Hardware",
+    category: "Gaming & Hardware",
+    summary: "From a plain hardware photo to 5 commercial campaign aesthetics tailored for casual, competitive, and luxury gamers.",
+    themes: [
+      {
+        id: "studio",
+        name: "Minimalist Studio",
+        accent: "#64748B",
+        badge: "Clean Scandinavian",
+        src: "/themes/controller/01_studio.png",
+        hook: "Clean matte surface reflections and soft ambient fill for Amazon & store listings.",
+        description: "Highlights ergonomic curves, textured grips, and responsive button layout with clarity."
+      },
+      {
+        id: "neon",
+        name: "Neon Futuristic",
+        accent: "#06B6D4",
+        badge: "Esports & Cyberpunk",
+        src: "/themes/controller/02_neon.png",
+        hook: "Electric cyan and violet underglow simulating high-octane esports arena energy.",
+        description: "Engineered to convert competitive gamers, stream setups, and hardware enthusiasts."
+      },
+      {
+        id: "nature",
+        name: "Organic Nature",
+        accent: "#10B981",
+        badge: "Eco-Friendly Hardware",
+        src: "/themes/controller/03_nature.png",
+        hook: "Weathered granite and wild botanicals showing durable go-anywhere versatility.",
+        description: "A fresh, unexpected contrast connecting gaming hardware with organic calm."
+      },
+      {
+        id: "luxury",
+        name: "Dark Luxury",
+        accent: "#F59E0B",
+        badge: "Executive Collector",
+        src: "/themes/controller/04_luxury.png",
+        hook: "Gold-dusted slate, rich amber backlight, and cinematic atmospheric dust.",
+        description: "Presents the controller as a premium limited-edition collector tier piece."
+      },
+      {
+        id: "surreal",
+        name: "Surreal Floating",
+        accent: "#A855F7",
+        badge: "Virtual Dimension",
+        src: "/themes/controller/05_surreal.png",
+        hook: "Anti-gravity floating modules and iridescent architectural pedestals.",
+        description: "Visualizes immersion and next-generation haptic feedback in a surreal virtual realm."
+      }
+    ]
+  },
+  {
+    id: "tide",
+    title: "Tide Ultra Concentrated Laundry Pack",
+    brand: "Tide Home Care",
+    category: "FMCG & Consumer Goods",
+    summary: "Proving that even everyday household products can look extraordinary with the right creative direction and commercial lighting.",
+    themes: [
+      {
+        id: "studio",
+        name: "Minimalist Studio",
+        accent: "#64748B",
+        badge: "Clean Scandinavian",
+        src: "/themes/tide/01_studio.png",
+        hook: "Pure white ceramic staging with crisp water-clear light for supermarket e-commerce.",
+        description: "100% authentic label typography, orange handle curvature, and cap seal preserved."
+      },
+      {
+        id: "neon",
+        name: "Neon Futuristic",
+        accent: "#F97316",
+        badge: "High-Energy Modern",
+        src: "/themes/tide/02_neon.png",
+        hook: "Vibrant high-voltage orange and electric blue rim glow emphasizing cleaning power.",
+        description: "Transforms a standard supermarket essential into a high-visibility digital ad hook."
+      },
+      {
+        id: "nature",
+        name: "Organic Nature",
+        accent: "#10B981",
+        badge: "Botanical Freshness",
+        src: "/themes/tide/03_nature.png",
+        hook: "Dew-covered spring flowers, river pebbles, and fresh morning sunbeams.",
+        description: "Highlights natural fabric freshness, allergen-free purity, and botanical scents."
+      },
+      {
+        id: "luxury",
+        name: "Dark Luxury",
+        accent: "#F59E0B",
+        badge: "Premium Care",
+        src: "/themes/tide/04_luxury.png",
+        hook: "Sleek obsidian marble with dramatic golden lighting and premium fabric staging.",
+        description: "Positions fabric care as a luxury wardrobe ritual for high-end designer apparel."
+      },
+      {
+        id: "surreal",
+        name: "Surreal Floating",
+        accent: "#8B5CF6",
+        badge: "Weightless Clean",
+        src: "/themes/tide/05_surreal.png",
+        hook: "Floating droplets and architectural clouds symbolizing weightless clean comfort.",
+        description: "Stops endless social media scrolling with imaginative, dreamy visual metaphors."
+      }
+    ]
+  }
+];
+
 // --- 3. 4-SLIDE MULTI-PANEL INSTAGRAM CAROUSELS (GROWTH PLAN) ---
 export interface CarouselSlide {
   step: string;
@@ -425,6 +611,25 @@ export default function WorkSection() {
   // States
   const [activeIndustry, setActiveIndustry] = useState<IndustryFilter>("All");
   const [selectedConcept, setSelectedConcept] = useState<ConceptDesign | null>(null);
+  const [activeThemeProductId, setActiveThemeProductId] = useState<string>("camera");
+  const [activeThemeIndex, setActiveThemeIndex] = useState<number>(0);
+
+  const currentProductTheme = productThemesList.find((p) => p.id === activeThemeProductId) || productThemesList[0];
+  const currentTheme = currentProductTheme.themes[activeThemeIndex] || currentProductTheme.themes[0];
+
+  const handlePrevTheme = () => {
+    setActiveThemeIndex((prev) => (prev > 0 ? prev - 1 : currentProductTheme.themes.length - 1));
+  };
+
+  const handleNextTheme = () => {
+    setActiveThemeIndex((prev) => (prev < currentProductTheme.themes.length - 1 ? prev + 1 : 0));
+  };
+
+  const selectThemeProduct = (id: string) => {
+    setActiveThemeProductId(id);
+    setActiveThemeIndex(0);
+  };
+
   const [activeCarouselId, setActiveCarouselId] = useState<string>("fountain-pen");
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
@@ -754,6 +959,488 @@ export default function WorkSection() {
         </div>
 
         {/* ========================================================= */}
+        {/* ========================================================= */}
+        {/* 2. 1 PRODUCT -> 5 CREATIVE THEMES (THEME EXPLORATION)     */}
+        {/* ========================================================= */}
+        <div style={{ marginBottom: 96 }} id="themes-showcase">
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 16px",
+                borderRadius: 999,
+                background: "rgba(245,158,11,0.08)",
+                border: "1px solid rgba(245,158,11,0.2)",
+                color: "#D97706",
+                fontSize: "0.74rem",
+                fontWeight: 800,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                marginBottom: 12,
+              }}
+            >
+              <Sparkles size={13} />
+              Multi-Theme Creative Direction
+            </div>
+            <h3
+              style={{
+                fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)",
+                fontWeight: 900,
+                letterSpacing: "-0.025em",
+                color: "#0F172A",
+                marginBottom: 12,
+                lineHeight: 1.15,
+              }}
+            >
+              1 Product Photo &bull; <span className="gt">5 Distinct Brand Worlds</span>
+            </h3>
+            <p
+              style={{
+                color: "#64748B",
+                fontSize: "clamp(0.92rem, 1.2vw, 1.05rem)",
+                maxWidth: 680,
+                margin: "0 auto",
+                lineHeight: 1.6,
+              }}
+            >
+              Send us one single product photo. We place it across 5 completely different aesthetic environments to find the highest-converting visual identity for your brand.
+            </p>
+
+            {/* Product Switcher Pills */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: 10,
+                marginTop: 24,
+              }}
+            >
+              {productThemesList.map((p) => {
+                const isSelected = p.id === activeThemeProductId;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    onClick={() => selectThemeProduct(p.id)}
+                    style={{
+                      background: isSelected ? "#0F172A" : "#FFFFFF",
+                      color: isSelected ? "#FFFFFF" : "#475569",
+                      border: isSelected ? "1px solid #0F172A" : "1px solid rgba(15,23,42,0.1)",
+                      borderRadius: 14,
+                      padding: "10px 18px",
+                      fontSize: "0.86rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      boxShadow: isSelected ? "0 8px 24px rgba(15,23,42,0.18)" : "0 2px 8px rgba(15,23,42,0.03)",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      transition: "all 0.25s ease",
+                    }}
+                  >
+                    <span>{p.title.split(" ")[0]} {p.title.split(" ")[1]}</span>
+                    <span
+                      style={{
+                        fontSize: "0.7rem",
+                        padding: "2px 7px",
+                        borderRadius: 6,
+                        background: isSelected ? "rgba(255,255,255,0.15)" : "#F1F5F9",
+                        color: isSelected ? "#FFFFFF" : "#64748B",
+                        fontWeight: 800,
+                      }}
+                    >
+                      5 Themes
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Interactive 5-Theme Viewer Container */}
+          <div
+            style={{
+              background: "#FFFFFF",
+              borderRadius: 28,
+              border: "1px solid rgba(15,23,42,0.09)",
+              boxShadow: "0 20px 50px rgba(15,23,42,0.06)",
+              padding: "clamp(18px, 3.5vw, 36px)",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
+              gap: "clamp(24px, 4vw, 48px)",
+              alignItems: "center",
+            }}
+          >
+            {/* Left: Active Theme Preview Card */}
+            <div style={{ position: "relative" }}>
+              <div
+                style={{
+                  position: "relative",
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  aspectRatio: "4 / 5",
+                  background: "#0F172A",
+                  boxShadow: "0 14px 40px rgba(15,23,42,0.16)",
+                  border: `2px solid ${currentTheme.accent}`,
+                  cursor: "pointer",
+                }}
+                onClick={() =>
+                  setSelectedConcept({
+                    id: `theme-${currentProductTheme.id}-${activeThemeIndex}`,
+                    title: `${currentProductTheme.title} (${currentTheme.name})`,
+                    industry: "Fashion & Bags",
+                    headline: currentTheme.name,
+                    hook: currentTheme.hook,
+                    deliverableType: "Ads",
+                    accent: currentTheme.accent,
+                    src: currentTheme.src,
+                    description: currentTheme.description,
+                  })
+                }
+              >
+                <img
+                  src={currentTheme.src}
+                  alt={currentTheme.name}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+
+                {/* Top Left Theme Badge */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    left: 14,
+                    background: "rgba(15,23,42,0.85)",
+                    backdropFilter: "blur(10px)",
+                    color: "#FFFFFF",
+                    fontSize: "0.75rem",
+                    fontWeight: 800,
+                    padding: "5px 12px",
+                    borderRadius: 999,
+                    letterSpacing: "0.04em",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 7,
+                      height: 7,
+                      borderRadius: "50%",
+                      background: currentTheme.accent,
+                      boxShadow: `0 0 8px ${currentTheme.accent}`,
+                    }}
+                  />
+                  <span>Theme 0{activeThemeIndex + 1}: {currentTheme.name}</span>
+                </div>
+
+                {/* Top Right: Tap to Expand */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    right: 14,
+                    background: "rgba(15,23,42,0.8)",
+                    backdropFilter: "blur(8px)",
+                    color: "#FFFFFF",
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                    padding: "5px 10px",
+                    borderRadius: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 5,
+                  }}
+                >
+                  <Maximize2 size={12} /> Full Size
+                </div>
+
+                {/* Bottom Overlay: Theme Focus */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: "16px 18px",
+                    background: "linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.6) 70%, transparent 100%)",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "0.72rem",
+                      fontWeight: 800,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: currentTheme.accent,
+                      marginBottom: 2,
+                    }}
+                  >
+                    {currentTheme.badge}
+                  </div>
+                  <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "#F1F5F9", lineHeight: 1.4 }}>
+                    {currentTheme.hook}
+                  </div>
+                </div>
+
+                {/* Prev / Next Theme Navigation Buttons */}
+                <button
+                  type="button"
+                  aria-label="Previous Theme"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrevTheme();
+                  }}
+                  style={{
+                    position: "absolute",
+                    left: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "rgba(15,23,42,0.85)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    borderRadius: "50%",
+                    width: 38,
+                    height: 38,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Next Theme"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNextTheme();
+                  }}
+                  style={{
+                    position: "absolute",
+                    right: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "rgba(15,23,42,0.85)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    borderRadius: "50%",
+                    width: 38,
+                    height: 38,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+
+              {/* Progress Dots */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 8,
+                  marginTop: 14,
+                }}
+              >
+                {currentProductTheme.themes.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={`Jump to theme ${i + 1}`}
+                    onClick={() => setActiveThemeIndex(i)}
+                    style={{
+                      width: i === activeThemeIndex ? 24 : 8,
+                      height: 8,
+                      borderRadius: 4,
+                      background: i === activeThemeIndex ? currentTheme.accent : "#CBD5E1",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Theme Selector & Creative Logic */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div
+                style={{
+                  fontSize: "0.74rem",
+                  fontWeight: 800,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                  color: currentTheme.accent,
+                  marginBottom: 6,
+                }}
+              >
+                {currentProductTheme.category} &bull; {currentProductTheme.brand}
+              </div>
+
+              <h4
+                style={{
+                  fontSize: "clamp(1.25rem, 2vw, 1.6rem)",
+                  fontWeight: 900,
+                  color: "#0F172A",
+                  marginBottom: 10,
+                  lineHeight: 1.25,
+                }}
+              >
+                {currentProductTheme.title}
+              </h4>
+
+              <p
+                style={{
+                  fontSize: "0.9rem",
+                  color: "#475569",
+                  lineHeight: 1.6,
+                  marginBottom: 20,
+                }}
+              >
+                {currentProductTheme.summary}
+              </p>
+
+              {/* 5 Selectable Theme Cards */}
+              <div style={{ marginBottom: 24 }}>
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "#64748B",
+                    marginBottom: 10,
+                  }}
+                >
+                  Select a Visual Direction to Compare:
+                </div>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+                    gap: 8,
+                  }}
+                >
+                  {currentProductTheme.themes.map((t, idx) => {
+                    const isThemeActive = idx === activeThemeIndex;
+                    return (
+                      <button
+                        key={t.id}
+                        type="button"
+                        onClick={() => setActiveThemeIndex(idx)}
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          textAlign: "center",
+                          gap: 6,
+                          padding: "8px 6px",
+                          borderRadius: 12,
+                          background: isThemeActive ? "rgba(15,23,42,0.05)" : "#F8FAFC",
+                          border: isThemeActive
+                            ? `2px solid ${t.accent}`
+                            : "1px solid rgba(15,23,42,0.08)",
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 38,
+                            height: 48,
+                            borderRadius: 6,
+                            overflow: "hidden",
+                            background: "#0F172A",
+                          }}
+                        >
+                          <img
+                            src={t.src}
+                            alt={t.name}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          />
+                        </div>
+                        <div
+                          style={{
+                            fontSize: "0.72rem",
+                            fontWeight: 800,
+                            color: isThemeActive ? t.accent : "#0F172A",
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {t.name}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Theme Benefit & Action Banner */}
+              <div
+                style={{
+                  background: "#F8FAFC",
+                  borderRadius: 16,
+                  padding: "16px 20px",
+                  border: "1px solid rgba(15,23,42,0.06)",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 12,
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: "0.74rem", fontWeight: 800, color: "#0F172A" }}>
+                    Test Multiple Themes in Your Package
+                  </div>
+                  <div style={{ fontSize: "0.78rem", color: "#64748B" }}>
+                    Compare studio, outdoor and lifestyle variants to see which delivers highest ROAS
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => go("contact")}
+                  className="btn-primary"
+                  style={{
+                    padding: "10px 18px",
+                    borderRadius: 10,
+                    fontSize: "0.85rem",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  Explore Your Product Themes <ArrowRight size={14} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* 3. MULTI-SLIDE CAROUSEL CAMPAIGNS (GROWTH PLAN)          */}
         {/* ========================================================= */}
         <div style={{ marginBottom: 96 }} id="carousels-showcase">
