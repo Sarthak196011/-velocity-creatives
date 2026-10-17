@@ -3,49 +3,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { useRef, useState } from "react";
 import { ArrowRight, Play, X, Sparkles, Check, Eye } from "lucide-react";
 
-interface ProductComparison {
-  id: string;
-  name: string;
-  category: string;
-  beforeImg: string;
-  afterImg: string;
-  beforeLabel: string;
-  afterLabel: string;
-  description: string;
-}
 
-const comparisons: ProductComparison[] = [
-  {
-    id: "cookies",
-    name: "Mo's Bakery Ragi Cookies",
-    category: "Food & Snacks",
-    beforeImg: "/before-after/raw-mos-cookies.png",
-    afterImg: "/sample-work/mos-ragi-cookies.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    description: "Raw canister photo transformed into an inviting breakfast table scene with 100% real packaging, logo & label text preserved."
-  },
-  {
-    id: "apparel",
-    name: "BULLMER Bamboo Shirt",
-    category: "Apparel",
-    beforeImg: "/before-after/raw-bullmer-shirt.png",
-    afterImg: "/sample-work/bullmer-bamboo-shirt.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    description: "Flat clothing photo transformed into an editorial summer resort visual on stone pedestal with real print & inner label intact."
-  },
-  {
-    id: "leather",
-    name: "NOMAD Leather Carry",
-    category: "Leather",
-    beforeImg: "/before-after/raw-leather-wallet.png",
-    afterImg: "/sample-work/luxury-leather-wallet.png",
-    beforeLabel: "Photo you send",
-    afterLabel: "Visual we create",
-    description: "Casual product photo transformed into rich mahogany desk setup ad visual with real leather stitching & grain."
-  }
-];
 
 export default function HeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,7 +11,6 @@ export default function HeroSection() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-  const [activeComp, setActiveComp] = useState<ProductComparison>(comparisons[0]);
   const [showVideoModal, setShowVideoModal] = useState(false);
 
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -168,18 +125,15 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* 2-Column Layout: Left Headline & Copy / Right Before-and-After Card */}
+        {/* Centered Hero Offer & Action Block */}
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 500px), 1fr))",
-            gap: "clamp(32px, 5vw, 64px)",
-            alignItems: "center",
-            marginBottom: 48,
+            maxWidth: 860,
+            margin: "0 auto 54px",
+            textAlign: "center",
           }}
         >
-          {/* Left Column: Headlines, Subheading & Buttons */}
-          <div style={{ textAlign: "left" }}>
+          <div>
             <motion.h1
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
@@ -191,7 +145,8 @@ export default function HeroSection() {
                 letterSpacing: "-0.03em",
                 color: "#0F172A",
                 marginBottom: 16,
-                maxWidth: 580,
+                maxWidth: 780,
+                margin: "0 auto 18px",
               }}
             >
               Turn Ordinary Product Photos Into{" "}
@@ -207,7 +162,8 @@ export default function HeroSection() {
                 color: "#475569",
                 lineHeight: 1.6,
                 marginBottom: 24,
-                maxWidth: 540,
+                maxWidth: 640,
+                margin: "0 auto 28px",
               }}
             >
               Send us your existing product photos. We transform them into polished images, ad
@@ -224,7 +180,8 @@ export default function HeroSection() {
                 flexWrap: "wrap",
                 gap: 14,
                 alignItems: "center",
-                marginBottom: 24,
+                marginBottom: 26,
+                justifyContent: "center",
               }}
             >
               <button
@@ -307,6 +264,7 @@ export default function HeroSection() {
                 fontSize: "0.82rem",
                 color: "#64748B",
                 fontWeight: 600,
+                justifyContent: "center",
               }}
             >
               <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
@@ -320,229 +278,6 @@ export default function HeroSection() {
               </span>
             </div>
           </div>
-
-          {/* Right Column: Before-and-After Example Beside Headline */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            style={{
-              background: "#FFFFFF",
-              borderRadius: 28,
-              border: "1px solid rgba(15,23,42,0.1)",
-              boxShadow: "0 20px 50px rgba(15,23,42,0.08)",
-              padding: "clamp(20px, 3vw, 28px)",
-              position: "relative",
-            }}
-          >
-            {/* Header info */}
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 16,
-              }}
-            >
-              <div>
-                <div
-                  style={{
-                    fontSize: "0.72rem",
-                    fontWeight: 800,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.12em",
-                    color: "#06B6D4",
-                    marginBottom: 2,
-                  }}
-                >
-                  Real Transformation
-                </div>
-                <div style={{ fontSize: "1.05rem", fontWeight: 800, color: "#0F172A" }}>
-                  {activeComp.name}
-                </div>
-              </div>
-
-              {/* Product selector buttons */}
-              <div style={{ display: "flex", gap: 6, background: "#F1F5F9", padding: 4, borderRadius: 12, overflowX: "auto" }}>
-                {comparisons.map((c) => (
-                  <button
-                    key={c.id}
-                    type="button"
-                    onClick={() => setActiveComp(c)}
-                    style={{
-                      background: activeComp.id === c.id ? "#FFFFFF" : "transparent",
-                      border: "none",
-                      borderRadius: 8,
-                      padding: "5px 10px",
-                      fontSize: "0.72rem",
-                      fontWeight: 700,
-                      color: activeComp.id === c.id ? "#0F172A" : "#64748B",
-                      cursor: "pointer",
-                      boxShadow: activeComp.id === c.id ? "0 2px 8px rgba(0,0,0,0.06)" : "none",
-                      transition: "all 0.2s ease",
-                    }}
-                  >
-                    {c.category}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Side-by-Side Comparison Container */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 12,
-                borderRadius: 20,
-                overflow: "hidden",
-                background: "#0F172A",
-                padding: 10,
-                position: "relative",
-              }}
-            >
-              {/* Left: Photo you send */}
-              <div
-                style={{
-                  position: "relative",
-                  borderRadius: 14,
-                  overflow: "hidden",
-                  aspectRatio: "1 / 1",
-                  background: "#F8FAFC",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-              >
-                <img
-                  src={activeComp.beforeImg}
-                  alt={activeComp.beforeLabel}
-                  style={{ width: "100%", height: "100%", objectFit: "contain", padding: 10, display: "block" }}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 10,
-                    left: 10,
-                    background: "rgba(15,23,42,0.85)",
-                    backdropFilter: "blur(8px)",
-                    color: "#FFFFFF",
-                    fontSize: "0.72rem",
-                    fontWeight: 800,
-                    padding: "4px 10px",
-                    borderRadius: 8,
-                    letterSpacing: "0.02em",
-                  }}
-                >
-                  {activeComp.beforeLabel}
-                </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 8,
-                    left: 8,
-                    right: 8,
-                    background: "rgba(15,23,42,0.75)",
-                    backdropFilter: "blur(4px)",
-                    color: "#F1F5F9",
-                    fontSize: "0.68rem",
-                    fontWeight: 600,
-                    padding: "4px 8px",
-                    borderRadius: 6,
-                    textAlign: "center",
-                  }}
-                >
-                  Raw customer photo
-                </div>
-              </div>
-
-              {/* Right: Visual we create */}
-              <div
-                style={{
-                  position: "relative",
-                  borderRadius: 14,
-                  overflow: "hidden",
-                  aspectRatio: "1 / 1",
-                  background: "#1E293B",
-                  border: "2px solid #06B6D4",
-                }}
-              >
-                <img
-                  src={activeComp.afterImg}
-                  alt={activeComp.afterLabel}
-                  style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-                />
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 10,
-                    right: 10,
-                    background: "linear-gradient(135deg, #06B6D4, #6366F1)",
-                    color: "#FFFFFF",
-                    fontSize: "0.72rem",
-                    fontWeight: 800,
-                    padding: "4px 10px",
-                    borderRadius: 8,
-                    letterSpacing: "0.02em",
-                    boxShadow: "0 2px 10px rgba(6,182,212,0.5)",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 4,
-                  }}
-                >
-                  <Sparkles size={11} /> {activeComp.afterLabel}
-                </div>
-                <div
-                  style={{
-                    position: "absolute",
-                    bottom: 8,
-                    left: 8,
-                    right: 8,
-                    background: "rgba(6,182,212,0.9)",
-                    color: "#FFFFFF",
-                    fontSize: "0.68rem",
-                    fontWeight: 700,
-                    padding: "4px 8px",
-                    borderRadius: 6,
-                    textAlign: "center",
-                  }}
-                >
-                  Polished brand ad visual
-                </div>
-              </div>
-            </div>
-
-            {/* Same product explanation */}
-            <div
-              style={{
-                marginTop: 14,
-                padding: "10px 14px",
-                background: "#F8F9FA",
-                borderRadius: 12,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                gap: 8,
-              }}
-            >
-              <span style={{ fontSize: "0.8rem", color: "#475569", lineHeight: 1.4 }}>
-                <strong>Same product in both images:</strong> {activeComp.description}
-              </span>
-              <span
-                style={{
-                  fontSize: "0.72rem",
-                  fontWeight: 800,
-                  color: "#6366F1",
-                  background: "rgba(99,102,241,0.08)",
-                  padding: "4px 8px",
-                  borderRadius: 6,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                Concept Work
-              </span>
-            </div>
-          </motion.div>
         </div>
 
         {/* 4 Pillars Grid (Updated for Clear Policies) */}
