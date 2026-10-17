@@ -7,9 +7,18 @@ import {
   ArrowLeft,
   X,
   Play,
+  Pause,
   Sparkles,
   Check,
-  Maximize2
+  Maximize2,
+  ChevronLeft,
+  ChevronRight,
+  Layers,
+  Film,
+  Smartphone,
+  Eye,
+  Volume2,
+  VolumeX
 } from "lucide-react";
 
 // --- 1. SIDE-BY-SIDE BEFORE / AFTER ITEMS ---
@@ -365,6 +374,127 @@ export const conceptDesigns: ConceptDesign[] = [
   }
 ];
 
+
+// --- 3. 4-SLIDE MULTI-PANEL INSTAGRAM CAROUSELS (GROWTH PLAN) ---
+export interface CarouselSlide {
+  step: string;
+  label: string;
+  src: string;
+  caption: string;
+}
+
+export interface CarouselCampaign {
+  id: string;
+  title: string;
+  brand: string;
+  category: string;
+  badge: string;
+  accent: string;
+  description: string;
+  slides: CarouselSlide[];
+}
+
+export const carouselCampaigns: CarouselCampaign[] = [
+  {
+    id: "fountain-pen",
+    title: "Parker Imperial Heritage Fountain Pen",
+    brand: "Heritage Writing Instruments",
+    category: "Luxury Stationery",
+    badge: "4-Slide Narrative Carousel",
+    accent: "#06B6D4",
+    description: "From photo submission to 4 seamless swipe-through ad slides highlighting 18K gold nib craftsmanship, executive desk setting, and high-converting purchase call-to-action.",
+    slides: [
+      { step: "Slide 01", label: "Hook & Proof", src: "/carousels/fountain-pen/velocity_fountain_pen_01.png", caption: "Photo you send vs. Visual we create with high-intent ad headline." },
+      { step: "Slide 02", label: "Craft & Detail", src: "/carousels/fountain-pen/velocity_fountain_pen_02.png", caption: "Close-up nib precision and gold filigree engraving." },
+      { step: "Slide 03", label: "Editorial Staging", src: "/carousels/fountain-pen/velocity_fountain_pen_03.png", caption: "Mahogany executive desk ambiance with handmade parchment." },
+      { step: "Slide 04", label: "Conversion CTA", src: "/carousels/fountain-pen/velocity_fountain_pen_04.png", caption: "High-contrast promotional offer and direct checkout button." }
+    ]
+  },
+  {
+    id: "headphones",
+    title: "Acoustic Pro Wireless Studio Headphones",
+    brand: "SonicMaster Audio",
+    category: "Tech & Audio",
+    badge: "4-Slide Narrative Carousel",
+    accent: "#6366F1",
+    description: "Multi-slide tech breakdown explaining acoustic memory foam seals, titanium driver hardware, subway commute noise cancellation, and launch discount.",
+    slides: [
+      { step: "Slide 01", label: "Hook & Proof", src: "/carousels/headphones/Velocity_Headphones_01_Hook.png", caption: "Raw customer studio photo converted into sleek matte ad visual." },
+      { step: "Slide 02", label: "Acoustic Detail", src: "/carousels/headphones/Velocity_Headphones_02_Detail.png", caption: "Ultra-soft memory foam earcups and titanium core headband." },
+      { step: "Slide 03", label: "Commute Lifestyle", src: "/carousels/headphones/Velocity_Headphones_03_Scene.png", caption: "Active noise-cancelling lifestyle staging on transit commute." },
+      { step: "Slide 04", label: "Limited Drop CTA", src: "/carousels/headphones/Velocity_Headphones_04_CTA.png", caption: "Engineered for high swipe-completion and direct add-to-cart clicks." }
+    ]
+  },
+  {
+    id: "suitcase",
+    title: "Aerolite Polycarbonate Carry-On Luggage",
+    brand: "Voyager Luggage",
+    category: "Travel & Lifestyle",
+    badge: "4-Slide Narrative Carousel",
+    accent: "#0EA5E9",
+    description: "Engineered for modern frequent flyers: showcases unbreakable ribbed shell, whisper-silent 360 spinner wheels, and overhead cabin compatibility.",
+    slides: [
+      { step: "Slide 01", label: "Hook & Proof", src: "/carousels/suitcase/Velocity_Suitcase_01_hook.png", caption: "Raw catalog shot transformed into airport departure lounge editorial." },
+      { step: "Slide 02", label: "Hardware Detail", src: "/carousels/suitcase/Velocity_Suitcase_02_design_detail.png", caption: "Aviation-grade aluminum corner guards and TSA-approved locks." },
+      { step: "Slide 03", label: "Travel Context", src: "/carousels/suitcase/Velocity_Suitcase_03_travel_application.png", caption: "Premium business travel setting with luxury boarding pass styling." },
+      { step: "Slide 04", label: "Traveler CTA", src: "/carousels/suitcase/Velocity_Suitcase_04_service_cta.png", caption: "Limited-edition colorway launch CTA with 10-year warranty proof." }
+    ]
+  },
+  {
+    id: "sunglasses",
+    title: "Riviera Polarized Aviator Sunglasses",
+    brand: "Solstice Eyewear",
+    category: "Fashion & Eyewear",
+    badge: "4-Slide Narrative Carousel",
+    accent: "#F59E0B",
+    description: "High-AOV fashion carousel contrasting raw optical table photography with Italian coastal sun glare and anti-reflective lens benefits.",
+    slides: [
+      { step: "Slide 01", label: "Hook & Proof", src: "/carousels/sunglasses/Velocity_Sunglasses_01_hook.png", caption: "Plain white table photo transformed into Mediterranean terrace ad." },
+      { step: "Slide 02", label: "Optic Detail", src: "/carousels/sunglasses/Velocity_Sunglasses_02_detail.png", caption: "Precision acetate frame, gold hinge details, and 100% UV400 lenses." },
+      { step: "Slide 03", label: "Summer Lifestyle", src: "/carousels/sunglasses/Velocity_Sunglasses_03_lifestyle.png", caption: "Staged on sun-drenched coastal terrace overlooking turquoise waters." },
+      { step: "Slide 04", label: "Seasonal CTA", src: "/carousels/sunglasses/Velocity_Sunglasses_04_service_cta.png", caption: "Summer collection promo banner with direct shopping tag." }
+    ]
+  }
+];
+
+// --- 4. 30-SECOND MOTION & VFX COMMERCIAL REELS (VIDEO PLAN) ---
+export interface VideoReel {
+  id: string;
+  title: string;
+  brand: string;
+  technique: string;
+  badge: string;
+  src: string;
+  accent: string;
+  hook: string;
+  benefit: string;
+}
+
+export const videoReels: VideoReel[] = [
+  {
+    id: "perfume-silk",
+    title: "Midnight Noir Luxury Fragrance Commercial",
+    brand: "Maison Privée",
+    technique: "Liquid Silk Flow Simulation",
+    badge: "30-Sec Motion Reel • Video Plan (₹5,999/mo)",
+    src: "/videos/perfume-silk-vfx.mp4",
+    accent: "#A855F7",
+    hook: "Simulated liquid silk drape with golden flacon reflections engineered to stop luxury fragrance feeds cold.",
+    benefit: "Turn static perfume & beauty bottles into hypnotic 30-second reels that boost organic Instagram reach and ad recall."
+  },
+  {
+    id: "sneaker-colour",
+    title: "Velocity Cobalt Performance Runner Commercial",
+    brand: "AeroSport Athleisure",
+    technique: "Neon Shockwave & Speed Ramp VFX",
+    badge: "30-Sec Motion Reel • Video Plan (₹5,999/mo)",
+    src: "/videos/sneaker-colour-vfx.mp4",
+    accent: "#06B6D4",
+    hook: "Dynamic color-burst shockwave and rotational camera tracking built for footwear drops and sports releases.",
+    benefit: "Create high-energy product launch teasers from standard product photos with custom VFX, sound design and speed ramps."
+  }
+];
+
 export default function WorkSection() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -373,6 +503,25 @@ export default function WorkSection() {
   const [activeBeforeAfter, setActiveBeforeAfter] = useState<BeforeAfterItem>(beforeAfterList[0]);
   const [activeIndustry, setActiveIndustry] = useState<IndustryFilter>("All");
   const [selectedConcept, setSelectedConcept] = useState<ConceptDesign | null>(null);
+  const [activeCarouselId, setActiveCarouselId] = useState<string>("fountain-pen");
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+
+  const currentCarousel = carouselCampaigns.find((c) => c.id === activeCarouselId) || carouselCampaigns[0];
+  const currentSlide = currentCarousel.slides[activeSlideIndex] || currentCarousel.slides[0];
+
+  const handlePrevSlide = () => {
+    setActiveSlideIndex((prev) => (prev > 0 ? prev - 1 : currentCarousel.slides.length - 1));
+  };
+
+  const handleNextSlide = () => {
+    setActiveSlideIndex((prev) => (prev < currentCarousel.slides.length - 1 ? prev + 1 : 0));
+  };
+
+  const selectCarousel = (id: string) => {
+    setActiveCarouselId(id);
+    setActiveSlideIndex(0);
+  };
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -897,6 +1046,724 @@ export default function WorkSection() {
                   </p>
                 </div>
               </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* ========================================================= */}
+        {/* 3. MULTI-SLIDE CAROUSEL CAMPAIGNS (GROWTH PLAN)          */}
+        {/* ========================================================= */}
+        <div style={{ marginBottom: 96 }} id="carousels-showcase">
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 16px",
+                borderRadius: 999,
+                background: "rgba(14,165,233,0.08)",
+                border: "1px solid rgba(14,165,233,0.2)",
+                color: "#0284C7",
+                fontSize: "0.74rem",
+                fontWeight: 800,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                marginBottom: 12,
+              }}
+            >
+              <Layers size={13} />
+              Included in Growth &amp; Video Plans
+            </div>
+            <h3
+              style={{
+                fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)",
+                fontWeight: 900,
+                letterSpacing: "-0.025em",
+                color: "#0F172A",
+                marginBottom: 12,
+                lineHeight: 1.15,
+              }}
+            >
+              High-Converting <span className="gt">4-Slide Carousels</span>
+            </h3>
+            <p
+              style={{
+                color: "#64748B",
+                fontSize: "clamp(0.92rem, 1.2vw, 1.05rem)",
+                maxWidth: 680,
+                margin: "0 auto",
+                lineHeight: 1.6,
+              }}
+            >
+              Multi-slide visual storytelling engineered to maximize swipe-through retention, explain product benefits, and drive direct add-to-cart clicks.
+            </p>
+
+            {/* Carousel Product Selector Tabs */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                gap: 10,
+                marginTop: 24,
+              }}
+            >
+              {carouselCampaigns.map((c) => {
+                const isSelected = c.id === activeCarouselId;
+                return (
+                  <button
+                    key={c.id}
+                    type="button"
+                    onClick={() => selectCarousel(c.id)}
+                    style={{
+                      background: isSelected ? "#0F172A" : "#FFFFFF",
+                      color: isSelected ? "#FFFFFF" : "#475569",
+                      border: isSelected ? "1px solid #0F172A" : "1px solid rgba(15,23,42,0.1)",
+                      borderRadius: 14,
+                      padding: "10px 18px",
+                      fontSize: "0.86rem",
+                      fontWeight: 700,
+                      cursor: "pointer",
+                      boxShadow: isSelected ? "0 8px 24px rgba(15,23,42,0.18)" : "0 2px 8px rgba(15,23,42,0.03)",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 8,
+                      transition: "all 0.25s ease",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 8,
+                        height: 8,
+                        borderRadius: "50%",
+                        background: c.accent,
+                        boxShadow: isSelected ? `0 0 10px ${c.accent}` : "none",
+                      }}
+                    />
+                    <span>{c.brand}</span>
+                    <span
+                      style={{
+                        fontSize: "0.7rem",
+                        padding: "2px 7px",
+                        borderRadius: 6,
+                        background: isSelected ? "rgba(255,255,255,0.15)" : "#F1F5F9",
+                        color: isSelected ? "#FFFFFF" : "#64748B",
+                        fontWeight: 800,
+                      }}
+                    >
+                      4 Slides
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Interactive Carousel Viewer Box */}
+          <div
+            style={{
+              background: "#FFFFFF",
+              borderRadius: 28,
+              border: "1px solid rgba(15,23,42,0.09)",
+              boxShadow: "0 20px 50px rgba(15,23,42,0.06)",
+              padding: "clamp(18px, 3.5vw, 36px)",
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 420px), 1fr))",
+              gap: "clamp(24px, 4vw, 48px)",
+              alignItems: "center",
+            }}
+          >
+            {/* Left: Active Slide Preview with Navigation */}
+            <div style={{ position: "relative" }}>
+              <div
+                style={{
+                  position: "relative",
+                  borderRadius: 20,
+                  overflow: "hidden",
+                  aspectRatio: "4 / 5",
+                  background: "#0F172A",
+                  boxShadow: "0 14px 40px rgba(15,23,42,0.16)",
+                  border: `2px solid ${currentCarousel.accent}`,
+                  cursor: "pointer",
+                }}
+                onClick={() =>
+                  setSelectedConcept({
+                    id: `carousel-${currentCarousel.id}-${activeSlideIndex}`,
+                    title: `${currentCarousel.title} (${currentSlide.step}: ${currentSlide.label})`,
+                    industry: "Fashion & Bags",
+                    headline: currentSlide.label,
+                    hook: currentSlide.caption,
+                    deliverableType: "Ads",
+                    accent: currentCarousel.accent,
+                    src: currentSlide.src,
+                    description: currentCarousel.description,
+                  })
+                }
+              >
+                <img
+                  src={currentSlide.src}
+                  alt={currentSlide.label}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    display: "block",
+                  }}
+                />
+
+                {/* Top Badge: Slide Counter */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    left: 14,
+                    background: "rgba(15,23,42,0.85)",
+                    backdropFilter: "blur(10px)",
+                    color: "#FFFFFF",
+                    fontSize: "0.75rem",
+                    fontWeight: 800,
+                    padding: "5px 12px",
+                    borderRadius: 999,
+                    letterSpacing: "0.04em",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <Layers size={13} color={currentCarousel.accent} />
+                  <span>{currentSlide.step} of 04</span>
+                </div>
+
+                {/* Top Right: Tap to Expand */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 14,
+                    right: 14,
+                    background: "rgba(15,23,42,0.8)",
+                    backdropFilter: "blur(8px)",
+                    color: "#FFFFFF",
+                    fontSize: "0.72rem",
+                    fontWeight: 700,
+                    padding: "5px 10px",
+                    borderRadius: 8,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 5,
+                  }}
+                >
+                  <Maximize2 size={12} /> Full Size
+                </div>
+
+                {/* Bottom Caption Overlay */}
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: "16px 18px",
+                    background: "linear-gradient(to top, rgba(15,23,42,0.95) 0%, rgba(15,23,42,0.6) 70%, transparent 100%)",
+                    color: "#FFFFFF",
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: "0.72rem",
+                      fontWeight: 800,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: currentCarousel.accent,
+                      marginBottom: 2,
+                    }}
+                  >
+                    {currentSlide.label}
+                  </div>
+                  <div style={{ fontSize: "0.85rem", fontWeight: 600, color: "#F1F5F9", lineHeight: 1.4 }}>
+                    {currentSlide.caption}
+                  </div>
+                </div>
+
+                {/* Prev / Next Slide Navigation Arrows */}
+                <button
+                  type="button"
+                  aria-label="Previous Slide"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrevSlide();
+                  }}
+                  style={{
+                    position: "absolute",
+                    left: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "rgba(15,23,42,0.85)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    borderRadius: "50%",
+                    width: 38,
+                    height: 38,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                <button
+                  type="button"
+                  aria-label="Next Slide"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNextSlide();
+                  }}
+                  style={{
+                    position: "absolute",
+                    right: 12,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    background: "rgba(15,23,42,0.85)",
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    borderRadius: "50%",
+                    width: 38,
+                    height: 38,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#FFFFFF",
+                    cursor: "pointer",
+                    boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
+                    transition: "all 0.2s ease",
+                  }}
+                >
+                  <ChevronRight size={20} />
+                </button>
+              </div>
+
+              {/* Progress Dots */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 8,
+                  marginTop: 14,
+                }}
+              >
+                {currentCarousel.slides.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={`Jump to slide ${i + 1}`}
+                    onClick={() => setActiveSlideIndex(i)}
+                    style={{
+                      width: i === activeSlideIndex ? 24 : 8,
+                      height: 8,
+                      borderRadius: 4,
+                      background: i === activeSlideIndex ? currentCarousel.accent : "#CBD5E1",
+                      border: "none",
+                      cursor: "pointer",
+                      transition: "all 0.3s ease",
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Right: Campaign Strategy & Slide Thumbnails */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div
+                style={{
+                  fontSize: "0.74rem",
+                  fontWeight: 800,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.12em",
+                  color: currentCarousel.accent,
+                  marginBottom: 6,
+                }}
+              >
+                {currentCarousel.category} • {currentCarousel.brand}
+              </div>
+
+              <h4
+                style={{
+                  fontSize: "clamp(1.25rem, 2vw, 1.6rem)",
+                  fontWeight: 900,
+                  color: "#0F172A",
+                  marginBottom: 10,
+                  lineHeight: 1.25,
+                }}
+              >
+                {currentCarousel.title}
+              </h4>
+
+              <p
+                style={{
+                  fontSize: "0.9rem",
+                  color: "#475569",
+                  lineHeight: 1.6,
+                  marginBottom: 20,
+                }}
+              >
+                {currentCarousel.description}
+              </p>
+
+              {/* 4 Slide Selectable Cards */}
+              <div style={{ marginBottom: 24 }}>
+                <div
+                  style={{
+                    fontSize: "0.75rem",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "#64748B",
+                    marginBottom: 10,
+                  }}
+                >
+                  Step-by-step Storytelling Architecture:
+                </div>
+
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2, 1fr)",
+                    gap: 10,
+                  }}
+                >
+                  {currentCarousel.slides.map((s, idx) => {
+                    const isSlideActive = idx === activeSlideIndex;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveSlideIndex(idx)}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 10,
+                          padding: "10px 12px",
+                          borderRadius: 14,
+                          background: isSlideActive ? "rgba(15,23,42,0.04)" : "#F8FAFC",
+                          border: isSlideActive
+                            ? `2px solid ${currentCarousel.accent}`
+                            : "1px solid rgba(15,23,42,0.08)",
+                          cursor: "pointer",
+                          textAlign: "left",
+                          transition: "all 0.2s ease",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: 36,
+                            height: 45,
+                            borderRadius: 6,
+                            overflow: "hidden",
+                            flexShrink: 0,
+                            background: "#0F172A",
+                          }}
+                        >
+                          <img
+                            src={s.src}
+                            alt={s.label}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          />
+                        </div>
+                        <div>
+                          <div
+                            style={{
+                              fontSize: "0.68rem",
+                              fontWeight: 800,
+                              color: isSlideActive ? currentCarousel.accent : "#64748B",
+                            }}
+                          >
+                            {s.step}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: "0.82rem",
+                              fontWeight: 800,
+                              color: "#0F172A",
+                              lineHeight: 1.2,
+                            }}
+                          >
+                            {s.label}
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Package Inclusion & CTA */}
+              <div
+                style={{
+                  background: "#F8FAFC",
+                  borderRadius: 16,
+                  padding: "16px 20px",
+                  border: "1px solid rgba(15,23,42,0.06)",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 12,
+                }}
+              >
+                <div>
+                  <div style={{ fontSize: "0.74rem", fontWeight: 800, color: "#0F172A" }}>
+                    Included in Growth Plan (₹3,499/mo)
+                  </div>
+                  <div style={{ fontSize: "0.78rem", color: "#64748B" }}>
+                    8 static creatives + 1 full 4–5 slide carousel per month
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => go("contact")}
+                  className="btn-primary"
+                  style={{
+                    padding: "10px 18px",
+                    borderRadius: 10,
+                    fontSize: "0.85rem",
+                    fontWeight: 800,
+                    cursor: "pointer",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  Request Carousel Campaign <ArrowRight size={14} />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ========================================================= */}
+        {/* 4. 30-SECOND MOTION & VFX VIDEO COMMERCIALS (VIDEO PLAN)  */}
+        {/* ========================================================= */}
+        <div style={{ marginBottom: 96 }} id="video-ads-showcase">
+          <div style={{ textAlign: "center", marginBottom: 36 }}>
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 16px",
+                borderRadius: 999,
+                background: "rgba(168,85,247,0.08)",
+                border: "1px solid rgba(168,85,247,0.2)",
+                color: "#7E22CE",
+                fontSize: "0.74rem",
+                fontWeight: 800,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                marginBottom: 12,
+              }}
+            >
+              <Film size={13} />
+              Included in ₹5,999/mo Video Plan
+            </div>
+            <h3
+              style={{
+                fontSize: "clamp(1.75rem, 3.2vw, 2.5rem)",
+                fontWeight: 900,
+                letterSpacing: "-0.025em",
+                color: "#0F172A",
+                marginBottom: 12,
+                lineHeight: 1.15,
+              }}
+            >
+              30-Second <span className="gt">Motion &amp; VFX Video Reels</span>
+            </h3>
+            <p
+              style={{
+                color: "#64748B",
+                fontSize: "clamp(0.92rem, 1.2vw, 1.05rem)",
+                maxWidth: 680,
+                margin: "0 auto",
+                lineHeight: 1.6,
+              }}
+            >
+              High-impact 9:16 vertical motion reels edited from client-provided product photos and footage, enhanced with custom 3D simulations and sound design.
+            </p>
+          </div>
+
+          {/* 2-Column Vertical Video Reels Grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 380px), 1fr))",
+              gap: "clamp(24px, 4vw, 36px)",
+            }}
+          >
+            {videoReels.map((reel) => (
+              <div
+                key={reel.id}
+                style={{
+                  background: "#FFFFFF",
+                  borderRadius: 28,
+                  border: "1px solid rgba(15,23,42,0.08)",
+                  boxShadow: "0 18px 48px rgba(15,23,42,0.06)",
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                }}
+              >
+                {/* 9:16 Vertical Video Container */}
+                <div
+                  style={{
+                    position: "relative",
+                    background: "#000000",
+                    aspectRatio: "9 / 16",
+                    maxHeight: 520,
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    overflow: "hidden",
+                  }}
+                >
+                  <video
+                    src={reel.src}
+                    playsInline
+                    loop
+                    controls
+                    preload="metadata"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      display: "block",
+                      background: "#000",
+                    }}
+                  />
+
+                  {/* Top Badge: Technique Tag */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 14,
+                      left: 14,
+                      background: "rgba(15,23,42,0.85)",
+                      backdropFilter: "blur(8px)",
+                      color: "#FFFFFF",
+                      fontSize: "0.72rem",
+                      fontWeight: 800,
+                      padding: "5px 12px",
+                      borderRadius: 999,
+                      border: "1px solid rgba(255,255,255,0.15)",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 6,
+                      pointerEvents: "none",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: 7,
+                        height: 7,
+                        borderRadius: "50%",
+                        background: reel.accent,
+                        boxShadow: `0 0 8px ${reel.accent}`,
+                      }}
+                    />
+                    {reel.technique}
+                  </div>
+                </div>
+
+                {/* Bottom Card Content */}
+                <div style={{ padding: "24px", display: "flex", flexDirection: "column", flexGrow: 1 }}>
+                  <div
+                    style={{
+                      fontSize: "0.72rem",
+                      fontWeight: 800,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.1em",
+                      color: reel.accent,
+                      marginBottom: 4,
+                    }}
+                  >
+                    {reel.brand}
+                  </div>
+
+                  <h4
+                    style={{
+                      fontSize: "1.15rem",
+                      fontWeight: 900,
+                      color: "#0F172A",
+                      marginBottom: 8,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {reel.title}
+                  </h4>
+
+                  <p
+                    style={{
+                      fontSize: "0.85rem",
+                      color: "#475569",
+                      lineHeight: 1.55,
+                      marginBottom: 16,
+                    }}
+                  >
+                    {reel.hook}
+                  </p>
+
+                  <div
+                    style={{
+                      padding: "10px 14px",
+                      background: "#F8FAFC",
+                      borderRadius: 12,
+                      fontSize: "0.78rem",
+                      color: "#64748B",
+                      border: "1px solid rgba(15,23,42,0.06)",
+                      marginBottom: 18,
+                    }}
+                  >
+                    <strong>Plan Benefit:</strong> {reel.benefit}
+                  </div>
+
+                  <div style={{ marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <span
+                      style={{
+                        fontSize: "0.74rem",
+                        fontWeight: 800,
+                        color: "#059669",
+                        background: "rgba(16,185,129,0.1)",
+                        padding: "4px 10px",
+                        borderRadius: 999,
+                      }}
+                    >
+                      Video Plan • ₹5,999/mo
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => go("contact")}
+                      style={{
+                        background: "transparent",
+                        border: "none",
+                        color: "#0F172A",
+                        fontSize: "0.85rem",
+                        fontWeight: 800,
+                        cursor: "pointer",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: 6,
+                      }}
+                    >
+                      Order Reel <ArrowRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
